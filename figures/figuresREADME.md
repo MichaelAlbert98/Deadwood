@@ -1,0 +1,1 @@
+This is where Deadwoods’s xml files and pictures will be stored.

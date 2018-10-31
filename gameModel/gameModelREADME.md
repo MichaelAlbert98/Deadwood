@@ -1,0 +1,1 @@
+This is where Deadwood's game-model object implementation is stored.
