@@ -21,11 +21,11 @@ public class Board {
    
    }
    
-   public Scene getScenesRemaining {
+   public Scene getScenesRemaining() {
    
    }
    
-   public void setScenesRemaining {
+   public void setScenesRemaining() {
    
    }
    
