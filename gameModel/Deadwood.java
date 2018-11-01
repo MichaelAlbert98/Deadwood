@@ -1,7 +1,7 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * Deadwood.java
- * 11/31/11
+ * 11/01/11
  */
 
 
@@ -57,7 +57,7 @@ public class Deadwood {
         if ((playerCount = Integer.parseInt(countStr))) {
 
         }
-        if ((playerCount < minPlayers) && (playerCount > maxPlayers)) {
+        if ((playerCount < minPlayers) || (playerCount > maxPlayers)) {
             throw new numPlayersException();
         } else {
             numPlayers = playerCount;
