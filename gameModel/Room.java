@@ -8,7 +8,11 @@ public class Room {
    private Role[] roomRoles;
    private Scene roomScene;
    
-   public Room(String name, String[] adjRooms, int index) {
+   public Room() {
+   
+   }
+   
+   public Room(String name, String[] adjRooms, int index, int counters, Role[] roomRoles, Scene roomScene) {
    
    }
    
@@ -41,6 +45,10 @@ public class Room {
    }
    
    public Role[] getRoles() {
+   
+   }
+   
+   public void setRoles(Role[] roles) {
    
    }
    
