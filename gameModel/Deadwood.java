@@ -7,7 +7,7 @@ public class Deadwood {
    }
    
    public int askPlayerCount() {
-   
+      return 0;
    }
    
 }
