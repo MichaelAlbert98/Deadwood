@@ -1,32 +1,39 @@
+import java.util.*;
+
 public class Board {
 
    private Room[] roomList;
-   private map<String,Room> nameToRoom;
+   private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
    private int scenesRemaining;
    
-   public Board(Room[] roomList, map<String,Room> nameToRoom, Room[][] adjacentRooms) {
-   
+   public Board(Room[] roomList, Map<String,Room> nameToRoom, Room[][] adjacentRooms) {
+      this.roomList = roomList;
+      this.nameToRoom = nameToRoom;
+      this.adjacentRooms = adjacentRooms;
+      this.scenesRemaining = 10;
    }
    
-   public nameToRoom(String name) {
-   
+   public Room nameToRoom(String name) {
+      Room room = new Room();
+      return room;
    }
    
-   public areRoomsAdjacent(Room start, Room end) {
-   
+   public Boolean areRoomsAdjacent(Room start, Room end) {
+      return true;
    }
    
-   public isValidMove(Room 1, Room 2) {
-   
+   public Boolean isValidMove(Room start, Room end) {
+      return true; 
    }
    
    public Scene getScenesRemaining() {
-   
+      Scene scene = new Scene();
+      return scene;
    }
    
-   public void setScenesRemaining() {
-   
+   public void setScenesRemaining(int value) {
+      return;
    }
    
 }
