@@ -4,6 +4,7 @@ public class Player {
    private Boolean hasRole;
    private Role currentRole;
    private int rehearseTokens;
+   private Banker banker;
    
    public Player() {
    
