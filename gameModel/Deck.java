@@ -1,15 +1,15 @@
 public class Deck {
    
-   private Card[] cards;
+   private Scene[] scenes;
    private int topIndex;
    
    public Deck() {
-      this.cards = null;
+      this.scenes = null;
       this.topIndex = 0;
    }
    
-   public Deck(Card[] cards) {
-      this.cards = cards;
+   public Deck(Scene[] scenes) {
+      this.scenes = scenes;
       this.topIndex = 0;
    }
    
@@ -17,12 +17,12 @@ public class Deck {
       return;
    }
    
-   public Card[] getCards() {
-      return this.cards;
+   public Scene[] getScenes() {
+      return this.scenes;
    }
    
-   public void setCards(Card[] cards) {
-      this.cards = cards;
+   public void setScenes(Scene[] scenes) {
+      this.scenes = scenes;
    }
    
    public int getTopIndex() {
