@@ -1,4 +1,4 @@
-public class Player {
+public class Player extends Subject {
 
    private String name;
    private Boolean hasRole;
@@ -6,6 +6,12 @@ public class Player {
    private int rehearseTokens;
    private Banker banker;
    
+    public enum Messages{
+        PlayerMoved,
+        PlayerIsDead,
+        SetRole,
+    }
+
    public Player() {
       this.name = "";
       this.hasRole = false;
@@ -24,14 +30,6 @@ public class Player {
       return prompt;
    }
    
-   public void shotSuccess(Role role) {
-      return;
-   }
-   
-   public void shotFailure(Role role) {
-      return;
-   }
-   
    public String getName() {
       return this.name;
    }
@@ -41,13 +39,8 @@ public class Player {
       return;
    }
    
-   public Boolean getHasRole() {
+   public Boolean hasRole() {
       return this.hasRole;
-   }
-   
-   public void setHasRole(Boolean truth) {
-      this.hasRole = truth;
-      return;
    }
    
    public Role getCurrentRole() {
@@ -56,6 +49,7 @@ public class Player {
    
    public void setCurrentRole(Role role) {
       this.currentRole = role;
+      this.notifyAllObservers((int)Player.Messages.SetRole);
       return;
    }
    

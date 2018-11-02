@@ -4,13 +4,14 @@
  * 11/31/11
  */
 
+import java.util.ArrayList;
 
 public class Game extends Deadwood {
 
     //Game Attributes
     private Board board;
     private Deck deck;
-    private ArrayList<Players> playerList;
+    public ArrayList<Player> playerList;
     private Player activePlayer;
     private int currentDay;
 
@@ -19,7 +20,7 @@ public class Game extends Deadwood {
 
     }
 
-    public newDay() {
+    public void newDay() {
 
     }
 

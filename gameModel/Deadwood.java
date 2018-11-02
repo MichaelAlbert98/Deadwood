@@ -25,40 +25,37 @@ public class Deadwood {
 
             //1) Set the number of players for the game
             if (args.length == 0){
-                setNumPlayers = 2;
+                numPlayers = 2;
             } else {
-                setNumPlayers(args[0]);
+                getNumPlayers(args[0]);
             }
 
-            //2) Set the number of days designated for this player count
-            setNumDays();
+            if (numPlayers != 0) {
+                //Set number of days and start the game instance
+                setNumDays();
+                Game g = new Game(numPlayers,numDays);
+            }
 
-            //3) Initalize and start the game instance
-            Game g = new Game(numPlayers,numDays);
-
-        } catch (numPlayersException e) {
-            System.out.println("There must be between 2 and 8 players.");
         } catch (NumberFormatException e){
             System.out.println("Number of players desired must be a integer between 2 and 8.");
-        } catch (exception e){
-            System.out.println("Unidentified Error encountered. Exiting Deadwood.");
+        } catch (Exception e){
+            System.out.println("Unidentified error encountered. Exiting Deadwood.");
         }
 
-        System.out.println("Game Over.");
+        System.out.println("Game Closing.");
     }
 
 
-    /* setNumPlayers
-    *
-    * Setter for the number of players in a Deadwood game.
-    */
-    private setNumPlayers(String countStr) throws numPlayersException, NumberFormatException {
+    /* getNumPlayers
+     *
+     * Casts and validates for the number of players from command line arg.
+     */
+    private static void getNumPlayers(String countStr) throws NumberFormatException {
         int playerCount;
-        if ((playerCount = Integer.parseInt(countStr))) {
-
-        }
+        playerCount = Integer.parseInt(countStr);
         if ((playerCount < minPlayers) || (playerCount > maxPlayers)) {
-            throw new numPlayersException();
+            System.out.println("There must be between 2 and 8 players.");
+            numPlayers = 0;
         } else {
             numPlayers = playerCount;
         }
@@ -68,7 +65,7 @@ public class Deadwood {
     *
     * Setter for the number of players in a Deadwood game.
     */
-    private setNumDays() throws numPlayersException, NumberFormatException {
+    private static void setNumDays() throws NumberFormatException {
         if (numPlayers < 4) {
             numDays = 3;
         } else {
