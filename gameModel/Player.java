@@ -5,11 +5,15 @@ public class Player extends Subject {
    private Role currentRole;
    private int rehearseTokens;
    private Banker banker;
+   private Room location;
    
     public enum Messages{
         PlayerMoved,
-        PlayerIsDead,
         SetRole,
+        PlayerUpgraded2,
+        PlayerUpgraded3,
+        PlayerUpgraded4,
+        PlayerUpgraded5,
     }
 
    public Player() {
@@ -17,6 +21,7 @@ public class Player extends Subject {
       this.hasRole = false;
       this.currentRole = null;
       this.rehearseTokens = 0;
+      this.banker = new Banker();
    }
    
    public Player(String name) {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Game extends Deadwood {
 
     //Game Attributes
-    private Board board;
+    public Board board;
     private Deck deck;
     public ArrayList<Player> playerList;
     private Player activePlayer;
@@ -17,11 +17,23 @@ public class Game extends Deadwood {
 
 
     public Game(int numPlayers, int numDays){
-
+        this.board = new Board();
+        this.deck = new Deck();
+        for (int i = 0; i < numPlayers; i++) {
+            this.playerList.add(new Player());
+        }
+        this.activePlayer = playerList.get(0);
+        this.currentDay = 0;
     }
 
     public void newDay() {
 
     }
+
+    public boolean isDayOver(){
+
+    }
+
+    
 
 }

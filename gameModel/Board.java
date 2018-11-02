@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Board {
 
-   private Room[] roomList;
+   public Room[] roomList;
    private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
    private int scenesRemaining;

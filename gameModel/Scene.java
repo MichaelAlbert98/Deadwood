@@ -25,25 +25,21 @@ public class Scene{
       this.budget = budget;
    }
    
-   private void wrapScene() {
+   private void wrapUpScene() {
       return;
    }
    
-   public Boolean getIsCardUp() {
+   private Boolean isCardFaceUp() {
       return this.isCardUp;
    }
    
-   public void setIsCardUp(Boolean truth) {
+   private void flipCardFaceUp(Boolean truth) {
       this.isCardUp = truth;
       return;
    }
    
-   public Boolean getIsSceneDone() {
+   public Boolean isSceneFinished() {
       return this.isSceneDone;
-   }
-   
-   public void setIsSceneDone(Boolean truth) {
-      this.isSceneDone = truth;
    }
    
    public Card getSceneCard() {
@@ -58,7 +54,7 @@ public class Scene{
       return this.sceneRoles;
    }
    
-   public void setSceneRoles(Role[] roles) {
+   private void addSceneRoles(Role[] roles) {
       this.sceneRoles = roles;
    }
    
@@ -66,7 +62,7 @@ public class Scene{
       return this.shotsLeft;
    }
    
-   public void setShotsLeft(int value) {
+   private void setShotsLeft(int value) {
       this.shotsLeft = value;
    }
    
@@ -74,7 +70,7 @@ public class Scene{
       return this.budget;
    }
    
-   public void setBudget(int budget) {
+   private void setBudget(int budget) {
       this.budget = budget;
    }
   

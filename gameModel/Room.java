@@ -6,7 +6,7 @@ public class Room {
    private int counters;
    private Player[] playersInRoom;
    private Role[] roomRoles;
-   private Scene roomScene;
+   public Scene roomScene;
    
    public Room() {
       this.name = "";
@@ -65,9 +65,6 @@ public class Room {
       return;
    }
    
-   public Scene getScene() {
-      return roomScene;
-   }
    
    public void setScene(Scene scene) {
       this.roomScene = scene;

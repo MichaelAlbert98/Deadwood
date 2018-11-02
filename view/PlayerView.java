@@ -13,9 +13,5 @@ public class PlayerView extends myObserver {
 
     @Override
     void update(int message){
-        if(message == Player.Messages.SetRole){
-            System.out("Player has set role.");
-        }
-        
     }
 }
