@@ -41,8 +41,8 @@ public class Scene extends Subject {
       return this.isCardUp;
    }
 
-   private void flipCardFaceUp(Boolean truth) {
-      this.isCardUp = truth;
+   private void flipCardFaceUp() {
+      this.isCardUp = true;
       return;
    }
 

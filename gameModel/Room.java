@@ -48,7 +48,7 @@ public class Room {
    }
    
    public Player[] getPlayersInRoom() {
-      return playersInRoom;
+      return this.playersInRoom;
    }
    
    public void setPlayersInRoom(Player player) {
@@ -57,7 +57,7 @@ public class Room {
    }
    
    public Role[] getRoles() {
-      return roomRoles;
+      return this.roomRoles;
    }
    
    public void setRoles(Role[] roles) {
