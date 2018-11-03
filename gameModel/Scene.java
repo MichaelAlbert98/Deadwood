@@ -1,4 +1,10 @@
-public class Scene {
+/* CSCI 345 - Object Oriented Design - Deadwood
+ * Ryan Lingg and Michael Albert
+ * Deadwood.java
+ * 11/2/11
+ */
+
+public class Scene extends Subject {
 
    private String name;
    private Room location;

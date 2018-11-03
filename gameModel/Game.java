@@ -1,12 +1,12 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * Deadwood.java
- * 11/31/11
+ * Game.java
+ * 11/2/11
  */
 
 import java.util.ArrayList;
 
-public class Game extends Deadwood {
+public class Game extends Subject {
 
     //Game Attributes
     public Board board;
@@ -19,6 +19,7 @@ public class Game extends Deadwood {
     public Game(int numPlayers, int numDays){
         this.board = new Board();
         this.deck = new Deck();
+        this.playerList = new ArrayList<Player>();
         for (int i = 0; i < numPlayers; i++) {
             this.playerList.add(new Player());
         }
@@ -31,9 +32,9 @@ public class Game extends Deadwood {
     }
 
     public boolean isDayOver(){
-
+      return false;
     }
 
-    
+
 
 }
