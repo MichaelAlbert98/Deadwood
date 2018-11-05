@@ -20,7 +20,7 @@ public class Deadwood {
     * Controller for the Deadwood game.
     */
     public static void main(String[] args) {
-        System.out.println("Starting Deadwood!");
+        System.out.println("Creating Deadwood!");
 
         try {
             //1) Set the number of players for the game
@@ -33,7 +33,15 @@ public class Deadwood {
             if (numPlayers != 0) {
                 //Set number of days and start the game instance
                 setNumDays();
-                Game g = new Game(numPlayers,numDays);
+                game = new Game(numPlayers,numDays);
+            }
+
+            TextView tv = new TextView(game);
+
+            //Game Loop
+            System.out.println("Starting Deadwood!\n");
+            while(!game.isGameOver()) {
+                game.newDay();
             }
 
         } catch (NumberFormatException e){
@@ -43,7 +51,7 @@ public class Deadwood {
             System.out.println("Unidentified error encountered. Exiting Deadwood.");
         }
 
-        System.out.println("Game Over.");
+        System.out.println("\nGame Over!");
     }
 
 

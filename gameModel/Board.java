@@ -2,19 +2,19 @@ import java.util.*;
 
 public class Board {
 
-   public Room[] roomList;
+   public ArrayList<Room> roomList;
    private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
    private int scenesRemaining;
 
    public Board() {
-     this.roomList = null;
+     this.roomList = new ArrayList<Room>();
      this.nameToRoom = null;
-     this.adjacentRooms = adjacentRooms;
+     this.adjacentRooms = new Room[12][12];
      this.scenesRemaining = 0;
    }
 
-   public Board(Room[] roomList, Map<String,Room> nameToRoom, Room[][] adjacentRooms) {
+   public Board(ArrayList<Room> roomList, Map<String,Room> nameToRoom, Room[][] adjacentRooms) {
       this.roomList = roomList;
       this.nameToRoom = nameToRoom;
       this.adjacentRooms = adjacentRooms;

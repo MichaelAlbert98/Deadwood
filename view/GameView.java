@@ -21,7 +21,7 @@ public class GameView extends myObserver {
 
     //Local SceneView Update Override
     @Override
-    void update(int message){
+    void update(String message){
         //Will switch on messages to display correct message
     }
 }

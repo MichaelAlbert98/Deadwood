@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Game extends Subject {
 
+    public int testOneDay;
+
     //Game Attributes
     public Board board;
     private Deck deck;
@@ -21,20 +23,32 @@ public class Game extends Subject {
         this.deck = new Deck();
         this.playerList = new ArrayList<Player>();
         for (int i = 0; i < numPlayers; i++) {
-            this.playerList.add(new Player());
+            this.playerList.add(new Player(String.format("Player %d", (i+1))));
         }
         this.activePlayer = playerList.get(0);
         this.currentDay = 0;
+
+        //REMOVE THIS LATER
+        this.testOneDay = 0;
     }
 
     public void newDay() {
-
+        //Temp for testing, implement fully later
+        activePlayer.playerTurn();
     }
 
     public boolean isDayOver(){
       return false;
     }
 
+    public boolean isGameOver() {
+        if (testOneDay == 0){
+            testOneDay++;
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
 }

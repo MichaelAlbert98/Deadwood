@@ -21,11 +21,11 @@ public class PlayerView extends myObserver {
 
     //Local PlayerView Update Override
     @Override
-    void update(int message){
-      /*
-      if (this.playerRef.observerMessages.SetRole.ordinal() == message) {
-        System.out.printf("%s was cast in the role!\n", this.playerRef.getName());
+    void update(String message){
+
+      //Turn Start Message:
+      if (Player.playerMessages.turnStart.equals(message)) {
+        System.out.printf("%s turn started!\n", this.playerRef.getName());
       }
-      */
     }
 }

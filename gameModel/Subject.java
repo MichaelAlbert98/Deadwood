@@ -22,7 +22,7 @@ public class Subject {
    }
 
    //Public brodcast to let all observers know a update has occured
-   public void notifyAllObservers(int message) {
+   public void notifyAllObservers(String message) {
       for (myObserver observer : observers) {
         observer.update(message);
       }

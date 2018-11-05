@@ -6,5 +6,5 @@
 
 //Abstract parent class for the specific observers
 public abstract class myObserver {
-    abstract void update(int message);
+    abstract void update(String message);
 }

@@ -17,9 +17,8 @@ public class Player extends Subject {
 
    //The list of messages that will correspond
    // to message types for the view model to interpret.
-   public enum observerMessages {
-     PlayerMoved,
-     SetRole,
+   public static class playerMessages {
+     public static final String turnStart = "TURNSTART";
    }
 
    public Player() {
@@ -36,6 +35,11 @@ public class Player extends Subject {
       this.currentRole = null;
       this.rehearseTokens = 0;
    }
+
+   public void playerTurn() {
+     this.notifyAllObservers(Player.playerMessages.turnStart);
+   }
+
 
    public String promptPlayer(String prompt) {
       return prompt;
@@ -61,7 +65,7 @@ public class Player extends Subject {
    public void setCurrentRole(Role role) {
       this.currentRole = role;
       //This is how the textView will be told to display messages
-      this.notifyAllObservers(Player.observerMessages.SetRole.ordinal());
+      //this.notifyAllObservers(Player.observerMessages.SetRole.ordinal());
       return;
    }
 

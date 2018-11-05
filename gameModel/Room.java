@@ -66,9 +66,13 @@ public class Room {
    }
    
    
-   public void setScene(Scene scene) {
+   private void setScene(Scene scene) {
       this.roomScene = scene;
       return;
-   }  
+   }
+
+   public Scene getScene() {
+       return this.roomScene;
+   }
    
 }

@@ -20,7 +20,7 @@ public class SceneView extends myObserver {
 
     //Local SceneView Update Override
     @Override
-    void update(int message){
+    void update(String message){
 
     }
 
