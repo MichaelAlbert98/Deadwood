@@ -1,7 +1,8 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
  * Banker.java
- * 11/02/11
+ * Created 11/01/2018
+ * Revised 11/04/2018
  */
 
 public class Banker {
