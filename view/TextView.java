@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class TextView{
 
     Game gameRef;
+    GameView gameView;
     ArrayList<PlayerView> PlayerViews = new ArrayList<PlayerView>();
     ArrayList<SceneView> SceneViews = new ArrayList<SceneView>();
 
@@ -22,7 +23,8 @@ public class TextView{
     TextView(Game gameLocation){
         // Game:
         this.gameRef = gameLocation;
-        GameView g = new GameView(this.gameRef);
+        gameView = new GameView(this.gameRef);
+
         // Players:
         for (Player player : this.gameRef.playerList) {
           PlayerView p = new PlayerView(player);
@@ -41,9 +43,17 @@ public class TextView{
 
     //Used for player input
     public void startListener() {
+        Boolean enteredValidInput = false;
         Scanner scanner = new Scanner(System.in);
+        String input;
 
         //Switch on player movement
+        while (!enteredValidInput) {
+            input = scanner.nextLine();
+            System.out.printf("Input Recieved: '%s'.\n", input);
+        }
+
+        scanner.close();
     }
 
 }

@@ -13,16 +13,18 @@ public class Game extends Subject {
         public static final String newDay = "NEWDAY";
     }
 
-    public int testOneDay;
-
     //Game Attributes
     public Board board;
     private Deck deck;
     public ArrayList<Player> playerList;
     private Player activePlayer;
     private int currentDay;
+    private int daysInGame;
 
+    //TEST VARIABLE: (REMOVE LATER)
+    public int eoDay = 1;
 
+    
     public Game(int numPlayers, int numDays){
         this.board = new Board();
         this.deck = new Deck();
@@ -32,13 +34,20 @@ public class Game extends Subject {
         }
         this.activePlayer = playerList.get(0);
         this.currentDay = 0;
-
-        //REMOVE THIS LATER
-        this.testOneDay = 0;
+        this.daysInGame = numDays;
     }
 
     public void nextTurn(){
         this.activePlayer.playerTurn();
+
+        //Make the next player in roatation the active player
+        int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
+        if ((playerList.size()-1) == activePlayerIndex) {
+            this.activePlayer = this.playerList.get(0);
+        } else {
+            this.activePlayer = this.playerList.get(activePlayerIndex+1);
+        }
+
     }
 
     public void newDay() {
@@ -47,12 +56,17 @@ public class Game extends Subject {
     }
 
     public boolean isDayOver(){
-      return false;
+        if (eoDay < playerList.size()) {
+            eoDay++;
+            return false;
+        } else {
+            eoDay = 1;
+            return true;
+        }
     }
 
     public boolean isGameOver() {
-        if (testOneDay == 0){
-            testOneDay++;
+        if (currentDay < (daysInGame+1)){
             return false;
         } else {
             return true;
