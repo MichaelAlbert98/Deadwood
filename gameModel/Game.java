@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 public class Game extends Subject {
 
+    
+    public static class gameMessages {
+        public static final String newDay = "NEWDAY";
+    }
+
     public int testOneDay;
 
     //Game Attributes
@@ -32,9 +37,13 @@ public class Game extends Subject {
         this.testOneDay = 0;
     }
 
+    public void nextTurn(){
+        this.activePlayer.playerTurn();
+    }
+
     public void newDay() {
-        //Temp for testing, implement fully later
-        activePlayer.playerTurn();
+        this.currentDay++;
+        this.notifyAllObservers(Game.gameMessages.newDay);
     }
 
     public boolean isDayOver(){
@@ -50,5 +59,8 @@ public class Game extends Subject {
         }
     }
 
+    public int getCurrentDay(){
+        return this.currentDay;
+    }
 
 }

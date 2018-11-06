@@ -20,38 +20,43 @@ public class Deadwood {
     * Controller for the Deadwood game.
     */
     public static void main(String[] args) {
-        System.out.println("Creating Deadwood!");
+        System.out.println("\nCreating Deadwood!");
 
         try {
-            //1) Set the number of players for the game
+            //1) Set the number of players and days for the game
             if (args.length == 0){
                 numPlayers = 2;
             } else {
-                getNumPlayers(args[1]);
+                getNumPlayers(args[0]);
             }
-
             if (numPlayers != 0) {
-                //Set number of days and start the game instance
                 setNumDays();
-                game = new Game(numPlayers,numDays);
+            } else {
+                return;
             }
 
+            //2) Create the game object and the text view model
+            game = new Game(numPlayers,numDays);
             TextView tv = new TextView(game);
-
-            //Game Loop
             System.out.println("Starting Deadwood!\n");
+
+            //Game loop:
+            game.newDay();
             while(!game.isGameOver()) {
-                game.newDay();
+                game.nextTurn();
+                if(game.isDayOver()) {
+                    game.newDay();
+                }
             }
+            System.out.println("\nGame Over!\n");
+
 
         } catch (NumberFormatException e){
             System.out.println("Number of players desired must be a integer between 2 and 8.");
         } catch (Exception e){
             e.printStackTrace();
-            System.out.println("Unidentified error encountered. Exiting Deadwood.");
+            System.out.println("Error encountered. Exiting Deadwood.");
         }
-
-        System.out.println("\nGame Over!");
     }
 
 
@@ -63,7 +68,7 @@ public class Deadwood {
         int playerCount;
         playerCount = Integer.parseInt(countStr);
         if ((playerCount < minPlayers) || (playerCount > maxPlayers)) {
-            System.out.println("There must be between 2 and 8 players.");
+            System.out.println("There must be between 2 and 8 players.\n");
             numPlayers = 0;
         } else {
             numPlayers = playerCount;

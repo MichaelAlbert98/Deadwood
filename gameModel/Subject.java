@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Subject {
 
-    //List of observers that subjects report too
+   //List of observers that subjects report too
    private List<myObserver> observers = new ArrayList<myObserver>();
 
    //Attach method for subjects to connect themselves with observers

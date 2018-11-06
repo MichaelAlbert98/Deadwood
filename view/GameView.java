@@ -22,6 +22,10 @@ public class GameView extends myObserver {
     //Local SceneView Update Override
     @Override
     void update(String message){
-        //Will switch on messages to display correct message
+        
+        //New Day Message:
+        if (Game.gameMessages.newDay.equals(message)) {
+            System.out.printf("Day %d start!\n", gameRef.getCurrentDay());
+        }
     }
 }

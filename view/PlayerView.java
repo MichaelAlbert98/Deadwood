@@ -25,7 +25,7 @@ public class PlayerView extends myObserver {
 
       //Turn Start Message:
       if (Player.playerMessages.turnStart.equals(message)) {
-        System.out.printf("%s turn started!\n", this.playerRef.getName());
+        System.out.printf("%s turn start!\n", this.playerRef.getName());
       }
     }
 }
