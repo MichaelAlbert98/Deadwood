@@ -25,7 +25,7 @@ public class GameView extends myObserver {
         
         //New Day Message:
         if (Game.gameMessages.newDay.equals(message)) {
-            System.out.printf("Day %d start!\n", gameRef.getCurrentDay());
+            System.out.printf("\nDay %d start!\n", gameRef.getCurrentDay());
         }
     }
 }

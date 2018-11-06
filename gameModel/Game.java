@@ -24,7 +24,7 @@ public class Game extends Subject {
     //TEST VARIABLE: (REMOVE LATER)
     public int eoDay = 1;
 
-    
+
     public Game(int numPlayers, int numDays){
         this.board = new Board();
         this.deck = new Deck();
@@ -40,6 +40,14 @@ public class Game extends Subject {
     public void nextTurn(){
         this.activePlayer.playerTurn();
 
+        //Artifical Behavior Remove Later (start) (also make scenesRemaining private again)
+        if (this.board.scenesRemaining == 0) {
+            this.board.scenesRemaining = 10;
+        } else {
+            this.board.scenesRemaining--;
+        }
+        //(end remove)
+
         //Make the next player in roatation the active player
         int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
         if ((playerList.size()-1) == activePlayerIndex) {
@@ -52,17 +60,19 @@ public class Game extends Subject {
 
     public void newDay() {
         this.currentDay++;
-        this.notifyAllObservers(Game.gameMessages.newDay);
+        this.board.resetBoard();
+        if (this.currentDay <= this.daysInGame) {
+            this.notifyAllObservers(Game.gameMessages.newDay);
+        }
     }
 
     public boolean isDayOver(){
-        if (eoDay < playerList.size()) {
-            eoDay++;
-            return false;
-        } else {
-            eoDay = 1;
+        if (this.board.getNumScenesRemaining() == 0) {
+            return true;
+        } else if (this.currentDay == 0) {
             return true;
         }
+        return false;
     }
 
     public boolean isGameOver() {

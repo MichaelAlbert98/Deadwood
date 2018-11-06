@@ -5,13 +5,13 @@ public class Board {
    public ArrayList<Room> roomList;
    private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
-   private int scenesRemaining;
+   public int scenesRemaining;
 
    public Board() {
      this.roomList = new ArrayList<Room>();
      this.nameToRoom = null;
      this.adjacentRooms = new Room[12][12];
-     this.scenesRemaining = 0;
+     this.scenesRemaining = 10;
    }
 
    public Board(ArrayList<Room> roomList, Map<String,Room> nameToRoom, Room[][] adjacentRooms) {
@@ -34,13 +34,16 @@ public class Board {
       return true;
    }
 
-   public Scene getScenesRemaining() {
-      Scene scene = new Scene();
-      return scene;
+   public int getNumScenesRemaining() {
+      return this.scenesRemaining;
    }
 
    public void setScenesRemaining(int value) {
       return;
+   }
+
+   public void resetBoard() {
+      this.scenesRemaining = 10;
    }
 
 }

@@ -41,11 +41,11 @@ public class Deadwood {
             System.out.println("Starting Deadwood!\n");
 
             //Game loop:
-            game.newDay();
             while(!game.isGameOver()) {
-                game.nextTurn();
                 if(game.isDayOver()) {
                     game.newDay();
+                } else {
+                    game.nextTurn();
                 }
             }
             System.out.println("\nGame Over!\n");
