@@ -90,12 +90,6 @@ public class Banker {
             System.out.println("You do not have enough cash to upgrade to this rank.") ;
             return false ; }
       }
-      if (!moneyType.equals("cash") || !moneyType.equals("credits")) {
-         System.out.println("Input must be cash or credits.") ;
-         return false ; }
-      else if (rank != 2 || rank != 3 || rank != 4  || rank != 5 || rank != 6) {
-         System.out.println("Please input a valid argument for rank.") ;
-         return false ; }
       else if (moneyType.equals("credits")) {
          if ((rank == 2 && this.credits < 5) || (rank == 3 && this.credits < 10) || (rank == 4 && this.credits < 15) ||
             (rank == 5 && this.credits < 20) || (rank == 6 && this.credits < 25)) {
