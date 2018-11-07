@@ -1,12 +1,16 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * Deadwood.java
- * 11/2/11
+ * Created 11/02/2018
+ * Revised 11/07/2018
  */
 
 public class Scene extends Subject {
 
    private String name;
+   private String img;
+   private int sceneNum;
+   private String desc;
    private Room location;
    private Boolean isCardUp;
    private Boolean isSceneDone;
@@ -16,21 +20,15 @@ public class Scene extends Subject {
 
    public Scene() {
       this.name = "";
+      this.img = "";
+      this.sceneNum = 0;
+      this.desc = "";
       this.location = null;
       this.isCardUp = false;
       this.isSceneDone = false;
       this.sceneRoles = null;
       this.shotsLeft = 0;
       this.budget = 0;
-   }
-
-   public Scene(Role[] roles, int shots, int budget, Room loc) {
-      this.isCardUp = false;
-      this.isSceneDone = false;
-      this.sceneRoles = roles;
-      this.shotsLeft = shots;
-      this.budget = budget;
-      this.location = loc;
    }
 
    private void wrapUpScene() {
@@ -56,6 +54,33 @@ public class Scene extends Subject {
 
    public void setName(String name) {
      this.name = name;
+     return;
+   }
+   
+   public String getImg() {
+      return this.img;
+   }
+
+   public void setImg(String img) {
+     this.img = img;
+     return;
+   }
+   
+   public int getSceneNum() {
+      return this.sceneNum;
+   }
+
+   public void setSceneNum(int sceneNum) {
+     this.sceneNum = sceneNum;
+     return;
+   }
+   
+   public String getDesc() {
+      return this.desc;
+   }
+
+   public void setDesc(String desc) {
+     this.desc = desc;
      return;
    }
 
