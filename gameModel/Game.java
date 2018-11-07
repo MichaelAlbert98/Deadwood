@@ -14,27 +14,25 @@ public class Game extends Subject {
     }
 
     //Game Attributes
-    public Board board;
-    private Deck deck;
-    public ArrayList<Player> playerList;
-    private Player activePlayer;
     private int currentDay;
     private int daysInGame;
+    public Board board;
+    public ArrayList<Player> playerList;
+    private Player activePlayer;
 
     //TEST VARIABLE: (REMOVE LATER)
     public int eoDay = 1;
 
 
     public Game(int numPlayers, int numDays){
+        this.currentDay = 0;
+        this.daysInGame = numDays;
         this.board = new Board();
-        this.deck = new Deck();
         this.playerList = new ArrayList<Player>();
         for (int i = 0; i < numPlayers; i++) {
             this.playerList.add(new Player(String.format("Player %d", (i+1))));
         }
         this.activePlayer = playerList.get(0);
-        this.currentDay = 0;
-        this.daysInGame = numDays;
     }
 
     public void nextTurn(){

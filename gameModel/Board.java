@@ -5,13 +5,14 @@ public class Board {
    public ArrayList<Room> roomList;
    private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
+   private Deck deck;
    public int scenesRemaining;
 
    public Board() {
      this.roomList = new ArrayList<Room>();
      this.nameToRoom = null;
      this.adjacentRooms = new Room[12][12];
-     this.scenesRemaining = 10;
+     this.deck = new Deck();
    }
 
    public Board(ArrayList<Room> roomList, Map<String,Room> nameToRoom, Room[][] adjacentRooms) {
@@ -43,6 +44,11 @@ public class Board {
    }
 
    public void resetBoard() {
+      int roomIter = 0;
+      while (roomIter < this.roomList.size()) {
+        Room room = this.roomList.get(roomIter);
+        room.resetRoom();
+      }
       this.scenesRemaining = 10;
    }
 

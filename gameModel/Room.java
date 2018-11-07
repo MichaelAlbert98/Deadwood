@@ -33,6 +33,10 @@ public class Room {
       this.roomScene = roomScene;
    }
 
+   public void resetRoom(){
+     //remove and reset room components
+   }
+
    public String getName() {
       return this.name;
    }

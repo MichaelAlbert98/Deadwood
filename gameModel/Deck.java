@@ -1,36 +1,28 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Deck {
    
-   private Scene[] scenes;
+   private ArrayList<Scene> sceneList;
    private int topIndex;
    
    public Deck() {
-      this.scenes = null;
+      //TEMPORARY DECK CONSTRUCTOR:
+      this.sceneList = new ArrayList<Scene>();
       this.topIndex = 0;
    }
    
-   public Deck(Scene[] scenes) {
-      this.scenes = scenes;
-      this.topIndex = 0;
+   public Deck(ArrayList<Scene> scenes) {
+      this.sceneList = scenes;
+      this.topIndex = scenes.size()-1;
+      shuffleDeck();
    }
    
    private void shuffleDeck() {
-      return;
+      Collections.shuffle(this.sceneList);
    }
    
-   public Scene[] getScenes() {
-      return this.scenes;
+   public Scene getTopScene() {
+      return this.sceneList.get(this.topIndex);
    }
-   
-   public void setScenes(Scene[] scenes) {
-      this.scenes = scenes;
-   }
-   
-   public int getTopIndex() {
-      return this.topIndex;
-   }
-   
-   public void setTopIndex(int value) {
-      this.topIndex = value;
-   }
-   
 }
