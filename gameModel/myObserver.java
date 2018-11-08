@@ -1,7 +1,8 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * myObserver.java
- * 11/2/11
+ * Created 11/02/2018
+ * Revised 11/07/2018
  */
 
 //Abstract parent class for the specific observers
