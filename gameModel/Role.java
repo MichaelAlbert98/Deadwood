@@ -3,7 +3,7 @@
  * Role.java
  * Created: 11/01/2018
  * Revised: 11/04/2018
- */ 
+ */
 
 public class Role {
 
@@ -11,19 +11,16 @@ public class Role {
    private Boolean isCardRole;
    private Boolean isTaken;
    private int requiredRank;
+   private int[] xyhw;
+   private String line;
 
    public Role() {
       this.name = "";
       this.isCardRole = false;
       this.isTaken = false;
       this.requiredRank = 0;
-   }
-
-   public Role(String name, Boolean onCard, int rank) {
-      this.name = name;
-      this.isCardRole = onCard;
-      this.isTaken = false;
-      this.requiredRank = rank;
+      this.xyhw = new int[4];
+      this.line = "";
    }
 
    public String getName() {
@@ -59,5 +56,21 @@ public class Role {
 
    public void setIsTaken(Boolean truth) {
       this.isTaken = truth;
+   }
+
+   public int[] getxyhw() {
+      return this.xyhw;
+   }
+
+   public void setxyhw(int index, int value) {
+      this.xyhw[index] = value;
+   }
+
+   public String getLine() {
+      return this.line;
+   }
+
+   public void setLine(String line) {
+      this.line = line;
    }
 }
