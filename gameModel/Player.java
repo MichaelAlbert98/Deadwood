@@ -6,7 +6,6 @@
  */
 
 import java.lang.*;
-import
 
 public class Player extends Subject {
 
