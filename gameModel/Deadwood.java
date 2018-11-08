@@ -60,7 +60,9 @@ public class Deadwood {
     }
 
 
-    /* getNumPlayers
+    /* Getters and Setters for Game Creation */
+
+    /* Get Number of Players
      *
      * Casts and validates for the number of players from command line arg.
      */
@@ -75,10 +77,10 @@ public class Deadwood {
         }
     }
 
-    /* setNumPlayers
-    *
-    * Setter for the number of players in a Deadwood game.
-    */
+    /* Set Number of Players
+     *
+     * Setter for the number of players in a Deadwood game.
+     */
     private static void setNumDays() throws NumberFormatException {
         if (numPlayers < 4) {
             numDays = 3;
