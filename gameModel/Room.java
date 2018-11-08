@@ -3,34 +3,31 @@
  * Room.java
  * Created: 11/01/2018
  * Revised: 11/04/2018
- */ 
+ */
+
+import java.util.ArrayList;
 
 public class Room {
 
    private String name;
-   private String[] adjacentRooms;
+   private int[] xyhw;
+   private ArrayList<String> adjacentRooms;
    private int roomIndex;
-   private int counters;
+   private int shots;
+   private ArrayList<int[]> shotsxyhw;
    private Player[] playersInRoom;
-   private Role[] roomRoles;
+   private ArrayList<Role> roomRoles;
    public Scene roomScene;
 
    public Room() {
       this.name = "";
+      this.xyhw = new int[4];
       this.adjacentRooms = null;
       this.roomIndex = 0;
-      this.counters = 0;
+      this.shots = 0;
+      this.playersInRoom = null;
       this.roomRoles = null;
       this.roomScene = null;
-   }
-
-   public Room(String name, String[] adjRooms, int index, int counters, Role[] roomRoles, Scene roomScene) {
-      this.name = name;
-      this.adjacentRooms = adjRooms;
-      this.roomIndex = index;
-      this.counters = counters;
-      this.roomRoles = roomRoles;
-      this.roomScene = roomScene;
    }
 
    public void resetRoom(){
@@ -46,12 +43,20 @@ public class Room {
      return;
    }
 
-   public String[] getAdjRooms() {
+   public int[] getxyhw() {
+     return this.xyhw;
+   }
+
+   public void setxyhw(int index, int value) {
+     this.xyhw[index] = value;
+   }
+
+   public ArrayList<String> getAdjRooms() {
       return this.adjacentRooms;
    }
 
-   public void setAdjRooms(String[] rooms) {
-     this.adjacentRooms = rooms;
+   public void setAdjRooms(String room) {
+     this.adjacentRooms.add(room);
      return;
    }
 
@@ -64,13 +69,22 @@ public class Room {
      return;
    }
 
-   public int getCounters() {
-      return this.counters;
+   public int getShots() {
+      return this.shots;
    }
 
-   public void setCounters(int value) {
-      this.counters = value;
+   public void setShots(int value) {
+      this.shots = value;
       return;
+   }
+
+   public ArrayList<int[]> getShotsxyhw() {
+     return this.shotsxyhw;
+   }
+
+   public void setShotsxyhw(int[] xyhw) {
+     this.shotsxyhw.add(xyhw);
+     return;
    }
 
    public Player[] getPlayersInRoom() {
@@ -82,12 +96,12 @@ public class Room {
       return;
    }
 
-   public Role[] getRoles() {
+   public ArrayList<Role> getRoles() {
       return this.roomRoles;
    }
 
-   public void setRoles(Role[] roles) {
-      this.roomRoles = roles;
+   public void setRoles(Role role) {
+      this.roomRoles.add(role);
       return;
    }
 
