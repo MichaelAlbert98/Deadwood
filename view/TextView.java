@@ -18,13 +18,16 @@ public class TextView{
     ArrayList<SceneView> SceneViews = new ArrayList<SceneView>();
 
 
-    // Constructor creates views for objects with loud actions,
-    // they will all subscribe to the display observer
+    /* TextView Constructor
+     *
+     * This method builds a new TextView model from the game.
+     * It keeps track of all of the observers that are attached
+     * to the subjects with ArrayLists.
+     */
     TextView(Game gameLocation){
         // Game:
         this.gameRef = gameLocation;
         gameView = new GameView(this.gameRef);
-
         // Players:
         for (Player player : this.gameRef.playerList) {
           PlayerView p = new PlayerView(player);
@@ -37,12 +40,16 @@ public class TextView{
                 SceneView s = new SceneView(roomList.get(i).getScene());
                 SceneViews.add(s);
             }
-          }
+        }
     }
 
 
-    //Used for player input
-    public void startListener() {
+    /* Start Listener
+     *
+     * This method is called when the user needs to input data.
+     * It demands input until the subject has reached a valid outcome.
+     */
+    public static void startListener() {
         Boolean enteredValidInput = false;
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -51,6 +58,7 @@ public class TextView{
         while (!enteredValidInput) {
             input = scanner.nextLine();
             System.out.printf("Input Recieved: '%s'.\n", input);
+            enteredValidInput = true;
         }
 
         scanner.close();
