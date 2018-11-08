@@ -5,6 +5,8 @@
  * Revised 11/07/2018
  */
 
+import java.util.ArrayList;
+
 public class Scene extends Subject {
 
    private String name;
@@ -14,7 +16,7 @@ public class Scene extends Subject {
    private Room location;
    private Boolean isCardUp;
    private Boolean isSceneDone;
-   private Role[] sceneRoles;
+   private ArrayList<Role> sceneRoles;
    private int shotsLeft;
    private int budget;
 
@@ -26,7 +28,7 @@ public class Scene extends Subject {
       this.location = null;
       this.isCardUp = false;
       this.isSceneDone = false;
-      this.sceneRoles = null;
+      this.sceneRoles = new ArrayList<Role>(0);
       this.shotsLeft = 0;
       this.budget = 0;
    }
@@ -56,7 +58,7 @@ public class Scene extends Subject {
      this.name = name;
      return;
    }
-   
+
    public String getImg() {
       return this.img;
    }
@@ -65,7 +67,7 @@ public class Scene extends Subject {
      this.img = img;
      return;
    }
-   
+
    public int getSceneNum() {
       return this.sceneNum;
    }
@@ -74,9 +76,9 @@ public class Scene extends Subject {
      this.sceneNum = sceneNum;
      return;
    }
-   
+
    public String getDesc() {
-      return this.desc;
+     return this.desc;
    }
 
    public void setDesc(String desc) {
@@ -92,12 +94,13 @@ public class Scene extends Subject {
       this.location = loc;
    }
 
-   public Role[] getSceneRoles() {
+   public ArrayList<Role> getSceneRoles() {
       return this.sceneRoles;
    }
 
-   private void setSceneRoles(Role[] roles) {
-      this.sceneRoles = roles;
+   public void setSceneRoles(Role role) {
+      this.sceneRoles.add(role);
+      return;
    }
 
    public int getShotsLeft() {
@@ -112,7 +115,7 @@ public class Scene extends Subject {
       return this.budget;
    }
 
-   private void setBudget(int budget) {
+   public void setBudget(int budget) {
       this.budget = budget;
    }
 
