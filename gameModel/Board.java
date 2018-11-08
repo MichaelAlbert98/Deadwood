@@ -3,23 +3,16 @@ import java.util.*;
 public class Board {
 
    public ArrayList<Room> roomList;
-   private Map<String,Room> nameToRoom;
+   // private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
    private Deck deck;
    public int scenesRemaining;
 
    public Board() {
      this.roomList = new ArrayList<Room>();
-     this.nameToRoom = null;
+     // this.nameToRoom = null;
      this.adjacentRooms = new Room[12][12];
      this.deck = new Deck();
-   }
-
-   public Board(ArrayList<Room> roomList, Map<String,Room> nameToRoom, Room[][] adjacentRooms) {
-      this.roomList = roomList;
-      this.nameToRoom = nameToRoom;
-      this.adjacentRooms = adjacentRooms;
-      this.scenesRemaining = 10;
    }
 
    public Room nameToRoom(String name) {
