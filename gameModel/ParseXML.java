@@ -18,9 +18,17 @@ import java.io.File;
 
 public class ParseXML{
 
+   // Temporary main method for testing.
+   public static void main(String[] args) throws ParserConfigurationException {
+      Document d = getDocFromFile("../figures/board.xml");
+      Deck deck = new Deck();
+      readCardData(d,deck);
+      System.out.println("Done");
+   }
+   
      // building a document from the XML file
      // returns a Document object after loading the book.xml file.
-   public Document getDocFromFile(String filename) throws ParserConfigurationException {
+   public static Document getDocFromFile(String filename) throws ParserConfigurationException {
 
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       DocumentBuilder db = dbf.newDocumentBuilder();
@@ -38,7 +46,7 @@ public class ParseXML{
    }
 
      // reads data from XML file and prints data
-   public void readCardData(Document d, Deck deck){
+   public static void readCardData(Document d, Deck deck){
 
       Element root = d.getDocumentElement();
 
@@ -86,13 +94,13 @@ public class ParseXML{
 
                   if ("area".equals(info.getNodeName())) {
                      String x = info.getAttributes().getNamedItem("x").getNodeValue();
-                     role.setxyhw(1,(Integer.parseInt(x)));
+                     role.setxyhw(0,(Integer.parseInt(x)));
                      String y = info.getAttributes().getNamedItem("y").getNodeValue();
-                     role.setxyhw(2,(Integer.parseInt(y)));
+                     role.setxyhw(1,(Integer.parseInt(y)));
                      String h = info.getAttributes().getNamedItem("h").getNodeValue();
-                     role.setxyhw(3,(Integer.parseInt(h)));
+                     role.setxyhw(2,(Integer.parseInt(h)));
                      String w = info.getAttributes().getNamedItem("w").getNodeValue();
-                     role.setxyhw(4,(Integer.parseInt(w)));
+                     role.setxyhw(3,(Integer.parseInt(w)));
                   }
                   else if ("line".equals(info.getNodeName())) {
                      String line = info.getTextContent();
@@ -152,13 +160,13 @@ public class ParseXML{
 
             else if ("area".equals(sub.getNodeName())) {
                String x = sub.getAttributes().getNamedItem("x").getNodeValue();
-               room.setxyhw(1,Integer.parseInt(x));
+               room.setxyhw(0,Integer.parseInt(x));
                String y = sub.getAttributes().getNamedItem("y").getNodeValue();
-               room.setxyhw(2,(Integer.parseInt(y)));
+               room.setxyhw(1,(Integer.parseInt(y)));
                String h = sub.getAttributes().getNamedItem("h").getNodeValue();
-               room.setxyhw(3,(Integer.parseInt(h)));
+               room.setxyhw(2,(Integer.parseInt(h)));
                String w = sub.getAttributes().getNamedItem("w").getNodeValue();
-               room.setxyhw(4,(Integer.parseInt(w)));
+               room.setxyhw(3,(Integer.parseInt(w)));
             }
 
             else if ("takes".equals(sub.getNodeName())) {
@@ -178,13 +186,13 @@ public class ParseXML{
                         Node area = areas.item(l);
                         if ("area".equals(area.getNodeName())) {
                            String x = area.getAttributes().getNamedItem("x").getNodeValue();
-                           xyhw[1] = Integer.parseInt(x);
+                           xyhw[0] = Integer.parseInt(x);
                            String y = area.getAttributes().getNamedItem("y").getNodeValue();
-                           xyhw[2] = Integer.parseInt(y);
+                           xyhw[1] = Integer.parseInt(y);
                            String h = area.getAttributes().getNamedItem("h").getNodeValue();
-                           xyhw[3] = Integer.parseInt(h);
+                           xyhw[2] = Integer.parseInt(h);
                            String w = area.getAttributes().getNamedItem("w").getNodeValue();
-                           xyhw[4] = Integer.parseInt(w);
+                           xyhw[3] = Integer.parseInt(w);
                            room.setShotsxyhw(xyhw);
                         }
 
@@ -219,13 +227,13 @@ public class ParseXML{
 
                         if ("area".equals(info.getNodeName())) {
                            String x = info.getAttributes().getNamedItem("x").getNodeValue();
-                           role.setxyhw(1,Integer.parseInt(x));
+                           role.setxyhw(0,Integer.parseInt(x));
                            String y = info.getAttributes().getNamedItem("y").getNodeValue();
-                           role.setxyhw(2,Integer.parseInt(y));
+                           role.setxyhw(1,Integer.parseInt(y));
                            String h = info.getAttributes().getNamedItem("h").getNodeValue();
-                           role.setxyhw(3,Integer.parseInt(h));
+                           role.setxyhw(2,Integer.parseInt(h));
                            String w = info.getAttributes().getNamedItem("w").getNodeValue();
-                           role.setxyhw(4,Integer.parseInt(w));
+                           role.setxyhw(3,Integer.parseInt(w));
                         }
                         else if ("line".equals(info.getNodeName())) {
                            String line = info.getTextContent();
@@ -277,13 +285,13 @@ public class ParseXML{
 
             else if ("area".equals(sub.getNodeName())) {
                String x = sub.getAttributes().getNamedItem("x").getNodeValue();
-               room.setxyhw(1,Integer.parseInt(x));
+               room.setxyhw(0,Integer.parseInt(x));
                String y = sub.getAttributes().getNamedItem("y").getNodeValue();
-               room.setxyhw(2,Integer.parseInt(y));
+               room.setxyhw(1,Integer.parseInt(y));
                String h = sub.getAttributes().getNamedItem("h").getNodeValue();
-               room.setxyhw(3,Integer.parseInt(h));
+               room.setxyhw(2,Integer.parseInt(h));
                String w = sub.getAttributes().getNamedItem("w").getNodeValue();
-               room.setxyhw(4,Integer.parseInt(w));
+               room.setxyhw(3,Integer.parseInt(w));
             }
 
          }
@@ -323,13 +331,13 @@ public class ParseXML{
 
             else if ("area".equals(sub.getNodeName())) {
                String x = sub.getAttributes().getNamedItem("x").getNodeValue();
-               room.setxyhw(1,Integer.parseInt(x));
+               room.setxyhw(0,Integer.parseInt(x));
                String y = sub.getAttributes().getNamedItem("y").getNodeValue();
-               room.setxyhw(2,Integer.parseInt(y));
+               room.setxyhw(1,Integer.parseInt(y));
                String h = sub.getAttributes().getNamedItem("h").getNodeValue();
-               room.setxyhw(3,Integer.parseInt(h));
+               room.setxyhw(2,Integer.parseInt(h));
                String w = sub.getAttributes().getNamedItem("w").getNodeValue();
-               room.setxyhw(4,Integer.parseInt(w));
+               room.setxyhw(3,Integer.parseInt(w));
             }
 
             else if ("upgrades".equals(sub.getNodeName())) {
@@ -355,13 +363,13 @@ public class ParseXML{
 
                         if ("area".equals(area.getNodeName())) {
                            String x = area.getAttributes().getNamedItem("x").getNodeValue();
-                           xyhw[1] = Integer.parseInt(x);
+                           xyhw[0] = Integer.parseInt(x);
                            String y = area.getAttributes().getNamedItem("y").getNodeValue();
-                           xyhw[2] = Integer.parseInt(y);
+                           xyhw[1] = Integer.parseInt(y);
                            String h = area.getAttributes().getNamedItem("h").getNodeValue();
-                           xyhw[3] = Integer.parseInt(h);
+                           xyhw[2] = Integer.parseInt(h);
                            String w = area.getAttributes().getNamedItem("w").getNodeValue();
-                           xyhw[4] = Integer.parseInt(w);
+                           xyhw[3] = Integer.parseInt(w);
                            room.setShotsxyhw(xyhw);
                         }
 
