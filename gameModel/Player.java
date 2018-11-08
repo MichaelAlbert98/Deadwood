@@ -6,6 +6,7 @@
  */
 
 import java.lang.*;
+import
 
 public class Player extends Subject {
 
@@ -16,10 +17,14 @@ public class Player extends Subject {
    private Banker banker;
    private Room location;
 
-   //The list of messages that will correspond
-   // to message types for the view model to interpret.
+
+   /* Player Messages
+    *
+    * The list of message identifiers that will correspond to
+    * message types for the view model to interpret.
+    */
    public static class playerMessages {
-     public static final String turnStart = "TURNSTART";
+      public static final String turnStart = "TURNSTART";
    }
 
    public Player() {
@@ -41,10 +46,13 @@ public class Player extends Subject {
      this.notifyAllObservers(Player.playerMessages.turnStart);
    }
 
-
    public String promptPlayer(String prompt) {
       return prompt;
    }
+
+
+
+   /* Getters and Setter for Player */
 
    public String getName() {
       return this.name;
@@ -55,18 +63,12 @@ public class Player extends Subject {
       return;
    }
 
-   public Boolean hasRole() {
-      return this.hasRole;
-   }
-
    public Role getCurrentRole() {
       return this.currentRole;
    }
 
    public void setCurrentRole(Role role) {
       this.currentRole = role;
-      //This is how the textView will be told to display messages
-      //this.notifyAllObservers(Player.observerMessages.SetRole.ordinal());
       return;
    }
 
@@ -74,7 +76,7 @@ public class Player extends Subject {
       this.currentRole = null;
    }
 
-   public int getTokens() {
+   public int timesRehearsed() {
       return this.rehearseTokens;
    }
 
