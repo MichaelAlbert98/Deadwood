@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Game extends Subject {
 
-    
+
     public static class gameMessages {
         public static final String newDay = "NEWDAY";
     }
@@ -24,6 +24,10 @@ public class Game extends Subject {
     public int eoDay = 1;
 
 
+    /* Game New Day
+     *
+     * Game Object Constructor
+     */
     public Game(int numPlayers, int numDays){
         this.currentDay = 0;
         this.daysInGame = numDays;
@@ -35,9 +39,13 @@ public class Game extends Subject {
         this.activePlayer = playerList.get(0);
     }
 
+    /* Game New Day
+     *
+     * This method performs the control actions for the active players turn sequence.
+     *
+     */
     public void nextTurn(){
         this.activePlayer.playerTurn();
-
         //Artifical Behavior Remove Later (start) (also make scenesRemaining private again)
         if (this.board.scenesRemaining == 0) {
             this.board.scenesRemaining = 10;
@@ -46,16 +54,29 @@ public class Game extends Subject {
         }
         //(end remove)
 
-        //Make the next player in roatation the active player
-        int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
-        if ((playerList.size()-1) == activePlayerIndex) {
-            this.activePlayer = this.playerList.get(0);
-        } else {
-            this.activePlayer = this.playerList.get(activePlayerIndex+1);
-        }
 
+        nextPlayer();
     }
 
+
+    /* Next Player
+     *
+     * Set the active player to the next player in the cycle.
+     */
+    private void nextPlayer() {
+      int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
+      if ((playerList.size()-1) == activePlayerIndex) {
+          this.activePlayer = this.playerList.get(0);
+      } else {
+          this.activePlayer = this.playerList.get(activePlayerIndex+1);
+      }
+    }
+
+    /* Game New Day
+     *
+     * This method iterates the day counter, resets the board for the
+     * next day, and then tells the view that the day has been updated.
+     */
     public void newDay() {
         this.currentDay++;
         this.board.resetBoard();
@@ -64,6 +85,12 @@ public class Game extends Subject {
         }
     }
 
+
+    /* Is Day Over
+     *
+     * This method checkes the board to see if enough scenes have
+     * been completed to warrent the start of the next day.
+     */
     public boolean isDayOver(){
         if (this.board.getNumScenesRemaining() == 0) {
             return true;
@@ -73,6 +100,11 @@ public class Game extends Subject {
         return false;
     }
 
+    /* Is Game Over
+     *
+     * This method is called after each game loop iteration
+     * and makes sure the last day has not ended.
+     */
     public boolean isGameOver() {
         if (currentDay < (daysInGame+1)){
             return false;
@@ -81,6 +113,11 @@ public class Game extends Subject {
         }
     }
 
+
+
+    /* Getter and Setter Methods */
+
+    /* Get Current Day */
     public int getCurrentDay(){
         return this.currentDay;
     }
