@@ -18,7 +18,7 @@ public class Game extends Subject {
     private int daysInGame;
     public Board board;
     public ArrayList<Player> playerList;
-    private Player activePlayer;
+    public Player activePlayer;
 
     //TEST VARIABLE: (REMOVE LATER)
     public int eoDay = 1;
@@ -39,13 +39,16 @@ public class Game extends Subject {
         this.activePlayer = playerList.get(0);
     }
 
-    /* Game New Day
-     *
-     * This method performs the control actions for the active players turn sequence.
-     *
+    /* 
+     * 
+     * 
      */
-    public void nextTurn(){
-        this.activePlayer.playerTurn();
+
+    /* End Turn
+     *
+     * This method performs the control actions for ending the current players turn.
+     */
+    public void endPlayerTurn(){
         //Artifical Behavior Remove Later (start) (also make scenesRemaining private again)
         if (this.board.scenesRemaining == 0) {
             this.board.scenesRemaining = 10;
@@ -53,8 +56,8 @@ public class Game extends Subject {
             this.board.scenesRemaining--;
         }
         //(end remove)
-
-
+        
+        this.activePlayer.notifyAllObservers(Player.playerMessages.turnEnd);
         nextPlayer();
     }
 
@@ -63,7 +66,7 @@ public class Game extends Subject {
      *
      * Set the active player to the next player in the cycle.
      */
-    private void nextPlayer() {
+    public void nextPlayer() {
       int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
       if ((playerList.size()-1) == activePlayerIndex) {
           this.activePlayer = this.playerList.get(0);

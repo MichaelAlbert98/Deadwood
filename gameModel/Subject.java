@@ -26,6 +26,5 @@ public class Subject {
       for (myObserver observer : observers) {
         observer.update(message);
       }
-   }
-
+    }
 }

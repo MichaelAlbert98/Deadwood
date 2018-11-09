@@ -3,7 +3,7 @@ import java.util.*;
 public class Board {
 
    public ArrayList<Room> roomList;
-   // private Map<String,Room> nameToRoom;
+   private Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
    private Deck deck;
    public int scenesRemaining;

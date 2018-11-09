@@ -39,15 +39,7 @@ public class Deadwood {
             game = new Game(numPlayers,numDays);
             TextView tv = new TextView(game);
             System.out.println("Starting Deadwood!\n");
-
-            //Game loop:
-            while(!game.isGameOver()) {
-                if(game.isDayOver()) {
-                    game.newDay();
-                } else {
-                    game.nextTurn();
-                }
-            }
+            tv.startListener();
             System.out.println("\nGame Over!\n");
 
 

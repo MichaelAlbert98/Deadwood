@@ -49,16 +49,54 @@ public class TextView{
      * This method is called when the user needs to input data.
      * It demands input until the subject has reached a valid outcome.
      */
-    public static void startListener() {
-        Boolean enteredValidInput = false;
+    public void startListener() {
         Scanner scanner = new Scanner(System.in);
         String input;
 
+        this.gameRef.newDay();
+        this.gameRef.activePlayer.startPlayerTurn();
         //Switch on player movement
-        while (!enteredValidInput) {
-            input = scanner.nextLine();
-            System.out.printf("Input Recieved: '%s'.\n", input);
-            enteredValidInput = true;
+        while (!this.gameRef.isGameOver()) {
+
+            input = scanner.nextLine().toLowerCase();
+            switch (input) {
+                case "move":
+                    System.out.println("Which room do you want to move to?");
+                    input = scanner.nextLine().toLowerCase();
+                    //If room exists, check its a valid move, then move the player
+                    if (this.gameRef.board.nameToRoom(input) != null){
+                        Room current = this.gameRef.activePlayer.getLocation();
+                        Room dest = this.gameRef.board.nameToRoom(input);
+                        if (this.gameRef.board.areRoomsAdjacent(current,dest)) {
+                            this.gameRef.activePlayer.movePlayer(dest);
+                        } else {
+                            System.out.println("You cannot move to that room.");
+                        }
+                    } else {
+                        System.out.println("Room does not exist.");
+                    }
+                    break;
+
+                case "upgrade":
+                    break;
+
+                case "end turn":
+                    this.gameRef.endPlayerTurn();
+                    this.gameRef.nextPlayer();
+                    if (this.gameRef.isDayOver()) {
+                        this.gameRef.newDay();
+                    }
+                    if (!this.gameRef.isGameOver()) {
+                        this.gameRef.activePlayer.startPlayerTurn();
+                    }
+                    break;
+
+                case "":
+                    break;
+            }
+
+
+            
         }
 
         scanner.close();

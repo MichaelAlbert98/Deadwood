@@ -24,6 +24,7 @@ public class Player extends Subject {
     */
    public static class playerMessages {
       public static final String turnStart = "TURNSTART";
+      public static final String turnEnd = "TURNEND";
    }
 
    public Player() {
@@ -41,25 +42,23 @@ public class Player extends Subject {
       this.rehearseTokens = 0;
    }
 
-   public void playerTurn() {
+   public void startPlayerTurn() {
      this.notifyAllObservers(Player.playerMessages.turnStart);
    }
 
+   public void movePlayer(Room destination) {
+     this.location = destination;
+   }
+   
    public String promptPlayer(String prompt) {
       return prompt;
    }
-
 
 
    /* Getters and Setter for Player */
 
    public String getName() {
       return this.name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-      return;
    }
 
    public Role getCurrentRole() {
@@ -82,6 +81,10 @@ public class Player extends Subject {
    public void setTokens(int value) {
       this.rehearseTokens = value;
       return;
+   }
+
+   public Room getLocation() {
+     return this.location;
    }
 
 }
