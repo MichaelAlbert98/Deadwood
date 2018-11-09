@@ -1,8 +1,8 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
- * Ryan Lingg and Michael Albert
- * Deadwood.java
+ * Michael Albert and Ryan Lingg
+ * Scene.java
  * Created 11/02/2018
- * Revised 11/07/2018
+ * Revised 11/08/2018
  */
 
 import java.util.ArrayList;
@@ -46,8 +46,13 @@ public class Scene extends Subject {
       return;
    }
 
-   public Boolean GetisSceneDone() {
+   public Boolean getIsSceneDone() {
       return this.isSceneDone;
+   }
+
+   public void setIsSceneDone(Boolean truth) {
+     this.isSceneDone = truth;
+     return;
    }
 
    public String getName() {
