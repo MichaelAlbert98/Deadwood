@@ -1,21 +1,22 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
- * Room.java
+ * Room.java - This class is designed to hold the attributes of
+ * one of twelve locations in Deadwood.
  * Created: 11/01/2018
- * Revised: 11/04/2018
+ * Revised: 11/08/2018
  */
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Room {
 
    private String name;
    private int[] xyhw;
-   private ArrayList<String> adjacentRooms;
+   private ArrayList<String> adjacentRooms; //used to check if a player move is valid
    private int roomIndex;
    private int shots;
    private ArrayList<int[]> shotsxyhw;
-   private Player[] playersInRoom;
+   private ArrayList<Player> playersInRoom;
    private ArrayList<Role> roomRoles;
    public Scene roomScene;
 
@@ -26,13 +27,24 @@ public class Room {
       this.roomIndex = 0;
       this.shots = 0;
       this.shotsxyhw = new ArrayList<int[]>(0);
-      this.playersInRoom = null;
+      this.playersInRoom = new ArrayList<Player>(0);
       this.roomRoles = new ArrayList<Role>(0);
       this.roomScene = null;
    }
 
+   public void wrapScene() {
+    if (this.shots == 0) {
+      Collections.sort(this.roomRoles);
+      
+    }
+    return;
+   }
+
+   //resets the room at the end of the day.
    public void resetRoom(){
-     //remove and reset room components
+     this.shots = this.shotsxyhw.size();
+     this.playersInRoom = null;
+     this.roomScene = null;
    }
 
    public String getName() {
@@ -75,7 +87,7 @@ public class Room {
    }
 
    public void setShots(int value) {
-      this.shots = value;
+      this.shots = this.shots + value;
       return;
    }
 
@@ -88,12 +100,12 @@ public class Room {
      return;
    }
 
-   public Player[] getPlayersInRoom() {
+   public ArrayList<Player> getPlayersInRoom() {
       return this.playersInRoom;
    }
 
    public void setPlayersInRoom(Player player) {
-      this.playersInRoom[0] = player;
+      this.playersInRoom.add(player);
       return;
    }
 
