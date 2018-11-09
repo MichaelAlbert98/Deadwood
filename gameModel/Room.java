@@ -22,11 +22,12 @@ public class Room {
    public Room() {
       this.name = "";
       this.xyhw = new int[4];
-      this.adjacentRooms = null;
+      this.adjacentRooms = new ArrayList<String>(0);
       this.roomIndex = 0;
       this.shots = 0;
+      this.shotsxyhw = new ArrayList<int[]>(0);
       this.playersInRoom = null;
-      this.roomRoles = null;
+      this.roomRoles = new ArrayList<Role>(0);
       this.roomScene = null;
    }
 
