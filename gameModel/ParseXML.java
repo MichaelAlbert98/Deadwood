@@ -16,19 +16,21 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 
+import java.util.ArrayList;
+
 public class ParseXML{
 
-   // Temporary main method for testing.
+/*   // Temporary main method for testing.
    public static void main(String[] args) throws ParserConfigurationException {
       Document d = getDocFromFile("../figures/board.xml");
-      Deck deck = new Deck();
-      readCardData(d,deck);
-      System.out.println("Done");
-   }
+      Board b = new Board();
+      readBoardData(d,b);
+      System.out.println("finish");
+   } */
    
      // building a document from the XML file
      // returns a Document object after loading the book.xml file.
-   public static Document getDocFromFile(String filename) throws ParserConfigurationException {
+   public Document getDocFromFile(String filename) throws ParserConfigurationException {
 
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       DocumentBuilder db = dbf.newDocumentBuilder();
@@ -45,8 +47,8 @@ public class ParseXML{
 
    }
 
-     // reads data from XML file and prints data
-   public static void readCardData(Document d, Deck deck){
+     // reads data from XML file and sets Scene data in Deck
+   public void readCardData(Document d, Deck deck){
 
       Element root = d.getDocumentElement();
 
@@ -118,29 +120,30 @@ public class ParseXML{
 
 
    // reads data from XML file and prints data
-   public static void readBoardData(Document d){
+   public static void readBoardData(Document d, Board b){
 
       Element root = d.getDocumentElement();
       NodeList sets = root.getElementsByTagName("set");
       NodeList trailers = root.getElementsByTagName("trailer");
       NodeList offices = root.getElementsByTagName("office");
 
-      // reads data from set nodes
+      //reads data from set nodes
       for (int i=0; i<sets.getLength();i++){
 
-        //reads data from the nodes
+         //create Room and set data fields from xml file
          Room room = new Room();
          Node set = sets.item(i);
          String setName = set.getAttributes().getNamedItem("name").getNodeValue();
          room.setName(setName);
 
-         //reads data
+         //read data
          NodeList children = set.getChildNodes();
 
          for (int j=0; j< children.getLength(); j++) {
 
             Node sub = children.item(j);
-
+            
+            //fill out adjRooms
             if("neighbors".equals(sub.getNodeName())) {
 
                NodeList neighbors = sub.getChildNodes();
@@ -157,7 +160,8 @@ public class ParseXML{
                } //for neighbors nodes
 
             }
-
+            
+            //fill out xyhw
             else if ("area".equals(sub.getNodeName())) {
                String x = sub.getAttributes().getNamedItem("x").getNodeValue();
                room.setxyhw(0,Integer.parseInt(x));
@@ -168,7 +172,8 @@ public class ParseXML{
                String w = sub.getAttributes().getNamedItem("w").getNodeValue();
                room.setxyhw(3,(Integer.parseInt(w)));
             }
-
+            
+            //fill out shots and shotsxyhw fields
             else if ("takes".equals(sub.getNodeName())) {
 
                NodeList infos = sub.getChildNodes();
@@ -203,7 +208,8 @@ public class ParseXML{
                } //for infos
 
             }
-
+            
+            //fill out roomRoles field
             else if ("parts".equals(sub.getNodeName())) {
 
                NodeList parts = sub.getChildNodes();
@@ -211,7 +217,8 @@ public class ParseXML{
                for (int k=0;k< parts.getLength(); k++) {
 
                   Node part = parts.item(k);
-
+                  
+                  //create Role and fill out fields
                   if ("part".equals(part.getNodeName())) {
                      Role role = new Role();
                      String name = part.getAttributes().getNamedItem("name").getNodeValue();
@@ -241,7 +248,7 @@ public class ParseXML{
                         }
 
                      } //for area & line nodes
-
+                     room.setRoles(role);
                   }
 
                } //for part nodes
@@ -249,13 +256,13 @@ public class ParseXML{
             }
 
          } //for childnodes
-
+         b.roomList.add(room);
       }//for set nodes
 
       // reads data from trailer node
       for (int i=0; i<trailers.getLength();i++){
 
-         //reads data from the nodes
+         //create Room and fill out fields
          Room room = new Room();
          room.setName("Trailer");
          Node trailer = trailers.item(i);
@@ -295,13 +302,13 @@ public class ParseXML{
             }
 
          }
-
+         b.roomList.add(room);
       }
 
       // reads data from office node
       for (int i=0; i<offices.getLength();i++){
 
-         //reads data from the nodes
+         //create Room and fill out fields
          Room room = new Room();
          room.setName("Office");
          Node office = offices.item(i);
@@ -341,7 +348,6 @@ public class ParseXML{
             }
 
             else if ("upgrades".equals(sub.getNodeName())) {
-               System.out.println("Printing information for upgrades.");
 
                NodeList upgdInfos = sub.getChildNodes();
 
@@ -382,7 +388,7 @@ public class ParseXML{
             }
 
          }
-
+         b.roomList.add(room);
       }
 
    }// method
