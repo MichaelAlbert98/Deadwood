@@ -9,7 +9,7 @@ public class Board {
    public int scenesRemaining;
 
    public Board() {
-     this.roomList = new ArrayList<Room>();
+     this.roomList = new ArrayList<Room>(0);
      // this.nameToRoom = null;
      this.adjacentRooms = new Room[12][12];
      this.deck = new Deck();
