@@ -8,7 +8,7 @@ public class Deck {
 
    public Deck() {
       //TEMPORARY DECK CONSTRUCTOR:
-      this.sceneList = new ArrayList<Scene>();
+      this.sceneList = new ArrayList<Scene>(0);
       this.topIndex = 0;
    }
 
