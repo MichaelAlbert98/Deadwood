@@ -1,11 +1,12 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
- * Role.java
+ * Role.java - This class is designed to hold  and change the attributes of a
+ * role that players can take.
  * Created: 11/01/2018
- * Revised: 11/04/2018
- */ 
+ * Revised: 11/08/2018
+ */
 
-public class Role {
+public class Role implements Comparable<Role> {
 
    private String name;
    private Boolean isCardRole;
@@ -21,6 +22,10 @@ public class Role {
       this.requiredRank = 0;
       this.xyhw = new int[4];
       this.line = "";
+   }
+
+   public int compareTo(Role role) {
+        return(this.requiredRank - role.requiredRank);
    }
 
    public String getName() {
@@ -73,4 +78,5 @@ public class Role {
    public void setLine(String line) {
       this.line = line;
    }
+
 }
