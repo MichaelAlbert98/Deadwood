@@ -60,13 +60,26 @@ public class TextView{
 
             input = scanner.nextLine().toLowerCase();
             switch (input) {
+
+                //User wants to know current player:
+                case "active player?":
+                case "who":
+                    System.out.printf("The active player is %s, your location is %s, you are rank %d, and have $%d and %dcr. "
+                                        ,this.gameRef.activePlayer.getName(),this.gameRef.activePlayer.getLocation().getName(),
+                                        this.gameRef.activePlayer.getRank(), this.gameRef.activePlayer.getCash(), this.gameRef.activePlayer.getCredits());
+                    if (gameRef.activePlayer.getCurrentRole() == null) {
+                        System.out.printf("You are currently not acting.\n");
+                    } else {
+                        System.out.printf("You are currently acting in the scene \"%s\".\n", this.gameRef.activePlayer.getCurrentRole().getName());
+                    }                
+                    break;
                 case "move":
                     System.out.println("Which room do you want to move to?");
                     input = scanner.nextLine().toLowerCase();
                     //If room exists, check its a valid move, then move the player
-                    if (this.gameRef.board.nameToRoom(input) != null){
+                    if (this.gameRef.board.nameToRoom.get(input) != null){
                         Room current = this.gameRef.activePlayer.getLocation();
-                        Room dest = this.gameRef.board.nameToRoom(input);
+                        Room dest = this.gameRef.board.nameToRoom.get(input);
                         if (this.gameRef.board.areRoomsAdjacent(current,dest)) {
                             this.gameRef.activePlayer.movePlayer(dest);
                         } else {
@@ -81,7 +94,7 @@ public class TextView{
                     break;
 
                 case "end turn":
-                    this.gameRef.endPlayerTurn();
+                    this.gameRef.activePlayer.endPlayerTurn();
                     this.gameRef.nextPlayer();
                     if (this.gameRef.isDayOver()) {
                         this.gameRef.newDay();
