@@ -6,7 +6,7 @@
  * Revised: 11/08/2018
  */
 
-public class Role implements Comparable<Role> {
+public class Role {
 
    private String name;
    private Boolean isCardRole;
@@ -22,10 +22,6 @@ public class Role implements Comparable<Role> {
       this.requiredRank = 0;
       this.xyhw = new int[4];
       this.line = "";
-   }
-
-   public int compareTo(Role role) {
-        return(this.requiredRank - role.requiredRank);
    }
 
    public String getName() {
