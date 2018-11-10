@@ -33,10 +33,6 @@ public class Scene extends Subject {
       this.budget = 0;
    }
 
-   private void wrapUpScene() {
-      return;
-   }
-
    private Boolean isCardFaceUp() {
       return this.isCardUp;
    }
