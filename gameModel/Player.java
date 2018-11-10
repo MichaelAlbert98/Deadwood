@@ -31,6 +31,9 @@ public class Player extends Subject {
 
    public Player() {
       this.name = "";
+      this.rank = 1;
+      this.cash = 0;
+      this.credits = 0;
       this.currentRole = null;
       this.rehearseTokens = 0;
    }
@@ -71,10 +74,20 @@ public class Player extends Subject {
   public int getCash(){
     return this.cash;
   }
+  
+  public void addCash(int value){
+    this.cash = this.cash + value;
+    return;
+  }
 
   public int getCredits(){
     return this.credits;
   }  
+  
+  public void addCredits(int value) {
+    this.credits = this.credits + value;
+    return;
+  }
 
    public String getName() {
       return this.name;
