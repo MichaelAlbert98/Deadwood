@@ -6,6 +6,7 @@
  */
 
 import java.lang.*;
+import java.util.*;
 
 public class Player extends Subject {
 
@@ -100,4 +101,11 @@ public class Player extends Subject {
      return this.location;
    }
 
+}
+
+
+class PlayerRoleComparator implements Comparator<Player> {
+    public int compare(Player player1, Player player2) {
+        return player1.getCurrentRole().getRank() - player2.getCurrentRole().getRank();
+    }
 }
