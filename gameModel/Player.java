@@ -10,10 +10,11 @@ import java.lang.*;
 public class Player extends Subject {
 
    private String name;
-   private Boolean hasRole;
+   private int rank;
+   private int cash;
+   private int credits;
    private Role currentRole;
    private int rehearseTokens;
-   private Banker banker;
    private Room location;
 
 
@@ -29,21 +30,26 @@ public class Player extends Subject {
 
    public Player() {
       this.name = "";
-      this.hasRole = false;
       this.currentRole = null;
       this.rehearseTokens = 0;
-      this.banker = new Banker();
    }
 
    public Player(String name) {
       this.name = name;
-      this.hasRole = false;
+      this.rank = 1;
+      this.cash = 0;
+      this.credits = 0;
       this.currentRole = null;
       this.rehearseTokens = 0;
+
    }
 
    public void startPlayerTurn() {
      this.notifyAllObservers(Player.playerMessages.turnStart);
+   }
+
+   public void endPlayerTurn() {
+     this.notifyAllObservers(Player.playerMessages.turnEnd);
    }
 
    public void movePlayer(Room destination) {
@@ -57,6 +63,18 @@ public class Player extends Subject {
 
    /* Getters and Setter for Player */
 
+  public int getRank(){
+    return this.rank;
+  }
+  
+  public int getCash(){
+    return this.cash;
+  }
+
+  public int getCredits(){
+    return this.credits;
+  }  
+
    public String getName() {
       return this.name;
    }
@@ -65,7 +83,7 @@ public class Player extends Subject {
       return this.currentRole;
    }
 
-   public void setCurrentRole(Role role) {
+   private void setCurrentRole(Role role) {
       this.currentRole = role;
       return;
    }
@@ -76,11 +94,6 @@ public class Player extends Subject {
 
    public int timesRehearsed() {
       return this.rehearseTokens;
-   }
-
-   public void setTokens(int value) {
-      this.rehearseTokens = value;
-      return;
    }
 
    public Room getLocation() {

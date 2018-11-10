@@ -3,21 +3,19 @@ import java.util.*;
 public class Board {
 
    public ArrayList<Room> roomList;
-   private Map<String,Room> nameToRoom;
+   public Map<String,Room> nameToRoom;
    private Room[][] adjacentRooms;
    private Deck deck;
    public int scenesRemaining;
 
    public Board() {
-     this.roomList = new ArrayList<Room>(0);
-     // this.nameToRoom = null;
+     this.roomList = new ArrayList<Room>();
+     for (int i = 0; i < 12; i++) {
+       this.roomList.add(new Room());
+     }
+     this.nameToRoom = new HashMap<String,Room>();
      this.adjacentRooms = new Room[12][12];
      this.deck = new Deck();
-   }
-
-   public Room nameToRoom(String name) {
-      Room room = new Room();
-      return room;
    }
 
    public Boolean areRoomsAdjacent(Room start, Room end) {
@@ -41,6 +39,7 @@ public class Board {
       while (roomIter < this.roomList.size()) {
         Room room = this.roomList.get(roomIter);
         room.resetRoom();
+        roomIter++;
       }
       this.scenesRemaining = 10;
    }

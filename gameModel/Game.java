@@ -1,7 +1,7 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * Game.java
- * 11/2/11
+ * 11/9/11
  */
 
 import java.util.ArrayList;
@@ -10,7 +10,9 @@ public class Game extends Subject {
 
 
     public static class gameMessages {
-        public static final String newDay = "NEWDAY";
+    public static final String newDay = "NEWDAY";
+    public static final String dayEnd = "ENDDAY";
+
     }
 
     //Game Attributes
@@ -19,9 +21,6 @@ public class Game extends Subject {
     public Board board;
     public ArrayList<Player> playerList;
     public Player activePlayer;
-
-    //TEST VARIABLE: (REMOVE LATER)
-    public int eoDay = 1;
 
 
     /* Game New Day
@@ -39,29 +38,7 @@ public class Game extends Subject {
         this.activePlayer = playerList.get(0);
     }
 
-    /* 
-     * 
-     * 
-     */
-
-    /* End Turn
-     *
-     * This method performs the control actions for ending the current players turn.
-     */
-    public void endPlayerTurn(){
-        //Artifical Behavior Remove Later (start) (also make scenesRemaining private again)
-        if (this.board.scenesRemaining == 0) {
-            this.board.scenesRemaining = 10;
-        } else {
-            this.board.scenesRemaining--;
-        }
-        //(end remove)
-        
-        this.activePlayer.notifyAllObservers(Player.playerMessages.turnEnd);
-        nextPlayer();
-    }
-
-
+    
     /* Next Player
      *
      * Set the active player to the next player in the cycle.
@@ -85,6 +62,10 @@ public class Game extends Subject {
         this.board.resetBoard();
         if (this.currentDay <= this.daysInGame) {
             this.notifyAllObservers(Game.gameMessages.newDay);
+        }
+        //Move all players back to starting room
+        for(int i = 0; i < this.playerList.size(); i++) {
+            this.playerList.get(i).movePlayer(this.board.roomList.get(1));
         }
     }
 
@@ -115,7 +96,6 @@ public class Game extends Subject {
             return true;
         }
     }
-
 
 
     /* Getter and Setter Methods */

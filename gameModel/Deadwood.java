@@ -39,6 +39,8 @@ public class Deadwood {
             game = new Game(numPlayers,numDays);
             TextView tv = new TextView(game);
             System.out.println("Starting Deadwood!\n");
+
+            //3) Start the input listener which will run until the game completes.
             tv.startListener();
             System.out.println("\nGame Over!\n");
 
