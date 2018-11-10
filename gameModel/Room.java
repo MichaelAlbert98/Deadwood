@@ -32,11 +32,44 @@ public class Room {
       this.roomScene = null;
    }
 
+   //pays out to players on/off scene, sets scene to done.
    public void wrapScene() {
-    if (this.shots == 0) {
-      Collections.sort(this.roomRoles);
+      ArrayList<Player> onCardPlayers = new ArrayList<Player>();
+      ArrayList<Player> offCardPlayers = new ArrayList<Player>();
       
-    }
+      for (int i=0;i < this.playersInRoom.size();i++) {
+      
+         if (!this.playersInRoom.get(i).getCurrentRole().equals(null)) {
+            if (this.playersInRoom.get(i).getCurrentRole().getOnCard() == true) {
+               onCardPlayers.add(this.playersInRoom.get(i));
+            }
+            else {
+               offCardPlayers.add(this.playersInRoom.get(i));
+            }
+         }
+      }
+      
+      if (onCardPlayers.size() == 0) {
+         return;
+      }
+      
+      Collections.sort(onCardPlayers, new PlayerRoleComparator());
+      Random rand = new Random();
+      for (int i=0;i< this.roomScene.getBudget();) {
+         int k = i;
+         if (i>onCardPlayers.size()) {
+            k = i - onCardPlayers.size();
+         }
+         int roll = rand.nextInt(6) + 1;
+         onCardPlayers.get(k).addCash(roll);
+      }
+      
+      for (int i=0;i< offCardPlayers.size();i++) {
+         offCardPlayers.get(i).addCash(offCardPlayers.get(i).getCurrentRole().getRank());
+      }
+      
+      this.roomScene.setIsSceneDone(true);
+      
     return;
    }
 
@@ -88,6 +121,9 @@ public class Room {
 
    public void setShots(int value) {
       this.shots = this.shots + value;
+      if (this.shots == 0) {
+         wrapScene();
+      }
       return;
    }
 
