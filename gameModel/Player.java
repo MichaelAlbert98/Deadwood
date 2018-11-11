@@ -97,7 +97,7 @@ public class Player extends Subject {
       return this.currentRole;
    }
 
-   private void setCurrentRole(Role role) {
+   public void setCurrentRole(Role role) {
       this.currentRole = role;
       return;
    }
