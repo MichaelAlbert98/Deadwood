@@ -3,7 +3,7 @@
  * Room.java - This class is designed to hold the attributes of
  * one of twelve locations in Deadwood.
  * Created: 11/01/2018
- * Revised: 11/08/2018
+ * Revised: 11/10/2018
  */
 
 import java.util.*;
@@ -32,7 +32,7 @@ public class Room {
       this.roomScene = null;
    }
 
-   //pays out to players on/off scene, sets scene to done.
+   //pays out to players on/off scene, sets scene to done, removes players from scene.
    public void wrapScene() {
       ArrayList<Player> onCardPlayers = new ArrayList<Player>();
       ArrayList<Player> offCardPlayers = new ArrayList<Player>();
@@ -49,23 +49,32 @@ public class Room {
          }
       }
       
-      if (onCardPlayers.size() == 0) {
-         return;
+      //pay off card players if there is an on card player, remove from scene.
+      for (int i=0;i< offCardPlayers.size();i++) {
+         if (onCardPlayers.size() > 0) {
+            offCardPlayers.get(i).addCash(offCardPlayers.get(i).getCurrentRole().getRank());
+         }
+         offCardPlayers.get(i).setCurrentRole(null);
       }
       
+      //pay on card players starting from highest role. 
       Collections.sort(onCardPlayers, new PlayerRoleComparator());
       Random rand = new Random();
-      for (int i=0;i< this.roomScene.getBudget();) {
+      for (int i=0;i< this.roomScene.getBudget();i++) {
          int k = i;
+         
+         //loop if budget is larger than # of players.
          if (i>onCardPlayers.size()) {
             k = i - onCardPlayers.size();
          }
+         
          int roll = rand.nextInt(6) + 1;
          onCardPlayers.get(k).addCash(roll);
       }
       
-      for (int i=0;i< offCardPlayers.size();i++) {
-         offCardPlayers.get(i).addCash(offCardPlayers.get(i).getCurrentRole().getRank());
+      //remove on card players from scene.
+      for (int i=0;i< onCardPlayers.size();i++) {
+         onCardPlayers.get(i).setCurrentRole(null);
       }
       
       this.roomScene.setIsSceneDone(true);
