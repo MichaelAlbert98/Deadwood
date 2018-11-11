@@ -2,8 +2,7 @@
 # Ryan Lingg and Michael Albert
 
 # Instructions:
-# 1) To build the program navigate to "Deadwood-Csci-345/" directory and use command "make".
-# 2) To run the program cd to "Deadwood-Csci-345/build/" and use command "java Deadwood".
+# To build and run the game, navigate to "Deadwood-Csci-345/" directory then use the command "make run".
 
 # Environment variables
 JC = javac
@@ -15,3 +14,6 @@ compile: clean
 
 clean: 
 	rm -rf build
+
+run: compile
+	cd build && java Deadwood
