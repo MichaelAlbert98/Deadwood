@@ -29,15 +29,6 @@ public class Player extends Subject {
       public static final String turnEnd = "TURNEND";
    }
 
-   public Player() {
-      this.name = "";
-      this.rank = 1;
-      this.cash = 0;
-      this.credits = 0;
-      this.currentRole = null;
-      this.rehearseTokens = 0;
-   }
-
    public Player(String name) {
       this.name = name;
       this.rank = 1;
@@ -67,28 +58,6 @@ public class Player extends Subject {
 
    /* Getters and Setter for Player */
 
-  public int getRank(){
-    return this.rank;
-  }
-  
-  public int getCash(){
-    return this.cash;
-  }
-  
-  public void addCash(int value){
-    this.cash = this.cash + value;
-    return;
-  }
-
-  public int getCredits(){
-    return this.credits;
-  }  
-  
-  public void addCredits(int value) {
-    this.credits = this.credits + value;
-    return;
-  }
-
    public String getName() {
       return this.name;
    }
@@ -114,8 +83,39 @@ public class Player extends Subject {
      return this.location;
    }
 
-}
+   public int getRank() {
+    return this.rank;
+  }
+  
+  public int getCash() {
+    return this.cash;
+  }
+  
+  public int getCredits() {
+    return this.credits;
+  }
 
+  public void addCash(int value) {
+    this.cash = this.cash + value;
+    return;
+  }
+  
+  public void removeCash(int value){
+    this.cash = this.cash - value;
+    return;
+  }
+
+  public void addCredits(int value) {
+    this.credits = this.credits + value;
+    return;
+  }
+
+  public void removeCredits(int value){
+    this.credits = this.credits - value;
+    return;
+  }
+
+}
 
 class PlayerRoleComparator implements Comparator<Player> {
     public int compare(Player player1, Player player2) {
