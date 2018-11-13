@@ -12,7 +12,7 @@ public class Room {
 
    private String name;
    private int[] xyhw;
-   private ArrayList<String> adjacentRooms; //used to check if a player move is valid
+   public ArrayList<String> adjacentRooms; //used to check if a player move is valid
    private int roomIndex;
    private int shots;
    private ArrayList<int[]> shotsxyhw;
