@@ -1,3 +1,10 @@
+
+/* CSCI 345 - Object Oriented Design - Deadwood
+ * Ryan Lingg and Michael Albert
+ * Board.java
+ * 11/13/2018
+ */
+
 import java.util.*;
 
 public class Board {
