@@ -32,7 +32,7 @@ public class PlayerView extends myObserver {
     // Turn End Message:
     case (Player.playerMessages.turnEnd):
       System.out.printf("%s turn complete!\n", this.playerRef.getName());
-      break;ß
+      break;
     }
   }
 }
