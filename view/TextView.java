@@ -139,10 +139,9 @@ public class TextView {
         System.out.println("Which room do you want to move to?");
         String input = scanner.nextLine().toLowerCase();
         // If room exists, check its a valid move, then move the player
-        if (this.gameRef.board.nameToRoom.get(input) != null) {
-            Room current = this.gameRef.activePlayer.getLocation();
-            Room dest = this.gameRef.board.nameToRoom.get(input);
-            if (this.gameRef.board.areRoomsAdjacent(current, dest)) {
+        Room dest = null;
+        if ((dest = this.gameRef.board.nameToRoom.get(input)) != null) {
+            if (dest.getAdjRooms().contains(dest.getName())) {
                 this.gameRef.activePlayer.movePlayer(dest);
             } else {
                 System.out.println("You cannot move to that room.");
@@ -154,9 +153,40 @@ public class TextView {
 
     // Upgrade Helpers: (command 'upgrade')
     private void upgradePhase(Scanner scanner) {
-        if (this.gameRef.activePlayer.getLocation().getName().equals("Casting Office")) {
-            System.out.print("Select the desired rank you wish to upgrade too: ");
-        }   else {
+        String input;
+        int desiredRank;
+        String desiredPaymentType;
+        
+        //Check Location
+        if (this.gameRef.activePlayer.getLocation().getName().equals("")) {
+            //Check Rank
+            if (this.gameRef.activePlayer.getRank() == 5) {
+                System.out.println("You are already the max actor rank.");
+            } else {
+                System.out.print("Select the desired rank you wish to upgrade too: ");
+                input = scanner.nextLine().toLowerCase();
+                //Check Input
+                try {
+                    desiredRank = Integer.parseInt(input);
+                    if ((desiredRank <= this.gameRef.activePlayer.getRank())) {
+                        System.out.println("Invlid rank. You must choose a rank higher than your current rank.");
+                    } else if (desiredRank > 5){
+                        System.out.println("Invlaid rank. You cannot choose a acting rank higher than the max of 5.");
+                    } else {
+                        System.out.print("Select the desired payment type ('Cash' or 'Credit'): ");
+                        input = scanner.nextLine().toLowerCase();
+                        if (input.equals("cash") || input.equals("credit")) {
+                            System.out.println("UPGRADING PLAYER!");
+                        } else {
+                            System.out.println("Invalid payment type selected.");
+                        }
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Desired rank must only contain a integer.");
+                }
+            }
+        } else {
             System.out.println("You must be in the casting office to upgrade your actor rank.");
         }
     }
@@ -181,6 +211,6 @@ public class TextView {
                 "  | |  | |/ _ \\/ _` |/ _` \\ \\ /\\ / / _ \\ / _ \\ / _` |\n",
                 "  | |__| |  __/ (_| | (_| |\\ V  V / (_) | (_) | (_| |\n",
                 "  |_____/ \\___|\\__,_|\\__,_| \\_/\\_/ \\___/ \\___/ \\__,_|\n\n",
-                "              By Ryan Lingg and Michael Albert               \n");
+                "            By Ryan Lingg and Michael Albert               \n");
     }
 }
