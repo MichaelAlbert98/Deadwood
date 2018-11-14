@@ -14,13 +14,10 @@ public class Board {
    private Deck deck;
    public int scenesRemaining;
 
-   public Board() {
+   public Board(Deck deck) {
      this.roomList = new ArrayList<Room>();
-     for (int i = 0; i < 12; i++) {
-       this.roomList.add(new Room());
-     }
      this.nameToRoom = new HashMap<String,Room>();
-     this.deck = new Deck();
+     this.deck = deck;
    }
 
    public Boolean isValidMove(Room start, Room end) {
