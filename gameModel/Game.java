@@ -27,13 +27,15 @@ public class Game extends Subject {
      *
      * Game Object Constructor
      */
-    public Game(int numPlayers, int numDays){
+    public Game(int numPlayers, int numDays, Board board) {
         this.currentDay = 0;
         this.daysInGame = numDays;
-        this.board = new Board();
+        this.board = board;
+        
         this.playerList = new ArrayList<Player>();
         for (int i = 0; i < numPlayers; i++) {
             this.playerList.add(new Player(String.format("Player %d", (i+1))));
+            this.playerList.get(i).setLocation(board.roomList.get(11));
         }
         this.activePlayer = playerList.get(0);
     }
@@ -65,7 +67,7 @@ public class Game extends Subject {
         }
         //Move all players back to starting room
         for(int i = 0; i < this.playerList.size(); i++) {
-            this.playerList.get(i).movePlayer(this.board.roomList.get(1));
+            this.playerList.get(i).movePlayer(this.board.roomList.get(11));
         }
     }
 
