@@ -18,7 +18,11 @@ import java.io.File;
 
 import java.util.ArrayList;
 
-public class ParseXML{
+public class ParseXML {
+
+   public ParseXML() {
+   
+   }
 
 /*   // Temporary main method for testing.
    public static void main(String[] args) throws ParserConfigurationException {
