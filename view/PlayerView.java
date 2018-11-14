@@ -33,6 +33,11 @@ public class PlayerView extends myObserver {
     case (Player.playerMessages.turnEnd):
       System.out.printf("%s turn complete!\n", this.playerRef.getName());
       break;
+
+    // Turn End Message:
+    case (Player.playerMessages.locationUpdated):
+      System.out.printf("Moved to %s!\n", this.playerRef.getName(), this.playerRef.getLocation().getName());
+      break;
     }
   }
 }
