@@ -10,7 +10,7 @@ JC = javac
 # Make commands
 compile: clean
 	mkdir build
-	$(JC) -d build **/*.java
+	$(JC) -Xlint -d build **/*.java
 
 clean: 
 	rm -rf build
