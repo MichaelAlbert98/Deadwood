@@ -170,6 +170,11 @@ public class Player extends Subject {
   public Room getLocation() {
     return this.location;
   }
+  
+  public void setLocation(Room room) {
+   this.location = room;
+   return;
+  }
 
   public int getRank() {
     return this.rank;
