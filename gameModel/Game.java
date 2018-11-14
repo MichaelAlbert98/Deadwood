@@ -1,3 +1,4 @@
+
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * Game.java
@@ -8,22 +9,21 @@ import java.util.ArrayList;
 
 public class Game extends Subject {
 
-
     public static class gameMessages {
-    public static final String newDay = "NEWDAY";
-    public static final String dayEnd = "ENDDAY";
+        public static final String newDay = "NEWDAY";
+        public static final String dayEnd = "ENDDAY";
 
     }
 
-    //Game Attributes
+    // Game Attributes
     private int currentDay;
     private int daysInGame;
     public Board board;
     public ArrayList<Player> playerList;
     public Player activePlayer;
 
-
-    /* Game New Day
+    /*
+     * Game New Day
      *
      * Game Object Constructor
      */
@@ -31,33 +31,34 @@ public class Game extends Subject {
         this.currentDay = 0;
         this.daysInGame = numDays;
         this.board = board;
-        
+
         this.playerList = new ArrayList<Player>();
         for (int i = 0; i < numPlayers; i++) {
-            this.playerList.add(new Player(String.format("Player %d", (i+1))));
-            this.playerList.get(i).setLocation(board.roomList.get(11));
+            this.playerList.add(new Player(String.format("Player %d", (i + 1))));
+
         }
         this.activePlayer = playerList.get(0);
     }
 
-    
-    /* Next Player
+    /*
+     * Next Player
      *
      * Set the active player to the next player in the cycle.
      */
     public void nextPlayer() {
-      int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
-      if ((playerList.size()-1) == activePlayerIndex) {
-          this.activePlayer = this.playerList.get(0);
-      } else {
-          this.activePlayer = this.playerList.get(activePlayerIndex+1);
-      }
+        int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
+        if ((playerList.size() - 1) == activePlayerIndex) {
+            this.activePlayer = this.playerList.get(0);
+        } else {
+            this.activePlayer = this.playerList.get(activePlayerIndex + 1);
+        }
     }
 
-    /* Game New Day
+    /*
+     * Game New Day
      *
-     * This method iterates the day counter, resets the board for the
-     * next day, and then tells the view that the day has been updated.
+     * This method iterates the day counter, resets the board for the next day, and
+     * then tells the view that the day has been updated.
      */
     public void newDay() {
         this.currentDay++;
@@ -65,19 +66,19 @@ public class Game extends Subject {
         if (this.currentDay <= this.daysInGame) {
             this.notifyAllObservers(Game.gameMessages.newDay);
         }
-        //Move all players back to starting room
-        for(int i = 0; i < this.playerList.size(); i++) {
-            this.playerList.get(i).movePlayer(this.board.roomList.get(11));
+        // Move all players back to starting room
+        for (int i = 0; i < this.playerList.size(); i++) {
+            this.playerList.get(i).quietMovePlayer(Board.nameToRoom.get("Trailer"));
         }
     }
 
-
-    /* Is Day Over
+    /*
+     * Is Day Over
      *
-     * This method checkes the board to see if enough scenes have
-     * been completed to warrent the start of the next day.
+     * This method checkes the board to see if enough scenes have been completed to
+     * warrent the start of the next day.
      */
-    public boolean isDayOver(){
+    public boolean isDayOver() {
         if (this.board.getNumScenesRemaining() == 0) {
             return true;
         } else if (this.currentDay == 0) {
@@ -86,24 +87,24 @@ public class Game extends Subject {
         return false;
     }
 
-    /* Is Game Over
+    /*
+     * Is Game Over
      *
-     * This method is called after each game loop iteration
-     * and makes sure the last day has not ended.
+     * This method is called after each game loop iteration and makes sure the last
+     * day has not ended.
      */
     public boolean isGameOver() {
-        if (currentDay < (daysInGame+1)){
+        if (currentDay < (daysInGame + 1)) {
             return false;
         } else {
             return true;
         }
     }
 
-
     /* Getter and Setter Methods */
 
     /* Get Current Day */
-    public int getCurrentDay(){
+    public int getCurrentDay() {
         return this.currentDay;
     }
 
