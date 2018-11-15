@@ -117,7 +117,7 @@ public class ParseXML {
   }// method
 
   // reads data from XML file and prints data
-  public static void readBoardData(Document d, Board b) {
+  public void readBoardData(Document d, Board b) {
 
     Element root = d.getDocumentElement();
     NodeList sets = root.getElementsByTagName("set");
