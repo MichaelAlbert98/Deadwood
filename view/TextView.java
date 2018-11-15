@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
+
 public class TextView {
 
     Game gameRef;
@@ -186,7 +188,7 @@ public class TextView {
         displayPlayerPrompt("Which room do you want to move to?", this.gameRef.activePlayer.getLocation().getAdjRooms());
         // Response section:
         String input = scanner.nextLine();
-        input = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+        input = toNoun(input);
         Room dest = null;
         if ((dest = Board.nameToRoom.get(input)) != null) {
             if (this.gameRef.activePlayer.getLocation().getAdjRooms().contains(input)) {
@@ -199,6 +201,21 @@ public class TextView {
             System.out.println("Room does not exist.");
         }
         return false;
+    }
+
+    /* Word To Noun
+     * 
+     * Capitalizes the first character in each word of a string.
+     */
+    private String toNoun(String input){
+        for (int i = 0; i < input.length(); i++){
+            if (i == 0) {
+                input = input.substring(0,1).toUpperCase() + input.substring(1).toLowerCase();
+            } else if (input.charAt(i-1) == ' '){
+                input = input.substring(0,i) + input.substring(i,i+1).toUpperCase() + input.substring(i+1).toLowerCase();
+            }
+        }
+        return input;
     }
 
     /* Upgrade Phase
@@ -343,6 +360,13 @@ public class TextView {
         return determinePlayerActionSet();
     }
 
+
+    /* Determine Player Action Set
+     * 
+     * Based on the players location and whether or not they are in a role,
+     * this method returns an arraylist of the possible valid actions they can
+     * at the start of their turn.
+     */
     private ArrayList<String> determinePlayerActionSet() {
         ArrayList<String> activePlayerActionSet = new ArrayList<String>();
         if (this.gameRef.activePlayer.getCurrentRole() != null) {
@@ -360,6 +384,12 @@ public class TextView {
         return activePlayerActionSet;
     }
 
+
+     /* Display Player Prompt
+     * 
+     * Given a prompt and a list of options, this method displays them in
+     * text format to the command line so the user knows what to choose from.
+     */
     private void displayPlayerPrompt(String prompt, ArrayList<String> options) {
         System.out.printf("%s (Options: ", prompt);
         int i = 0;
@@ -374,7 +404,10 @@ public class TextView {
         System.out.println(")");
     }
 
-    // Starting Game Message:
+    /* Starting Game Message
+     *
+     * Prints Deadwood Ascii Text Art Logo 
+     */
     private void startGameMessage() {
         System.out.printf("%s%s%s%s%s%s%s", "   _____                 _                         _ \n",
                 "  |  __ \\               | |                       | |\n",
