@@ -36,7 +36,7 @@ public class PlayerView extends myObserver {
 
     // Locaition Updated Message:
     case (Player.playerMessages.locationUpdated):
-      System.out.printf("Moved to %s!\n", this.playerRef.getName(), this.playerRef.getLocation().getName());
+      System.out.printf("Moved to %s!\n", this.playerRef.getLocation().getName());
       break;
     }
   }
