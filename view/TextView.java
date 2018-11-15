@@ -87,20 +87,23 @@ public class TextView {
             inputAction = scanner.nextLine().toLowerCase();
             switch (inputAction) {
 
-            // User wants to know current player:
+            // Player Statistics
             case TextView.textCommandList.ACTIVEPLAYER:
             case TextView.textCommandList.STATS:
                 activePlayerInfo();
                 break;
 
+            // Player Location
             case TextView.textCommandList.WHERE:
                 activePlayerLocation();
                 break;
 
+            // Player Name
             case TextView.textCommandList.WHO:
                 activePlayerName();
                 break;
 
+            // Player Move
             case TextView.textCommandList.MOVE:
                 if (activePlayerActionSet.contains(TextView.textCommandList.MOVE)) {
                     if (movementPhase(scanner)) {
@@ -114,6 +117,11 @@ public class TextView {
                 }
                 break;
 
+            // Player Take Role:
+                case TextView.textCommandList.TAKEROLE:
+                break;
+            
+            // Player Upgrade:
             case TextView.textCommandList.UPGRADE:
                 if (activePlayerActionSet.contains(TextView.textCommandList.UPGRADE)) {
                     upgradePhase(scanner);
@@ -123,6 +131,7 @@ public class TextView {
                 }
                 break;
 
+            // Player End Turn
             case "end turn":
                 activePlayerActionSet = endPlayerTurn();
                 break;
@@ -141,12 +150,15 @@ public class TextView {
 
         }
 
+
+        System.out.println("Game over!");
         scanner.close();
     }
 
-    /* Listener Sub-Methods */
 
-    // Active Players Information: (commands: 'active player?', 'stats')
+/**** Player Information Functions ****/
+
+    // Active Players Information:
     private void activePlayerInfo() {
         System.out.printf("The active player is %s located in %s. Their rank is %d, and have $%d and %dcr. ",
                 this.gameRef.activePlayer.getName(), this.gameRef.activePlayer.getLocation().getName(),
@@ -160,7 +172,7 @@ public class TextView {
         }
     }
 
-    // Active Player Name: (commands: 'who')
+    // Active Player Name:
     private void activePlayerName() {
         System.out.printf("The active player is %s($%d, %dcr).\n", this.gameRef.activePlayer.getName(),
                 this.gameRef.activePlayer.getCash(), this.gameRef.activePlayer.getCredits());
@@ -177,6 +189,8 @@ public class TextView {
                     this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
         }
     }
+
+/**** Movement Functions ****/
 
     /* Movement Phase
      * 
@@ -203,20 +217,8 @@ public class TextView {
         return false;
     }
 
-    /* Word To Noun
-     * 
-     * Capitalizes the first character in each word of a string.
-     */
-    private String toNoun(String input){
-        for (int i = 0; i < input.length(); i++){
-            if (i == 0) {
-                input = input.substring(0,1).toUpperCase() + input.substring(1).toLowerCase();
-            } else if (input.charAt(i-1) == ' '){
-                input = input.substring(0,i) + input.substring(i,i+1).toUpperCase() + input.substring(i+1).toLowerCase();
-            }
-        }
-        return input;
-    }
+
+/**** Upgrade Functions ****/
 
     /* Upgrade Phase
      * 
@@ -347,7 +349,11 @@ public class TextView {
         return true;
     }
 
-    // End Players Turn: (command: 'end turn')
+    /* End Player Turn
+     * 
+     * This function tells the active player object their turn has ended, 
+     * updates the day if needed, and starts the next day if the game has not ended.
+     */
     private ArrayList<String> endPlayerTurn() {
         this.gameRef.activePlayer.endPlayerTurn();
         this.gameRef.nextPlayer();
@@ -360,6 +366,8 @@ public class TextView {
         return determinePlayerActionSet();
     }
 
+
+/**** General Helpers ****/
 
     /* Determine Player Action Set
      * 
@@ -402,6 +410,21 @@ public class TextView {
             i++;
         }
         System.out.println(")");
+    }
+
+    /* Word To Noun
+     * 
+     * Capitalizes the first character in each word of a string.
+     */
+    private String toNoun(String input){
+        for (int i = 0; i < input.length(); i++){
+            if (i == 0) {
+                input = input.substring(0,1).toUpperCase() + input.substring(1).toLowerCase();
+            } else if (input.charAt(i-1) == ' '){
+                input = input.substring(0,i) + input.substring(i,i+1).toUpperCase() + input.substring(i+1).toLowerCase();
+            }
+        }
+        return input;
     }
 
     /* Starting Game Message
