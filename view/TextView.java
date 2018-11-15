@@ -5,13 +5,13 @@
  * 11/13/11
  */
 
-import gameModel.*;
+//import gameModel.*;
 import javafx.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input;
+//import com.sun.corba.se.spi.orbutil.fsm.Input;
 
 public class TextView {
 
@@ -47,7 +47,7 @@ public class TextView {
 
 
     /* Text Command List
-     * 
+     *
      * List of the recognised text commands that can be entered by the player using TextView
      */
     public static class textCommandList {
@@ -120,7 +120,22 @@ public class TextView {
             // Player Take Role:
                 case TextView.textCommandList.TAKEROLE:
                 break;
-            
+
+            // Player Act:
+               case TextView.textCommandList.ACT:
+               break;
+
+            // Player Rehearse:
+               case TextView.textCommandList.REHEARSE:
+               if (activePlayerActionSet.contains(TextView.textCommandList.REHEARSE)) {
+                  this.gameRef.activePlayer.addRehearse();
+                  activePlayerActionSet = determinePlayerActionSet();
+               }
+               else {
+                  System.out.println("Cannot currently rehearse");
+               }
+               break;
+
             // Player Upgrade:
             case TextView.textCommandList.UPGRADE:
                 if (activePlayerActionSet.contains(TextView.textCommandList.UPGRADE)) {
@@ -193,7 +208,7 @@ public class TextView {
 /**** Movement Functions ****/
 
     /* Movement Phase
-     * 
+     *
      * Displays the valid moves for the player then retireves player input about desired movement.
      * Checks if the movement is valid then updates the players location.
      */
@@ -217,11 +232,14 @@ public class TextView {
         return false;
     }
 
+/**** Role Functions ****/
+
+
 
 /**** Upgrade Functions ****/
 
     /* Upgrade Phase
-     * 
+     *
      * Retireves player input about desired upgrade.
      * Then calls upgrade with data to check if upgrade is valid and performs upgrade.
      */
@@ -267,8 +285,8 @@ public class TextView {
     }
 
     /* Upgrade
-     * 
-     * Once a valid rank and money type have been input is entered this method checks if upgrade is 
+     *
+     * Once a valid rank and money type have been input is entered this method checks if upgrade is
      * valid, and  upgrades the player if so, else notitifies the player of invalid choice
      */
     public boolean upgrade(String moneyType, int rank) {
@@ -327,7 +345,7 @@ public class TextView {
         return true;
     }
 
-    
+
     /* Valid Upgrade Checker
      *
      * Makes sure input is valid and that player can afford upgrade, return false if not
@@ -350,8 +368,8 @@ public class TextView {
     }
 
     /* End Player Turn
-     * 
-     * This function tells the active player object their turn has ended, 
+     *
+     * This function tells the active player object their turn has ended,
      * updates the day if needed, and starts the next day if the game has not ended.
      */
     private ArrayList<String> endPlayerTurn() {
@@ -370,7 +388,7 @@ public class TextView {
 /**** General Helpers ****/
 
     /* Determine Player Action Set
-     * 
+     *
      * Based on the players location and whether or not they are in a role,
      * this method returns an arraylist of the possible valid actions they can
      * at the start of their turn.
@@ -378,8 +396,10 @@ public class TextView {
     private ArrayList<String> determinePlayerActionSet() {
         ArrayList<String> activePlayerActionSet = new ArrayList<String>();
         if (this.gameRef.activePlayer.getCurrentRole() != null) {
-            activePlayerActionSet.add("rehearse");
             activePlayerActionSet.add("act");
+            if (this.gameRef.activePlayer.getRank() < this.gameRef.activePlayer.getCurrentRole().getRank()) {
+               activePlayerActionSet.add("rehearse");
+            }
         } else {
             activePlayerActionSet.add("move");
             if (this.gameRef.activePlayer.getLocation().getScene() != null) {
@@ -394,7 +414,7 @@ public class TextView {
 
 
      /* Display Player Prompt
-     * 
+     *
      * Given a prompt and a list of options, this method displays them in
      * text format to the command line so the user knows what to choose from.
      */
@@ -413,7 +433,7 @@ public class TextView {
     }
 
     /* Word To Noun
-     * 
+     *
      * Capitalizes the first character in each word of a string.
      */
     private String toNoun(String input){
@@ -429,7 +449,7 @@ public class TextView {
 
     /* Starting Game Message
      *
-     * Prints Deadwood Ascii Text Art Logo 
+     * Prints Deadwood Ascii Text Art Logo
      */
     private void startGameMessage() {
         System.out.printf("%s%s%s%s%s%s%s", "   _____                 _                         _ \n",
