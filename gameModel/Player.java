@@ -66,7 +66,7 @@ public class Player extends Subject {
     destination.addPlayerToRoom(this);
     this.location = destination;
   }
-  
+
 
   /**** Getters and Setters for Player **** /
 
@@ -94,12 +94,20 @@ public class Player extends Subject {
     return this.rehearseTokens;
   }
 
+  public void addRehearse() {
+     this.rehearseTokens = this.rehearseTokens + 1;
+  }
+
+  public void resetRehearse() {
+     this.rehearseTokens = 0;
+  }
+
   /* Location */
 
   public Room getLocation() {
     return this.location;
   }
-  
+
   public void setLocation(Room room) {
    this.location = room;
    return;
