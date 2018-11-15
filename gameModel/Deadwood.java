@@ -3,7 +3,7 @@
  * Deadwood.java
  * 11/01/11
  */
- 
+
 import org.w3c.dom.Document;
 
 public class Deadwood {
@@ -37,18 +37,18 @@ public class Deadwood {
             }
 
             //2) Create the game object and the text view model
-            
+
             //read in card data.
             ParseXML parser = new ParseXML();
             Document d = parser.getDocFromFile("../figures/cards.xml");
             Deck deck = new Deck();
             parser.readCardData(d,deck);
-           
+
             //read in board data.
             d = parser.getDocFromFile("../figures/board.xml");
             Board board = new Board(deck);
             parser.readBoardData(d,board);
-            
+
             game = new Game(numPlayers,numDays,board);
             TextView tv = new TextView(game);
             System.out.println("Starting Deadwood!\n");
