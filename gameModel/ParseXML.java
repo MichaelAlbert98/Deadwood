@@ -84,6 +84,7 @@ public class ParseXML {
 
         else if ("part".equals(sub.getNodeName())) {
           Role role = new Role();
+          role.setOnCard(true);
           String name = sub.getAttributes().getNamedItem("name").getNodeValue();
           role.setName(name);
           String level = sub.getAttributes().getNamedItem("level").getNodeValue();
@@ -148,7 +149,11 @@ public class ParseXML {
 
             if ("neighbor".equals(neighbor.getNodeName())) {
               String name = neighbor.getAttributes().getNamedItem("name").getNodeValue();
+
+              //test
               name = name.substring(0,1).toUpperCase() + name.substring(1);
+              //
+
               room.setAdjRooms(name);
             }
 
