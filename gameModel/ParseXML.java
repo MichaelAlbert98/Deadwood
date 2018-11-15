@@ -148,6 +148,7 @@ public class ParseXML {
 
             if ("neighbor".equals(neighbor.getNodeName())) {
               String name = neighbor.getAttributes().getNamedItem("name").getNodeValue();
+              name = name.substring(0,1).toUpperCase() + name.substring(1);
               room.setAdjRooms(name);
             }
 
