@@ -19,10 +19,6 @@ public class Board {
     this.deck = deck;
   }
 
-  public Boolean isValidMove(Room start, Room end) {
-    return true;
-  }
-
   public int getNumScenesRemaining() {
     return this.scenesRemaining;
   }
