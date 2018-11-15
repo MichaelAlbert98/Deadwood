@@ -25,12 +25,28 @@ public class Room {
     this.name = "";
     this.xyhw = new int[4];
     this.adjacentRooms = new ArrayList<String>(0);
-    this.roomIndex = 0;
     this.shots = 0;
     this.shotsxyhw = new ArrayList<int[]>(0);
     this.playersInRoom = new ArrayList<Player>(0);
     this.roomRoles = new ArrayList<Role>(0);
     this.roomScene = null;
+  }
+
+  /**** METHODS ****/
+
+  /* Roles and Scenes */
+
+  public ArrayList<Role> getRoles() {
+    return this.roomRoles;
+  }
+
+  public void setRoles(Role role) {
+    this.roomRoles.add(role);
+    return;
+  }
+
+  public Scene getScene() {
+    return this.roomScene;
   }
 
   // pays out to players on/off scene, sets scene to done, removes players from
@@ -50,7 +66,7 @@ public class Room {
       }
     }
 
-    // pay off card players if there is an on card player, remove from scene.
+    // Pay off card players if there is an on card player, remove from scene.
     for (int i = 0; i < offCardPlayers.size(); i++) {
       if (onCardPlayers.size() > 0) {
         offCardPlayers.get(i).addCash(offCardPlayers.get(i).getCurrentRole().getRank());
@@ -58,13 +74,13 @@ public class Room {
       offCardPlayers.get(i).setCurrentRole(null);
     }
 
-    // pay on card players starting from highest role.
+    // Pay on card players starting from highest role.
     Collections.sort(onCardPlayers, new PlayerRoleComparator());
     Random rand = new Random();
     for (int i = 0; i < this.roomScene.getBudget(); i++) {
       int k = i;
 
-      // loop if budget is larger than # of players.
+      // Loop if budget is larger than # of players.
       if (i > onCardPlayers.size()) {
         k = i - onCardPlayers.size();
       }
@@ -73,21 +89,23 @@ public class Room {
       onCardPlayers.get(k).addCash(roll);
     }
 
-    // remove on card players from scene.
+    // Remove on card players from scene.
     for (int i = 0; i < onCardPlayers.size(); i++) {
       onCardPlayers.get(i).setCurrentRole(null);
     }
 
+    //Set scene in room to null
     this.roomScene = null;
-
     return;
   }
 
-  // resets the room at the end of the day.
-  public void resetRoom() {
+  // Resets the room at the end of the day.
+  public void resetRoom(Deck deck) {
     this.shots = this.shotsxyhw.size();
-    this.playersInRoom = null;
-    this.roomScene = null;
+    this.playersInRoom = new ArrayList<Player>();
+    if (!this.name.equals("Trailer") && !this.name.equals("Office")){
+      this.roomScene = deck.getTopScene();
+    }
   }
 
   public String getName() {
@@ -116,15 +134,7 @@ public class Room {
     return;
   }
 
-  public int getRoomIndex() {
-    return this.roomIndex;
-  }
-
-  public void setRoomIndex(int index) {
-    this.roomIndex = index;
-    return;
-  }
-
+  /* Room Scene Shots */
   public int getShots() {
     return this.shots;
   }
@@ -146,30 +156,17 @@ public class Room {
     return;
   }
 
+  /* Players In Room */
   public ArrayList<Player> getPlayersInRoom() {
     return this.playersInRoom;
   }
 
-  public void setPlayersInRoom(Player player) {
+  public void removePlayerFromRoom(Player player) {
+    this.playersInRoom.remove(player);
+  }
+
+  public void addPlayerToRoom(Player player) {
     this.playersInRoom.add(player);
-    return;
-  }
-
-  public ArrayList<Role> getRoles() {
-    return this.roomRoles;
-  }
-
-  public void setRoles(Role role) {
-    this.roomRoles.add(role);
-    return;
-  }
-
-  public Scene getScene() {
-    return this.roomScene;
-  }
-
-  public void setScene(Scene scene) {
-    this.roomScene = scene;
     return;
   }
 

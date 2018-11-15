@@ -41,9 +41,7 @@ public class Board {
     int roomIter = 0;
     while (roomIter < this.roomList.size()) {
       Room room = this.roomList.get(roomIter);
-      room.resetRoom();
-      room.setScene(deck.sceneList.get(0));
-      deck.sceneList.remove(0);
+      room.resetRoom(this.deck);
       roomIter++;
     }
     this.scenesRemaining = 10;
