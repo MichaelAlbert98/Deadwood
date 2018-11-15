@@ -78,7 +78,7 @@ public class Room {
       onCardPlayers.get(i).setCurrentRole(null);
     }
 
-    this.roomScene.setIsSceneDone(true);
+    this.roomScene = null;
 
     return;
   }
