@@ -55,7 +55,7 @@ public class Deadwood {
 
             //3) Start the input listener which will run until the game completes.
             tv.startListener();
-            System.out.println("\nGame Over!\n");
+            System.out.println("\nClosing Deadwood!\n");
 
 
         } catch (NumberFormatException e){
