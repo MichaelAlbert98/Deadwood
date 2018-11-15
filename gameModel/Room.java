@@ -72,6 +72,7 @@ public class Room {
         offCardPlayers.get(i).addCash(offCardPlayers.get(i).getCurrentRole().getRank());
       }
       offCardPlayers.get(i).setCurrentRole(null);
+      offCardPlayers.get(i).resetRehearse();
     }
 
     // Pay on card players starting from highest role.
@@ -92,6 +93,7 @@ public class Room {
     // Remove on card players from scene.
     for (int i = 0; i < onCardPlayers.size(); i++) {
       onCardPlayers.get(i).setCurrentRole(null);
+      onCardPlayers.get(i).resetRehearse();
     }
 
     //Set scene in room to null
