@@ -36,7 +36,8 @@ public class Board {
     System.out.println();
   }
 
-  public void setScenesRemaining(int value) {
+  public void removeScenesRemaining() {
+    this.scenesRemaining = scenesRemaining - 1;
     return;
   }
 
@@ -45,6 +46,8 @@ public class Board {
     while (roomIter < this.roomList.size()) {
       Room room = this.roomList.get(roomIter);
       room.resetRoom();
+      room.setScene(deck.sceneList.get(0));
+      deck.sceneList.remove(0);
       roomIter++;
     }
     this.scenesRemaining = 10;
