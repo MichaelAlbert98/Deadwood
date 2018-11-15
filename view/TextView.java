@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 //import com.sun.corba.se.spi.orbutil.fsm.Input;
 
@@ -123,6 +124,13 @@ public class TextView {
 
             // Player Act:
                case TextView.textCommandList.ACT:
+               if (activePlayerActionSet.contains(TextView.textCommandList.ACT)) {
+                  actingPhase();
+                  activePlayerActionSet = determinePlayerActionSet();
+               }
+               else {
+                  System.out.println("Cannot currently act.");
+               }
                break;
 
             // Player Rehearse:
@@ -132,7 +140,7 @@ public class TextView {
                   activePlayerActionSet = determinePlayerActionSet();
                }
                else {
-                  System.out.println("Cannot currently rehearse");
+                  System.out.println("Cannot currently rehearse.");
                }
                break;
 
@@ -234,6 +242,37 @@ public class TextView {
 
 /**** Role Functions ****/
 
+/* Acting Phase
+     *
+     * Randomly determines if work was success, then pays out to player based on outcome.
+     *
+     */
+    private void actingPhase() {
+       Random rand = new Random();
+       int roll = rand.nextInt(6)+1 + this.gameRef.activePlayer.timesRehearsed();
+       if (roll >= this.gameRef.activePlayer.getLocation().getScene().getBudget()) {
+         if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
+            System.out.println("Success! You earned two credits.");
+            this.gameRef.activePlayer.addCredits(2);
+            this.gameRef.activePlayer.getLocation().setShots(-1);
+         }
+         else {
+            System.out.println("Success! You earned one dollar and one credit.");
+            this.gameRef.activePlayer.addCash(1);
+            this.gameRef.activePlayer.addCredits(1);
+            this.gameRef.activePlayer.getLocation().setShots(-1);
+         }
+       }
+       else {
+         if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
+            System.out.println("Failure. You earned nothing.");
+         }
+         else {
+            System.out.println("Failure. You earned one dollar.");
+            this.gameRef.activePlayer.addCash(1);
+         }
+       }
+    }
 
 
 /**** Upgrade Functions ****/
@@ -397,7 +436,8 @@ public class TextView {
         ArrayList<String> activePlayerActionSet = new ArrayList<String>();
         if (this.gameRef.activePlayer.getCurrentRole() != null) {
             activePlayerActionSet.add("act");
-            if (this.gameRef.activePlayer.getRank() < this.gameRef.activePlayer.getCurrentRole().getRank()) {
+            if (this.gameRef.activePlayer.timesRehearsed()+1 <
+            this.gameRef.activePlayer.getLocation().getScene().getBudget()) {
                activePlayerActionSet.add("rehearse");
             }
         } else {
