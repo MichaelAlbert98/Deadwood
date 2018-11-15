@@ -51,11 +51,19 @@ public class Player extends Subject {
   }
 
   public void movePlayer(Room destination) {
+    if (this.location != null) {
+      this.location.removePlayerFromRoom(this);
+    }
     this.location = destination;
+    destination.addPlayerToRoom(this);
     notifyAllObservers(Player.playerMessages.locationUpdated);
   }
 
   public void quietMovePlayer(Room destination) {
+    if (this.location != null) {
+      this.location.removePlayerFromRoom(this);
+    }
+    destination.addPlayerToRoom(this);
     this.location = destination;
   }
   
