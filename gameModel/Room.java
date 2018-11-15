@@ -36,7 +36,7 @@ public class Room {
 
   /* Roles and Scenes */
 
-  public ArrayList<Role> getRoles() {
+  public ArrayList<Role> getRoomRoles() {
     return this.roomRoles;
   }
 
@@ -107,6 +107,7 @@ public class Room {
     this.playersInRoom = new ArrayList<Player>();
     if (!this.name.equals("Trailer") && !this.name.equals("Office")){
       this.roomScene = deck.getTopScene();
+      //Need to add room roles to scene's list of roles
     }
   }
 

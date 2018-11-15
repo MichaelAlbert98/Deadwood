@@ -109,9 +109,8 @@ public class TextView {
                 if (activePlayerActionSet.contains(TextView.textCommandList.MOVE)) {
                     if (movementPhase(scanner)) {
                         activePlayerActionSet.remove(TextView.textCommandList.MOVE);
-                        if (this.gameRef.activePlayer.getLocation().getScene() != null) {
-                            activePlayerActionSet.add(TextView.textCommandList.TAKEROLE);
-                        }
+                        activePlayerActionSet = determinePlayerActionSet();
+                        activePlayerActionSet.remove("move");
                     }
                 } else {
                     System.out.println("Movement not allowed.");
@@ -120,12 +119,14 @@ public class TextView {
 
             // Player Take Role:
                 case TextView.textCommandList.TAKEROLE:
-                break;
+                    takeRolePhase();
+                    break;
 
             // Player Act:
                case TextView.textCommandList.ACT:
                if (activePlayerActionSet.contains(TextView.textCommandList.ACT)) {
                   actingPhase();
+                  /**  Once you act, isnt your turn over? **/
                   activePlayerActionSet = determinePlayerActionSet();
                }
                else {
@@ -147,8 +148,9 @@ public class TextView {
             // Player Upgrade:
             case TextView.textCommandList.UPGRADE:
                 if (activePlayerActionSet.contains(TextView.textCommandList.UPGRADE)) {
-                    upgradePhase(scanner);
-                    activePlayerActionSet.remove(TextView.textCommandList.UPGRADE);
+                    if (upgradePhase(scanner)) {
+                        activePlayerActionSet.remove(TextView.textCommandList.UPGRADE);
+                    }
                 } else {
                     System.out.println("Upgrade not allowed.");
                 }
@@ -242,10 +244,23 @@ public class TextView {
 
 /**** Role Functions ****/
 
-/* Acting Phase
+    /* Take Role
+     *
+     * 
+     */
+    private void takeRolePhase(){
+        ArrayList<String> availableRoleNames = new ArrayList<String>();
+        for (Object o : this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().toArray()) {
+            String name = String.valueOf(o);
+            availableRoleNames.add(name);
+        }
+        displayPlayerPrompt("Select a role to take:", availableRoleNames);
+        
+    }
+
+    /* Acting Phase
      *
      * Randomly determines if work was success, then pays out to player based on outcome.
-     *
      */
     private void actingPhase() {
        Random rand = new Random();
@@ -443,11 +458,14 @@ public class TextView {
         } else {
             activePlayerActionSet.add("move");
             if (this.gameRef.activePlayer.getLocation().getScene() != null) {
-                activePlayerActionSet.add("take role");
+                if (this.gameRef.activePlayer.getLocation().getScene().areRolesAvailable(this.gameRef.activePlayer.getRank())){
+                    activePlayerActionSet.add("take role");
+                }
             }
             if (this.gameRef.activePlayer.getLocation().getName().equals("Office")) {
                 activePlayerActionSet.add("upgrade");
             }
+            activePlayerActionSet.add("end turn");
         }
         return activePlayerActionSet;
     }

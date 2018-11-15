@@ -51,7 +51,7 @@ public class Role {
      return;
    }
 
-   public Boolean getIsTaken() {
+   public Boolean isTaken() {
       return this.isTaken;
    }
 
