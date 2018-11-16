@@ -1,8 +1,8 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * PlayerView.java
- * 11/13/11
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import java.lang.*;

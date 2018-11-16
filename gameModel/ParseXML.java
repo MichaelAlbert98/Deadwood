@@ -1,9 +1,9 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
- * ParseXML.java
+ * ParseXML.java - This class reads in and initializes the data for cards and
+ * rooms.
  * Created 11/05/2018
- * Revised 11/06/2018
+ * Revised 11/016/2018
  */
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -218,6 +218,7 @@ public class ParseXML {
             if ("part".equals(part.getNodeName())) {
               Role role = new Role();
               String name = part.getAttributes().getNamedItem("name").getNodeValue();
+              role.setName(name);
               String level = part.getAttributes().getNamedItem("level").getNodeValue();
               role.setRank(Integer.parseInt(level));
 

@@ -1,8 +1,9 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * myObserver.java
+ * myObserver.java - This class is a parent class for classes that need to
+ * observe the game.
  * Created 11/02/2018
- * Revised 11/07/2018
+ * Revised 11/16/2018
  */
 
 //Abstract parent class for the specific observers

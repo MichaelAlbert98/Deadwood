@@ -3,7 +3,7 @@
  * Role.java - This class is designed to hold  and change the attributes of a
  * role that players can take.
  * Created: 11/01/2018
- * Revised: 11/08/2018
+ * Revised: 11/16/2018
  */
 
 public class Role {
@@ -32,7 +32,7 @@ public class Role {
       }
     return false;
   }
-  
+
    public String getName() {
      return this.name;
    }

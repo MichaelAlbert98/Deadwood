@@ -1,7 +1,8 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * SceneView.java
- * 11/2/11
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import java.lang.*;

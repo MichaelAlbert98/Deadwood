@@ -1,7 +1,9 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * Deadwood.java
- * 11/01/11
+ * Deadwood.java - This class initializes the game and board with a given
+ * number of players.
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import org.w3c.dom.Document;

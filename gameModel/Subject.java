@@ -1,7 +1,9 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * Subject.java
- * 11/2/11
+ * Subject.java - This class is used to give classes that extend it methods to
+ * use observers.
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import java.util.ArrayList;

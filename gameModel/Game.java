@@ -1,8 +1,8 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * Game.java
- * 11/9/11
+ * Game.java - This class detects when to end a day and when the game is over.
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import java.util.ArrayList;

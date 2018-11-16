@@ -1,3 +1,10 @@
+/* CSCI 345 - Object Oriented Design - Deadwood
+ * Ryan Lingg and Michael Albert
+ * Deck.java - This class holds all of the scene cards.
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 

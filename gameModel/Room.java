@@ -1,4 +1,3 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
  * Room.java - This class is designed to hold the attributes of
@@ -43,7 +42,7 @@ public class Room {
     this.roomRoles.add(role);
     return;
   }
-  
+
   public void addRoomRolesToScene() {
      for (int i = 0; i < this.roomRoles.size(); i++) {
         this.roomScene.getSceneRoles().add(this.roomRoles.get(i));
@@ -82,23 +81,23 @@ public class Room {
        Random rand = new Random();
        for (int i = 0; i < this.roomScene.getBudget(); i++) {
          int k = i;
-   
+
          // Loop if budget is larger than # of players.
          if (i > onCardPlayers.size()) {
            k = i - onCardPlayers.size();
          }
-   
+
          int roll = rand.nextInt(6) + 1;
          onCardPlayers.get(k).addCurrencies(roll, 0);
        }
-   
+
        // Remove on card players from scene.
        for (int i = 0; i < onCardPlayers.size(); i++) {
          onCardPlayers.get(i).setCurrentRole(null);
          onCardPlayers.get(i).resetRehearse();
        }
     }
-    
+
     //Set scene in room to null
     this.roomScene = null;
     return;

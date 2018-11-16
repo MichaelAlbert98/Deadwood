@@ -1,9 +1,9 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
- * Scene.java
+ * Scene.java - This class stores and modifies the attributes related to a
+ * scene. 
  * Created 11/02/2018
- * Revised 11/08/2018
+ * Revised 11/16/2018
  */
 
 import java.util.ArrayList;

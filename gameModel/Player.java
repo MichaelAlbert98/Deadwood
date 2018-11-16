@@ -1,8 +1,9 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * Player.java
- * 11/13/2018
+ * Player.java - This class is used to store and modify attributes relevent to
+ * a player.
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import java.lang.*;

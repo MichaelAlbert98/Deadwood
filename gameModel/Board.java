@@ -1,8 +1,9 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * Board.java
- * 11/13/2018
+ * Board.java - This class stores attributes pertaining to the game board
+ * and also resets the board when a day ends.
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import java.util.*;

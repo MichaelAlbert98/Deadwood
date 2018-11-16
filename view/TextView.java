@@ -1,8 +1,8 @@
-
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * TextView.java
- * 11/13/11
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 import gameModel.*;
@@ -281,7 +281,7 @@ public class TextView {
 
             System.out.printf("Select a role to take: (options: %s)\n", availStr);
             String input = scanner.nextLine();
-            
+
             Role roleChosen = null;
             for (Role role : availableRoles) {
                 if (role.getName().toLowerCase().equals(input.toLowerCase())) {
@@ -303,7 +303,7 @@ public class TextView {
         }
 
 
-        return tookRole;  
+        return tookRole;
     }
 
     /* Acting Phase

@@ -1,7 +1,8 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
  * GameView.java
- * 11/2/11
+ * Created: 11/03/2018
+ * Revised: 11/16/2018
  */
 
 
@@ -35,7 +36,7 @@ public class GameView extends myObserver {
         //New Day Message:
         if (Game.gameMessages.newDay.equals(message)) {
             System.out.printf("\nDay %d starting!\n", gameRef.getCurrentDay()); }
-        
+
         //End of Day Message
         else if (Game.gameMessages.newDay.equals(message)) {
             System.out.printf("\nDay %d has ended!\n", gameRef.getCurrentDay());
