@@ -5,7 +5,7 @@
  * 11/13/11
  */
 
-//import gameModel.*;
+import gameModel.*;
 import javafx.scene.Scene;
 
 import java.util.ArrayList;
@@ -126,8 +126,8 @@ public class TextView {
                case TextView.textCommandList.ACT:
                if (activePlayerActionSet.contains(TextView.textCommandList.ACT)) {
                   actingPhase();
-                  /**  Once you act, isnt your turn over? **/
-                  activePlayerActionSet = determinePlayerActionSet();
+                  activePlayerActionSet.remove(TextView.textCommandList.ACT);
+                  activePlayerActionSet.remove(TextView.textCommandList.REHEARSE);
                }
                else {
                   System.out.println("Cannot currently act.");
@@ -138,7 +138,8 @@ public class TextView {
                case TextView.textCommandList.REHEARSE:
                if (activePlayerActionSet.contains(TextView.textCommandList.REHEARSE)) {
                   this.gameRef.activePlayer.addRehearse();
-                  activePlayerActionSet = determinePlayerActionSet();
+                  activePlayerActionSet.remove(TextView.textCommandList.ACT);
+                  activePlayerActionSet.remove(TextView.textCommandList.REHEARSE);
                }
                else {
                   System.out.println("Cannot currently rehearse.");
