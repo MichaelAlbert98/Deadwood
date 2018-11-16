@@ -5,7 +5,7 @@
  */
 
 import java.lang.*;
-//import gameModel.*;
+import gameModel.*;
 
 public class SceneView extends myObserver {
 

@@ -118,8 +118,15 @@ public class TextView {
                 break;
 
             // Player Take Role:
-                case TextView.textCommandList.TAKEROLE:
-                    takeRolePhase(scanner);
+            case TextView.textCommandList.TAKEROLE:
+                if (activePlayerActionSet.contains(TextView.textCommandList.TAKEROLE)) {
+                   if (takeRolePhase(scanner)) {
+                      activePlayerActionSet.remove(TextView.textCommandList.TAKEROLE);
+                   }
+                }
+                else {
+                   System.out.println("Cannot currently take role.");
+                }
                     break;
 
             // Player Act:
@@ -249,7 +256,7 @@ public class TextView {
      *
      * 
      */
-    private void takeRolePhase(Scanner scanner){
+    private Boolean takeRolePhase(Scanner scanner){
         ArrayList<String> availableRoleNames = new ArrayList<String>();
         for (int i=0;i<this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().size();i++) {
             availableRoleNames.add(gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).getName());
@@ -262,15 +269,15 @@ public class TextView {
                  if (this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).isRoleAvailable(this.gameRef.activePlayer.getRank())) {
                     System.out.println("Took role.");
                     this.gameRef.activePlayer.setCurrentRole(this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i));
-                    return;
+                    return true;
                  }
               }
            }
               System.out.println("Could not take role. Your rank is too low or it is already taken.");
-              return;
+              return false;
         } 
         System.out.println("Please enter a valid role name.");  
-        return;   
+        return false;   
     }
 
     /* Acting Phase
