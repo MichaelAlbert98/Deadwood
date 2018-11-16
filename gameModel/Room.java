@@ -70,7 +70,7 @@ public class Room {
     // Pay off card players if there is an on card player, remove from scene.
     for (int i = 0; i < offCardPlayers.size(); i++) {
       if (onCardPlayers.size() > 0) {
-        offCardPlayers.get(i).addCash(offCardPlayers.get(i).getCurrentRole().getRank());
+        offCardPlayers.get(i).addCurrencies(offCardPlayers.get(i).getCurrentRole().getRank(), 0);
       }
       offCardPlayers.get(i).setCurrentRole(null);
       offCardPlayers.get(i).resetRehearse();
@@ -89,7 +89,7 @@ public class Room {
          }
    
          int roll = rand.nextInt(6) + 1;
-         onCardPlayers.get(k).addCash(roll);
+         onCardPlayers.get(k).addCurrencies(roll, 0);
        }
    
        // Remove on card players from scene.
@@ -106,6 +106,7 @@ public class Room {
 
   // Resets the room at the end of the day.
   public void resetRoom(Deck deck) {
+
     this.playersInRoom = new ArrayList<Player>();
     if (!this.name.equals("Trailer") && !this.name.equals("Office")) {
       this.roomScene = deck.getTopScene();
