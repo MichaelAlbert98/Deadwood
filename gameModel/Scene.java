@@ -36,10 +36,8 @@ public class Scene extends Subject {
 
   public boolean areRolesAvailable(int rank) {
     for (Role role : this.sceneRoles) {
-      if (!role.isTaken()) {
-        if (role.getRank() <= rank) {
-          return true;
-        }
+      if (!role.isRoleAvailable(rank)) {
+        return true;
       }
     }
     return false;
@@ -94,7 +92,7 @@ public class Scene extends Subject {
     return this.location;
   }
 
-  public void setLoccation(Room loc) {
+  public void setLocation(Room loc) {
     this.location = loc;
   }
 
@@ -102,7 +100,20 @@ public class Scene extends Subject {
     return this.sceneRoles;
   }
 
-  public void setSceneRoles(Role role) {
+  public String getAllRolesNames() {
+    String nameList = "";
+    int iter = 0;
+    for (Role role : this.sceneRoles) {
+      if (iter != 0) {
+        nameList = nameList + ", ";
+      }
+      nameList = nameList + role.getName();
+      iter++;
+    }
+    return nameList;
+  }
+
+  public void addRoleToScene(Role role) {
     this.sceneRoles.add(role);
     return;
   }
@@ -111,7 +122,7 @@ public class Scene extends Subject {
     return this.shotsLeft;
   }
 
-  private void setShotsLeft(int value) {
+  public void setShotsLeft(int value) {
     this.shotsLeft = value;
   }
 

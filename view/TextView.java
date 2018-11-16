@@ -118,15 +118,14 @@ public class TextView {
                 break;
 
             // Player Take Role:
-            case TextView.textCommandList.TAKEROLE:
-                if (activePlayerActionSet.contains(TextView.textCommandList.TAKEROLE)) {
-                   if (takeRolePhase(scanner)) {
-                      activePlayerActionSet.remove(TextView.textCommandList.TAKEROLE);
-                   }
-                }
-                else {
-                   System.out.println("Cannot currently take role.");
-                }
+                case TextView.textCommandList.TAKEROLE:
+                    if (activePlayerActionSet.contains(TextView.textCommandList.TAKEROLE)) {
+                        if (takeRolePhase(scanner)) {
+                            activePlayerActionSet.remove(TextView.textCommandList.TAKEROLE);
+                        }
+                    } else {
+                        System.out.println("Cannot take a role right now.");
+                    }
                     break;
 
             // Player Act:
@@ -254,30 +253,57 @@ public class TextView {
 
     /* Take Role
      *
-     * 
+     * Returns true if successfully took role, else false
      */
-    private Boolean takeRolePhase(Scanner scanner){
-        ArrayList<String> availableRoleNames = new ArrayList<String>();
-        for (int i=0;i<this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().size();i++) {
-            availableRoleNames.add(gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).getName());
+    private boolean takeRolePhase(Scanner scanner){
+        Boolean tookRole = false;
+        Room location = this.gameRef.activePlayer.getLocation();
+        ArrayList<Role> availableRoles = new ArrayList<Role>();
+
+        for (Role role : location.getRoomRoles()) {
+            //If role isnt taken and isnt too high of level, add to list
+            if (role.isRoleAvailable(this.gameRef.activePlayer.getRank())) {
+                availableRoles.add(role);
+            }
         }
-        displayPlayerPrompt("Select a role to take:", availableRoleNames);
-        String input = scanner.nextLine();
-        if (availableRoleNames.contains(input)) {
-           for (int i=0;i<availableRoleNames.size();i++) {
-              if (this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).getName().equals(input)) {
-                 if (this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).isRoleAvailable(this.gameRef.activePlayer.getRank())) {
-                    System.out.println("Took role.");
-                    this.gameRef.activePlayer.setCurrentRole(this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i));
-                    return true;
-                 }
-              }
-           }
-              System.out.println("Could not take role. Your rank is too low or it is already taken.");
-              return false;
-        } 
-        System.out.println("Please enter a valid role name.");  
-        return false;   
+
+        String availStr = "";
+        if (availableRoles.size() != 0) {
+            int iter = 0;
+            for (Role role : availableRoles) {
+                if (iter != 0) {
+                    availStr = availStr + ", ";
+                }
+                availStr = availStr + "'" + role.getName() + "'";
+                iter++;
+            }
+
+
+            System.out.printf("Select a role to take: (options: %s)\n", availStr);
+            String input = scanner.nextLine();
+            
+            Role roleChosen = null;
+            for (Role role : availableRoles) {
+                if (role.getName().toLowerCase().equals(input.toLowerCase())) {
+                    roleChosen = role;
+                }
+            }
+
+            if (roleChosen !=  null) {
+                System.out.println("Took role.");
+                this.gameRef.activePlayer.setCurrentRole(roleChosen);
+                roleChosen.setIsTaken(true);
+                tookRole = true;
+            } else {
+                System.out.println("Couldnt find role.");
+            }
+        } else {
+            System.out.println("No roles available for your rank. Come back with more experiance.\n");
+            tookRole = true;
+        }
+
+
+        return tookRole;  
     }
 
     /* Acting Phase
