@@ -6,7 +6,7 @@
  */
 
 import java.lang.*;
-import gameModel.*;
+//import gameModel.*;
 
 public class PlayerView extends myObserver {
 

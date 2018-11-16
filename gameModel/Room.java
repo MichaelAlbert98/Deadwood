@@ -44,6 +44,12 @@ public class Room {
     this.roomRoles.add(role);
     return;
   }
+  
+  public void addRolesToScene() {
+     for (int i=0;i<this.roomRoles.size();i++) {
+        this.roomScene.getSceneRoles().add(this.roomRoles.get(i));
+     }
+  }
 
   public Scene getScene() {
     return this.roomScene;
@@ -75,27 +81,29 @@ public class Room {
       offCardPlayers.get(i).resetRehearse();
     }
 
-    // Pay on card players starting from highest role.
-    Collections.sort(onCardPlayers, new PlayerRoleComparator());
-    Random rand = new Random();
-    for (int i = 0; i < this.roomScene.getBudget(); i++) {
-      int k = i;
-
-      // Loop if budget is larger than # of players.
-      if (i > onCardPlayers.size()) {
-        k = i - onCardPlayers.size();
-      }
-
-      int roll = rand.nextInt(6) + 1;
-      onCardPlayers.get(k).addCash(roll);
+    if (onCardPlayers.size() > 0) {
+       // Pay on card players starting from highest role.
+       Collections.sort(onCardPlayers, new PlayerRoleComparator());
+       Random rand = new Random();
+       for (int i = 0; i < this.roomScene.getBudget(); i++) {
+         int k = i;
+   
+         // Loop if budget is larger than # of players.
+         if (i > onCardPlayers.size()) {
+           k = i - onCardPlayers.size();
+         }
+   
+         int roll = rand.nextInt(6) + 1;
+         onCardPlayers.get(k).addCash(roll);
+       }
+   
+       // Remove on card players from scene.
+       for (int i = 0; i < onCardPlayers.size(); i++) {
+         onCardPlayers.get(i).setCurrentRole(null);
+         onCardPlayers.get(i).resetRehearse();
+       }
     }
-
-    // Remove on card players from scene.
-    for (int i = 0; i < onCardPlayers.size(); i++) {
-      onCardPlayers.get(i).setCurrentRole(null);
-      onCardPlayers.get(i).resetRehearse();
-    }
-
+    
     //Set scene in room to null
     this.roomScene = null;
     return;
@@ -107,7 +115,7 @@ public class Room {
     this.playersInRoom = new ArrayList<Player>();
     if (!this.name.equals("Trailer") && !this.name.equals("Office")){
       this.roomScene = deck.getTopScene();
-      //Need to add room roles to scene's list of roles
+      addRolesToScene();
     }
   }
 

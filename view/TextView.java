@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-//import com.sun.corba.se.spi.orbutil.fsm.Input;
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 
 public class TextView {
 
@@ -119,7 +119,7 @@ public class TextView {
 
             // Player Take Role:
                 case TextView.textCommandList.TAKEROLE:
-                    takeRolePhase();
+                    takeRolePhase(scanner);
                     break;
 
             // Player Act:
@@ -249,14 +249,28 @@ public class TextView {
      *
      * 
      */
-    private void takeRolePhase(){
+    private void takeRolePhase(Scanner scanner){
         ArrayList<String> availableRoleNames = new ArrayList<String>();
-        for (Object o : this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().toArray()) {
-            String name = String.valueOf(o);
-            availableRoleNames.add(name);
+        for (int i=0;i<this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().size();i++) {
+            availableRoleNames.add(gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).getName());
         }
         displayPlayerPrompt("Select a role to take:", availableRoleNames);
-        
+        String input = scanner.nextLine();
+        if (availableRoleNames.contains(input)) {
+           for (int i=0;i<availableRoleNames.size();i++) {
+              if (this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).getName().equals(input)) {
+                 if (this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i).isRoleAvailable(this.gameRef.activePlayer.getRank())) {
+                    System.out.println("Took role.");
+                    this.gameRef.activePlayer.setCurrentRole(this.gameRef.activePlayer.getLocation().getScene().getSceneRoles().get(i));
+                    return;
+                 }
+              }
+           }
+              System.out.println("Could not take role. Your rank is too low or it is already taken.");
+              return;
+        } 
+        System.out.println("Please enter a valid role name.");  
+        return;   
     }
 
     /* Acting Phase

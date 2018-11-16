@@ -48,7 +48,6 @@ public class Deadwood {
             d = parser.getDocFromFile("../figures/board.xml");
             Board board = new Board(deck);
             parser.readBoardData(d,board);
-
             game = new Game(numPlayers,numDays,board);
             TextView tv = new TextView(game);
             System.out.println("Starting Deadwood!\n");

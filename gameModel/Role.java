@@ -24,6 +24,15 @@ public class Role {
       this.line = "";
    }
 
+  public boolean isRoleAvailable(int rank) {
+      if (!this.isTaken) {
+        if (this.requiredRank <= rank) {
+          return true;
+        }
+      }
+    return false;
+  }
+  
    public String getName() {
      return this.name;
    }
