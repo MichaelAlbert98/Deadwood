@@ -37,6 +37,24 @@ public class PlayerView extends myObserver {
     // Locaition Updated Message:
     case (Player.playerMessages.locationUpdated):
       System.out.printf("Moved to %s!\n", this.playerRef.getLocation().getName());
+
+      Room location = this.playerRef.getLocation();
+      System.out.printf("\nCurrent Location Room Stats:\nRoom Name: %s\nNeighbors: %s\nShots: %d\n",
+                          location.getName(),
+                          location.adjacentRooms.toString(),
+                          location.getShots());
+
+      if (location.getScene() != null) {
+        Scene localScene = location.roomScene;
+        System.out.printf("Scene: %s\nBudget: %d\nShots Left: %d\nLocation: %s\nRoles in scene: [%s]\n",
+                          localScene.getName(),
+                          localScene.getBudget(),
+                          localScene.getShotsLeft(),
+                          localScene.getLocation().getName(),
+                          localScene.getAllRolesNames());
+      }
+      System.out.println("\n");
+
       break;
     }
   }
