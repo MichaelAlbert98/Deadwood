@@ -14,7 +14,6 @@ public class Room {
   private String name;
   private int[] xyhw;
   public ArrayList<String> adjacentRooms; // used to check if a player move is valid
-  private int roomIndex;
   private int shots;
   private ArrayList<int[]> shotsxyhw;
   private ArrayList<Player> playersInRoom;
@@ -40,19 +39,15 @@ public class Room {
     return this.roomRoles;
   }
 
-  public void setRoles(Role role) {
+  public void addRoleToRoom(Role role) {
     this.roomRoles.add(role);
     return;
   }
   
-  public void addRolesToScene() {
-     for (int i=0;i<this.roomRoles.size();i++) {
+  public void addRoomRolesToScene() {
+     for (int i = 0; i < this.roomRoles.size(); i++) {
         this.roomScene.getSceneRoles().add(this.roomRoles.get(i));
      }
-  }
-
-  public Scene getScene() {
-    return this.roomScene;
   }
 
   // pays out to players on/off scene, sets scene to done, removes players from
@@ -111,11 +106,12 @@ public class Room {
 
   // Resets the room at the end of the day.
   public void resetRoom(Deck deck) {
-    this.shots = this.shotsxyhw.size();
     this.playersInRoom = new ArrayList<Player>();
-    if (!this.name.equals("Trailer") && !this.name.equals("Office")){
+    if (!this.name.equals("Trailer") && !this.name.equals("Office")) {
       this.roomScene = deck.getTopScene();
-      addRolesToScene();
+      this.roomScene.setLocation(this);
+      this.roomScene.setShotsLeft(this.shots);
+      addRoomRolesToScene();
     }
   }
 
@@ -146,6 +142,11 @@ public class Room {
   }
 
   /* Room Scene Shots */
+
+  public Scene getScene() {
+    return this.roomScene;
+  }
+
   public int getShots() {
     return this.shots;
   }
