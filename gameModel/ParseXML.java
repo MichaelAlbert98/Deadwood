@@ -108,10 +108,10 @@ public class ParseXML {
               role.setLine(line);
             }
           }
-          scene.setSceneRoles(role);
+          scene.addRoleToScene(role);
         }
 
-      } // for. childnodes
+      } // for childnodes
       deck.sceneList.add(scene);
     } // for card nodes
 
@@ -218,7 +218,6 @@ public class ParseXML {
             if ("part".equals(part.getNodeName())) {
               Role role = new Role();
               String name = part.getAttributes().getNamedItem("name").getNodeValue();
-              role.setName(name);
               String level = part.getAttributes().getNamedItem("level").getNodeValue();
               role.setRank(Integer.parseInt(level));
 
@@ -241,7 +240,7 @@ public class ParseXML {
                 }
 
               } // for area & line nodes
-              room.setRoles(role);
+              room.addRoleToRoom(role);
             }
 
           } // for part nodes
@@ -249,6 +248,7 @@ public class ParseXML {
         }
 
       } // for childnodes
+      room.setShots(room.getShotsxyhw().size());
       b.roomList.add(room);
     } // for set nodes
 
