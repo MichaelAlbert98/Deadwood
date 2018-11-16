@@ -34,6 +34,10 @@ public class PlayerView extends myObserver {
       System.out.printf("%s turn complete!\n", this.playerRef.getName());
       break;
 
+    case (Player.playerMessages.updatedMoney) :
+      System.out.printf("You now have $%s and %scr.\n", this.playerRef.getCash(), this.playerRef.getCredits());
+      break;
+
     // Locaition Updated Message:
     case (Player.playerMessages.locationUpdated):
       System.out.printf("Moved to %s!\n", this.playerRef.getLocation().getName());

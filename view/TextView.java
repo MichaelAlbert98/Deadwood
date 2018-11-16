@@ -316,13 +316,12 @@ public class TextView {
        if (roll >= this.gameRef.activePlayer.getLocation().getScene().getBudget()) {
          if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
             System.out.println("Success! You earned two credits.");
-            this.gameRef.activePlayer.addCredits(2);
+            this.gameRef.activePlayer.addCurrencies(0, 2);
             this.gameRef.activePlayer.getLocation().setShots(-1);
          }
          else {
             System.out.println("Success! You earned one dollar and one credit.");
-            this.gameRef.activePlayer.addCash(1);
-            this.gameRef.activePlayer.addCredits(1);
+            this.gameRef.activePlayer.addCurrencies(1, 1);
             this.gameRef.activePlayer.getLocation().setShots(-1);
          }
        }
@@ -332,7 +331,7 @@ public class TextView {
          }
          else {
             System.out.println("Failure. You earned one dollar.");
-            this.gameRef.activePlayer.addCash(1);
+            this.gameRef.activePlayer.addCurrencies(1, 0);
          }
        }
     }
@@ -400,48 +399,48 @@ public class TextView {
         if (moneyType.equals("cash")) {
             if (rank == 2) {
                 this.gameRef.activePlayer.setRank(2);
-                this.gameRef.activePlayer.removeCash(4);
                 System.out.println("Upgraded to rank 2 and lost 4 cash.");
+                this.gameRef.activePlayer.removeCurrencies(4, 0);
             } else if (rank == 3) {
                 this.gameRef.activePlayer.setRank(3);
-                this.gameRef.activePlayer.removeCash(10);
                 System.out.println("Upgraded to rank 3 and lost 10 cash.");
+                this.gameRef.activePlayer.removeCurrencies(10, 0);
             } else if (rank == 4) {
                 this.gameRef.activePlayer.setRank(4);
-                this.gameRef.activePlayer.removeCash(18);
                 System.out.println("Upgraded to rank 4 and lost 18 cash.");
+                this.gameRef.activePlayer.removeCurrencies(18, 0);
             } else if (rank == 5) {
                 this.gameRef.activePlayer.setRank(5);
-                this.gameRef.activePlayer.removeCash(20);
                 System.out.println("Upgraded to rank 5 and lost 28 cash.");
+                this.gameRef.activePlayer.removeCurrencies(28, 0);
             } else {
                 this.gameRef.activePlayer.setRank(6);
-                this.gameRef.activePlayer.removeCash(40);
                 System.out.println("Upgraded to rank 6 and lost 40 cash.");
+                this.gameRef.activePlayer.removeCurrencies(40, 0);
             }
         }
 
         else {
             if (rank == 2) {
                 this.gameRef.activePlayer.setRank(2);
-                this.gameRef.activePlayer.removeCredits(5);
                 System.out.println("Upgraded to rank 2 and lost 5 credits.");
+                this.gameRef.activePlayer.removeCurrencies(0, 5);
             } else if (rank == 3) {
                 this.gameRef.activePlayer.setRank(3);
-                this.gameRef.activePlayer.removeCredits(10);
                 System.out.println("Upgraded to rank 3 and lost 10 credits.");
+                this.gameRef.activePlayer.removeCurrencies(0, 10);
             } else if (rank == 4) {
                 this.gameRef.activePlayer.setRank(4);
-                this.gameRef.activePlayer.removeCredits(15);
                 System.out.println("Upgraded to rank 4 and lost 15 credits.");
+                this.gameRef.activePlayer.removeCurrencies(0, 15);
             } else if (rank == 5) {
                 this.gameRef.activePlayer.setRank(5);
-                this.gameRef.activePlayer.removeCredits(20);
                 System.out.println("Upgraded to rank 5 and lost 20 credits.");
+                this.gameRef.activePlayer.removeCurrencies(0, 20);
             } else {
                 this.gameRef.activePlayer.setRank(6);
-                this.gameRef.activePlayer.removeCredits(25);
                 System.out.println("Upgraded to rank 6 and lost 25 credits.");
+                this.gameRef.activePlayer.removeCurrencies(0, 25);
             }
         }
         return true;
