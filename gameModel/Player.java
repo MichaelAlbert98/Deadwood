@@ -28,6 +28,7 @@ public class Player extends Subject {
     public static final String turnStart = "TURNSTART";
     public static final String turnEnd = "TURNEND";
     public static final String locationUpdated = "LOCATIONUPDATED";
+    public static final String updatedMoney = "UPDATEDMOENY";
   }
 
   public Player(String name) {
@@ -123,36 +124,26 @@ public class Player extends Subject {
     this.rank = rank;
   }
 
-  /* Cash */
+  /* Currency Value Modifiers */
 
   public int getCash() {
     return this.cash;
   }
 
-  public void addCash(int value) {
-    this.cash = this.cash + value;
-    return;
-  }
-
-  public void removeCash(int value) {
-    this.cash = this.cash - value;
-    return;
-  }
-
-  /* Credits */
-
   public int getCredits() {
     return this.credits;
   }
 
-  public void addCredits(int value) {
-    this.credits = this.credits + value;
-    return;
+  public void addCurrencies(int addCash, int addCredits) {
+    this.cash = this.cash + addCash;
+    this.credits = this.credits + addCredits;
+    notifyAllObservers(Player.playerMessages.updatedMoney);
   }
 
-  public void removeCredits(int value) {
-    this.credits = this.credits - value;
-    return;
+  public void removeCurrencies(int removeCash, int removeCredits) {
+    this.cash = this.cash - removeCash;
+    this.credits = this.credits - removeCredits;
+    notifyAllObservers(Player.playerMessages.updatedMoney);
   }
 
 }
