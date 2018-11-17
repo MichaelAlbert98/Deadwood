@@ -57,7 +57,7 @@ public class Room {
 
     for (int i = 0; i < this.playersInRoom.size(); i++) {
 
-      if (!this.playersInRoom.get(i).getCurrentRole().equals(null)) {
+      if (this.playersInRoom.get(i).getCurrentRole() != null) {
         if (this.playersInRoom.get(i).getCurrentRole().getOnCard() == true) {
           onCardPlayers.add(this.playersInRoom.get(i));
         } else {
