@@ -45,6 +45,7 @@ public class Deadwood {
             Document d = parser.getDocFromFile("../figures/cards.xml");
             Deck deck = new Deck();
             parser.readCardData(d,deck);
+            deck.shuffleDeck();
 
             //read in board data.
             d = parser.getDocFromFile("../figures/board.xml");

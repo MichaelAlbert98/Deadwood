@@ -24,7 +24,7 @@ public class Deck {
         shuffleDeck();
     }
 
-    private void shuffleDeck() {
+    public void shuffleDeck() {
         Collections.shuffle(this.sceneList);
     }
 
