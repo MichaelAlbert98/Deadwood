@@ -269,12 +269,16 @@ public class TextView {
                             this.gameRef.activePlayer.getLocation().getShots());
 
         if (this.gameRef.activePlayer.getLocation().getScene() != null) {
-        System.out.printf("Scene: %s\nBudget: %d\nShots Left: %d\nLocation: %s\nRoles in scene: [%s]\n",
+          System.out.printf("Scene: %s\nBudget: %d\nShots Left: %d\nLocation: %s\n",
                           this.gameRef.activePlayer.getLocation().getScene().getName(),
                           this.gameRef.activePlayer.getLocation().getScene().getBudget(),
                           this.gameRef.activePlayer.getLocation().getScene().getShotsLeft(),
-                          this.gameRef.activePlayer.getLocation().getScene().getLocation().getName(),
-                          this.gameRef.activePlayer.getLocation().getScene().getAllRolesNames());
+                          this.gameRef.activePlayer.getLocation().getScene().getLocation().getName());
+          System.out.println("\nRoles in scene:");
+          this.gameRef.activePlayer.getLocation().getScene().printAllRolesInScene();
+        } else {
+          System.out.println("\nRoom Scenes:");
+          this.gameRef.activePlayer.getLocation().printAllRolesInRoom();
         }
         System.out.printf("\n");
     }

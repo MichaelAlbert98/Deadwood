@@ -43,6 +43,12 @@ public class Scene extends Subject {
     return false;
   }
 
+  public void printAllRolesInScene() {
+    for (Role r : this.sceneRoles) {
+      r.displayRoleStats();
+    }
+  }
+
   public Boolean getIsSceneDone() {
     return this.isSceneDone;
   }

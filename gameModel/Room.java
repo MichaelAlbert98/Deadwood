@@ -116,6 +116,13 @@ public class Room {
     }
   }
 
+
+  public void printAllRolesInRoom() {
+    for (Role r : this.roomRoles) {
+      r.displayRoleStats();
+    }
+  }
+
   public String getName() {
     return this.name;
   }

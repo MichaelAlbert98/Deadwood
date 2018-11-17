@@ -33,6 +33,11 @@ public class Role {
     return false;
   }
 
+  public void displayRoleStats(){
+    System.out.printf("RoleName: %s\nOnCard: %b\nIsTaken: %b\nRank: %d\nLine: %s\n",
+                        this.name, this.isCardRole, this.isTaken, this.requiredRank, this.line);
+  }
+
    public String getName() {
      return this.name;
    }
