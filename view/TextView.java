@@ -206,8 +206,10 @@ public class TextView {
         if (gameRef.activePlayer.getCurrentRole() == null) {
             System.out.printf("They are currently not in a role.\n");
         } else {
-            System.out.printf("They are currently working in the scene %s.\n",
-                    this.gameRef.activePlayer.getCurrentRole().getName());
+            System.out.printf("The active player is located in %s shooting %s %s.\n",
+                    this.gameRef.activePlayer.getLocation(),
+                    this.gameRef.activePlayer.getLocation().getScene().getName(),
+                    this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
         }
     }
 
@@ -218,15 +220,10 @@ public class TextView {
     }
 
     private void activePlayerLocation() {
-        if (this.gameRef.activePlayer.getCurrentRole() == null) {
-            System.out.printf("The active player is located in %s wrapped.\n",
-                    this.gameRef.activePlayer.getLocation().getName());
-        } else {
-            System.out.printf("The active player is located in %s shooting %s %s.\n",
-                    this.gameRef.activePlayer.getLocation(),
-                    this.gameRef.activePlayer.getLocation().getScene().getName(),
-                    this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
-        }
+      for (int i=0;i<this.gameRef.playerList.size();i++) {
+        System.out.printf("%s is located in %s.\n",
+                this.gameRef.playerList.get(i).getName(), this.gameRef.playerList.get(i).getLocation().getName());
+      }
     }
 
     private void roomStats() {
