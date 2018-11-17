@@ -34,31 +34,25 @@ public class PlayerView extends myObserver {
       System.out.printf("%s turn complete!\n", this.playerRef.getName());
       break;
 
+    // Updated Money
     case (Player.playerMessages.updatedMoney) :
       System.out.printf("You now have $%s and %scr.\n", this.playerRef.getCash(), this.playerRef.getCredits());
+      break;
+
+    //Player Took Role:
+    case (Player.playerMessages.tookRole):
+      if (this.playerRef.getCurrentRole() == null) {
+        System.out.printf("%s removed from role.\n", this.playerRef.getName());
+      } else {
+        System.out.printf("You have now been cast as %s in %s!\n",
+                          this.playerRef.getCurrentRole().getName(),
+                          this.playerRef.getLocation().getName());
+      }
       break;
 
     // Locaition Updated Message:
     case (Player.playerMessages.locationUpdated):
       System.out.printf("Moved to %s!\n", this.playerRef.getLocation().getName());
-
-      Room location = this.playerRef.getLocation();
-      System.out.printf("\nCurrent Location Room Stats:\nRoom Name: %s\nNeighbors: %s\nShots: %d\n",
-                          location.getName(),
-                          location.adjacentRooms.toString(),
-                          location.getShots());
-
-      if (location.getScene() != null) {
-        Scene localScene = location.roomScene;
-        System.out.printf("Scene: %s\nBudget: %d\nShots Left: %d\nLocation: %s\nRoles in scene: [%s]\n",
-                          localScene.getName(),
-                          localScene.getBudget(),
-                          localScene.getShotsLeft(),
-                          localScene.getLocation().getName(),
-                          localScene.getAllRolesNames());
-      }
-      System.out.println("\n");
-
       break;
     }
   }

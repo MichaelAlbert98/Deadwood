@@ -56,6 +56,7 @@ public class TextView {
         public static final String STATS = "stats";
         public static final String WHO = "who";
         public static final String WHERE = "where";
+        public static final String ROOMSTATS = "room stats";
         public static final String MOVE = "move";
         public static final String UPGRADE = "upgrade";
         public static final String TAKEROLE = "take role";
@@ -97,6 +98,11 @@ public class TextView {
             // Player Location
             case TextView.textCommandList.WHERE:
                 activePlayerLocation();
+                break;
+
+            // Local Room Statistics
+            case TextView.textCommandList.ROOMSTATS:
+                roomStats();
                 break;
 
             // Player Name
@@ -221,6 +227,23 @@ public class TextView {
                     this.gameRef.activePlayer.getLocation().getScene().getName(),
                     this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
         }
+    }
+
+    private void roomStats() {
+        System.out.printf("\nCurrent Location Room Stats:\nRoom Name: %s\nNeighbors: %s\nShots: %d\n",
+                            this.gameRef.activePlayer.getLocation().getName(),
+                            this.gameRef.activePlayer.getLocation().adjacentRooms.toString(),
+                            this.gameRef.activePlayer.getLocation().getShots());
+
+        if (this.gameRef.activePlayer.getLocation().getScene() != null) {
+        System.out.printf("Scene: %s\nBudget: %d\nShots Left: %d\nLocation: %s\nRoles in scene: [%s]\n",
+                          this.gameRef.activePlayer.getLocation().getScene().getName(),
+                          this.gameRef.activePlayer.getLocation().getScene().getBudget(),
+                          this.gameRef.activePlayer.getLocation().getScene().getShotsLeft(),
+                          this.gameRef.activePlayer.getLocation().getScene().getLocation().getName(),
+                          this.gameRef.activePlayer.getLocation().getScene().getAllRolesNames());
+        }
+        System.out.printf("\n");
     }
 
 /**** Movement Functions ****/

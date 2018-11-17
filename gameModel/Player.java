@@ -30,6 +30,7 @@ public class Player extends Subject {
     public static final String turnEnd = "TURNEND";
     public static final String locationUpdated = "LOCATIONUPDATED";
     public static final String updatedMoney = "UPDATEDMOENY";
+    public static final String tookRole = "TOOKROLE";
   }
 
   public Player(String name) {
@@ -67,6 +68,7 @@ public class Player extends Subject {
     }
     destination.addPlayerToRoom(this);
     this.location = destination;
+    notifyAllObservers(Player.playerMessages.locationUpdated);
   }
 
 

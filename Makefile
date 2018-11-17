@@ -12,7 +12,7 @@ compile: clean
 	mkdir build
 	$(JC) -Xlint -d build **/*.java
 
-clean: 
+clean:
 	rm -rf build
 
 run: compile
