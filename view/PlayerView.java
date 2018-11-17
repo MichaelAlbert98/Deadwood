@@ -37,7 +37,7 @@ public class PlayerView extends myObserver {
 
     // Updated Money
     case (Player.playerMessages.updatedMoney) :
-      System.out.printf("You now have $%s and %scr.\n", this.playerRef.getCash(), this.playerRef.getCredits());
+      System.out.printf("%s now have $%s and %scr.\n",this.playerRef.getName(), this.playerRef.getCash(), this.playerRef.getCredits());
       break;
 
     //Player Took Role:
