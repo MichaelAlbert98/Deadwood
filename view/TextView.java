@@ -321,7 +321,7 @@ public class TextView {
         Room location = this.gameRef.activePlayer.getLocation();
         ArrayList<Role> availableRoles = new ArrayList<Role>();
 
-        for (Role role : location.getRoomRoles()) {
+        for (Role role : location.getScene().getSceneRoles()) {
             //If role isnt taken and isnt too high of level, add to list
             if (role.isRoleAvailable(this.gameRef.activePlayer.getRank())) {
                 availableRoles.add(role);
@@ -590,8 +590,8 @@ public class TextView {
             if (this.gameRef.activePlayer.getLocation().getName().equals("Office")) {
                 activePlayerActionSet.add("upgrade");
             }
-            activePlayerActionSet.add("end turn");
         }
+        activePlayerActionSet.add("end turn");
         return activePlayerActionSet;
     }
 

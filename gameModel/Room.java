@@ -79,13 +79,7 @@ public class Room {
        Collections.sort(onCardPlayers, new PlayerRoleComparator());
        Random rand = new Random();
        for (int i = 0; i < this.roomScene.getBudget(); i++) {
-         int k = i;
-
-         // Loop if budget is larger than # of players.
-         if (i > onCardPlayers.size()) {
-           k = i - onCardPlayers.size();
-         }
-
+         int k = i % onCardPlayers.size();
          int roll = rand.nextInt(6) + 1;
          onCardPlayers.get(k).addCurrencies(roll, 0);
        }
