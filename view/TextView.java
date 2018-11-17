@@ -376,7 +376,9 @@ public class TextView {
             if (this.gameRef.activePlayer.getRank() == 6) {
                 System.out.println("You are already the max actor rank.");
             } else {
-                System.out.print("Select the desired rank you wish to upgrade too: ");
+                System.out.print("Select the desired rank you wish to upgrade too. The upgrades and costs are the following: \n" +
+                                "Rank: \t Cash \t Credit \n 2 \t 4 \t 5 \n 3 \t 10 \t 10 \n 4 \t 18 \t 15 \n 5 \t 28 \t 20" +
+                                "\n 6 \t 40 \t 25 \n Select the desired rank: ");
                 input = scanner.nextLine().toLowerCase();
                 // Check Input
                 try {
@@ -389,7 +391,7 @@ public class TextView {
                         System.out.print("Select the desired payment type ('Cash' or 'Credit'): ");
                         input = scanner.nextLine();
                         desiredPaymentType = input.toLowerCase();
-                        if (input.equals("cash") || input.equals("credit")) {
+                        if (desiredPaymentType.equals("cash") || desiredPaymentType.equals("credit")) {
                             return upgrade(desiredPaymentType, desiredRank);
                         } else {
                             System.out.println("Invalid payment type selected.");
@@ -476,13 +478,13 @@ public class TextView {
        if (moneyType.equals("cash")) {
             if ((rank == 2 && this.gameRef.activePlayer.getCash() < 4) || (rank == 3 && this.gameRef.activePlayer.getCash() < 10) || (rank == 4 && this.gameRef.activePlayer.getCash() < 18)
                     || (rank == 5 && this.gameRef.activePlayer.getCash() < 28) || (rank == 6 && this.gameRef.activePlayer.getCash() < 40)) {
-                System.out.println("Not have enough cash to upgrade to this rank.");
+                System.out.println("You do not have enough cash to upgrade to this rank.");
                 return false;
             }
-        } else if (moneyType.equals("credits")) {
+        } else if (moneyType.equals("credit")) {
             if ((rank == 2 && this.gameRef.activePlayer.getCredits() < 5) || (rank == 3 && this.gameRef.activePlayer.getCredits() < 10) || (rank == 4 && this.gameRef.activePlayer.getCredits() < 15)
                     || (rank == 5 && this.gameRef.activePlayer.getCredits() < 20) || (rank == 6 && this.gameRef.activePlayer.getCredits() < 25)) {
-                System.out.println("Not have enough credits to upgrade to this rank.");
+                System.out.println("You do not have enough credits to upgrade to this rank.");
                 return false;
             }
         }
