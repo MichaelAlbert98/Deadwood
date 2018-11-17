@@ -12,6 +12,8 @@ The following commands are supported:
 'activeplayer': Returns active player info.
 'stats': Same as activeplayer.
 'where': Returns the location of every player.
+'room stats': Returns information on room.
+'role stats': Return information on roles in current location.
 'who': Returns active player's name.
 'move': Gives active player a list of available rooms to move to. Type in the desired room from the list to move to it.
 'take role': Gives active player a list of available roles to take. Type in the desired role from the list to take it.
@@ -21,3 +23,5 @@ The following commands are supported:
 'end turn': Player ends their turn. Gameplay moves to the next player.
 
 Commands other than these will return "Command not recognized."
+
+We assumed that upgrading counts as a 'main' action, and thus if you start your turn in the office and upgrade, you can still move, but can't perform any other action, such as taking a role.
