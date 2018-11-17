@@ -28,6 +28,7 @@ public class Player extends Subject {
   public static class playerMessages {
     public static final String turnStart = "TURNSTART";
     public static final String turnEnd = "TURNEND";
+    public static final String leavingRoom = "LEAVINGROOM";
     public static final String locationUpdated = "LOCATIONUPDATED";
     public static final String updatedMoney = "UPDATEDMOENY";
     public static final String tookRole = "TOOKROLE";
@@ -57,6 +58,8 @@ public class Player extends Subject {
     if (this.location != null) {
       this.location.removePlayerFromRoom(this);
     }
+    Room src = this.location;
+    notifyAllObservers(Player.playerMessages.leavingRoom);
     this.location = destination;
     destination.addPlayerToRoom(this);
     notifyAllObservers(Player.playerMessages.locationUpdated);

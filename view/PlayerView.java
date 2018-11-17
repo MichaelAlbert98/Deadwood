@@ -12,6 +12,7 @@ public class PlayerView extends myObserver {
 
   // Local Variables
   Player playerRef;
+  Room previousRoom;
 
   // Constructor
   PlayerView(Player p) {
@@ -50,9 +51,15 @@ public class PlayerView extends myObserver {
       }
       break;
 
+
+    // Leaving Rom Message
+    case (Player.playerMessages.leavingRoom):
+      this.previousRoom = this.playerRef.getLocation();
+      break;
+
     // Locaition Updated Message:
     case (Player.playerMessages.locationUpdated):
-      System.out.printf("Moved to %s!\n", this.playerRef.getLocation().getName());
+      System.out.printf("Moved from %s to %s!\n", this.previousRoom.getName(), this.playerRef.getLocation().getName());
       break;
     }
   }
