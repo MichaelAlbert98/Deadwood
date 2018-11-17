@@ -70,6 +70,11 @@ public class Player extends Subject {
     this.location = destination;
   }
 
+  public void resetPlayer() {
+    this.currentRole = null;
+    this.rehearseTokens = 0;
+  }
+
 
   /**** Getters and Setters for Player **** /
 

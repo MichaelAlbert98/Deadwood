@@ -222,7 +222,8 @@ public class TextView {
 
 
         System.out.println("Game over!");
-        this.gameRef.calculateWinner();
+        String winner = this.gameRef.calculateWinner();
+        System.out.println(winner + " is the winner!");
         scanner.close();
     }
 
@@ -373,7 +374,8 @@ public class TextView {
          if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
             System.out.println("Success! You earned two credits.");
             this.gameRef.activePlayer.addCurrencies(0, 2);
-            if (this.gameRef.activePlayer.getLocation().getShots() == 0) {
+            this.gameRef.activePlayer.getLocation().getScene().setShotsLeft(-1);
+            if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
               this.gameRef.activePlayer.getLocation().wrapScene();
               this.gameRef.board.decrementScenesRemaining();
               if (this.gameRef.board.getNumScenesRemaining() <= 1) {
@@ -384,7 +386,8 @@ public class TextView {
          else {
             System.out.println("Success! You earned one dollar and one credit.");
             this.gameRef.activePlayer.addCurrencies(1, 1);
-            if (this.gameRef.activePlayer.getLocation().getShots() == 0) {
+            this.gameRef.activePlayer.getLocation().getScene().setShotsLeft(-1);
+            if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
               this.gameRef.activePlayer.getLocation().wrapScene();
               this.gameRef.board.decrementScenesRemaining();
               if (this.gameRef.board.getNumScenesRemaining() <= 1) {

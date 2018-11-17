@@ -109,6 +109,9 @@ public class Room {
       this.roomScene = deck.getTopScene();
       this.roomScene.setLocation(this);
       this.roomScene.setShotsLeft(this.shots);
+      for (int i=0;i<this.roomRoles.size();i++) {
+        this.roomRoles.get(i).setIsTaken(false);
+      }
       addRoomRolesToScene();
     }
   }

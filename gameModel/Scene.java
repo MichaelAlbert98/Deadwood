@@ -1,7 +1,7 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Michael Albert and Ryan Lingg
  * Scene.java - This class stores and modifies the attributes related to a
- * scene. 
+ * scene.
  * Created 11/02/2018
  * Revised 11/16/2018
  */
@@ -123,7 +123,7 @@ public class Scene extends Subject {
   }
 
   public void setShotsLeft(int value) {
-    this.shotsLeft = value;
+    this.shotsLeft = this.shotsLeft + value;
   }
 
   public int getBudget() {

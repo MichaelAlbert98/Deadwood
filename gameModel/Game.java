@@ -61,6 +61,9 @@ public class Game extends Subject {
      */
     public void newDay() {
         this.currentDay++;
+        for (int i=0;i<this.playerList.size();i++) {
+          this.playerList.get(i).resetPlayer();
+        }
         this.board.resetBoard();
         if (this.currentDay <= this.daysInGame) {
             this.notifyAllObservers(Game.gameMessages.newDay);
@@ -78,7 +81,7 @@ public class Game extends Subject {
      * warrent the start of the next day.
      */
     public boolean isDayOver() {
-        if (this.board.getNumScenesRemaining() == 0) {
+        if (this.board.getNumScenesRemaining() == 1) {
             return true;
         } else if (this.currentDay == 0) {
             return true;
