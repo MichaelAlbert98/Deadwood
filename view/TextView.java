@@ -150,6 +150,7 @@ public class TextView {
                case TextView.textCommandList.REHEARSE:
                if (activePlayerActionSet.contains(TextView.textCommandList.REHEARSE)) {
                   this.gameRef.activePlayer.addRehearse();
+                  System.out.printf("You now have %s rehearse tokens. \n" , this.gameRef.activePlayer.timesRehearsed());
                   activePlayerActionSet.remove(TextView.textCommandList.ACT);
                   activePlayerActionSet.remove(TextView.textCommandList.REHEARSE);
                }
@@ -255,6 +256,7 @@ public class TextView {
         System.out.printf("%s is located in %s \n" , this.gameRef.playerList.get(i).getName(),
                           this.gameRef.playerList.get(i).getLocation().getName());
       }
+      System.out.printf("%s is the active player\n" , this.gameRef.activePlayer.getName());
     }
 
     private void roomStats() {
@@ -586,6 +588,10 @@ public class TextView {
                 activePlayerActionSet.add("upgrade");
             }
         }
+        activePlayerActionSet.add("who");
+        activePlayerActionSet.add("where");
+        activePlayerActionSet.add("stats");
+        activePlayerActionSet.add("room stats");
         activePlayerActionSet.add("end turn");
         return activePlayerActionSet;
     }
