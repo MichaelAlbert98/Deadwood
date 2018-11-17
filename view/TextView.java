@@ -97,7 +97,7 @@ public class TextView {
 
             // Player Location
             case TextView.textCommandList.WHERE:
-                activePlayerLocation();
+                playersLocation();
                 break;
 
             // Local Room Statistics
@@ -250,16 +250,11 @@ public class TextView {
                 this.gameRef.activePlayer.getCash(), this.gameRef.activePlayer.getCredits());
     }
 
-    private void activePlayerLocation() {
-        if (this.gameRef.activePlayer.getCurrentRole() == null) {
-            System.out.printf("The active player is located in %s wrapped.\n",
-                    this.gameRef.activePlayer.getLocation().getName());
-        } else {
-            System.out.printf("The active player is located in %s shooting %s %s.\n",
-                    this.gameRef.activePlayer.getLocation(),
-                    this.gameRef.activePlayer.getLocation().getScene().getName(),
-                    this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
-        }
+    private void playersLocation() {
+      for (int i=0; i<this.gameRef.playerList.size();i++) {
+        System.out.printf("%s is located in %s \n" , this.gameRef.playerList.get(i).getName(),
+                          this.gameRef.playerList.get(i).getLocation().getName());
+      }
     }
 
     private void roomStats() {
