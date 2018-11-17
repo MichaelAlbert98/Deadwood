@@ -184,6 +184,7 @@ public class TextView {
 
 
         System.out.println("Game over!");
+        this.gameRef.calculateWinner();
         scanner.close();
     }
 
