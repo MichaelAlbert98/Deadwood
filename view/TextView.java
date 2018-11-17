@@ -177,7 +177,7 @@ public class TextView {
 
 
             /**** Cheats ****/
-            case "sudo move":
+/*            case "sudo move":
                 System.out.printf("Enter desired location: ");
                 String input = toNoun(scanner.nextLine());
                 Room dest = null;
@@ -202,10 +202,10 @@ public class TextView {
                 this.gameRef.activePlayer.addCurrencies(0, credits);
                 break;
 
-            case "sudo dec scenes ":
+            case "s":
                 this.gameRef.board.decrementScenesRemaining();
                 System.out.printf("Scences remaining is %s.\n", this.gameRef.board.getNumScenesRemaining());
-                break;
+                break; */
 
             case "":
                 break;
@@ -379,9 +379,6 @@ public class TextView {
             if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
               this.gameRef.activePlayer.getLocation().wrapScene();
               this.gameRef.board.decrementScenesRemaining();
-              if (this.gameRef.board.getNumScenesRemaining() <= 1) {
-                this.gameRef.newDay();
-              }
             }
          }
          else {
@@ -391,9 +388,6 @@ public class TextView {
             if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
               this.gameRef.activePlayer.getLocation().wrapScene();
               this.gameRef.board.decrementScenesRemaining();
-              if (this.gameRef.board.getNumScenesRemaining() <= 1) {
-                this.gameRef.newDay();
-              }
             }
          }
        }
