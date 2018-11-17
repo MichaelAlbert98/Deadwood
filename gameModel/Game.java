@@ -101,6 +101,28 @@ public class Game extends Subject {
         }
     }
 
+    /*
+     * calculateWinner
+     *
+     * This method is called when isGameOver returns true. It calculates a
+     * score for each player, then returns the name of the player with the
+     * largest score.
+     */
+    public String calculateWinner() {
+        int topScore = 0;
+        String name = "";
+        for (int i=0;i<this.playerList.size();i++) {
+          int newScore = this.playerList.get(i).getRank()*5 +
+                      this.playerList.get(i).getCash() +
+                      this.playerList.get(i).getCredits();
+          if (newScore > topScore) {
+            topScore = newScore;
+            name = this.playerList.get(i).getName();
+          }
+        }
+        return name;
+    }
+
     /* Getter and Setter Methods */
 
     /* Get Current Day */
