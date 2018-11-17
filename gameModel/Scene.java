@@ -36,7 +36,7 @@ public class Scene extends Subject {
 
   public boolean areRolesAvailable(int rank) {
     for (Role role : this.sceneRoles) {
-      if (!role.isRoleAvailable(rank)) {
+      if (role.isRoleAvailable(rank)) {
         return true;
       }
     }
