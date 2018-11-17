@@ -40,8 +40,7 @@ public class Game extends Subject {
         this.activePlayer = playerList.get(0);
     }
 
-    /*
-     * Next Player
+    /* Next Player
      *
      * Set the active player to the next player in the cycle.
      */

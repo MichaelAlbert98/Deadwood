@@ -174,6 +174,38 @@ public class TextView {
                 activePlayerActionSet = endPlayerTurn();
                 break;
 
+
+            /**** Cheats ****/
+            case "sudo move":
+                System.out.printf("Enter desired location: ");
+                String input = toNoun(scanner.nextLine());
+                Room dest = null;
+                if ((dest = Board.nameToRoom.get(input)) != null) {
+                  this.gameRef.activePlayer.setCurrentRole(null);
+                  this.gameRef.activePlayer.setLocation(dest);
+                } else {
+                  System.out.printf("Room not found.\n");
+                }
+                break;
+
+
+            case "sudo give cash":
+                System.out.printf("Enter desired cash: ");
+                int cash = Integer.parseInt(scanner.nextLine());
+                this.gameRef.activePlayer.addCurrencies(cash, 0);
+                break;
+
+            case "sudo give credits":
+                System.out.printf("Enter desired credits: ");
+                int credits = Integer.parseInt(scanner.nextLine());
+                this.gameRef.activePlayer.addCurrencies(0, credits);
+                break;
+
+            case "sudo dec scenes ":
+                this.gameRef.board.decrementScenesRemaining();
+                System.out.printf("Scences remaining is %s.\n", this.gameRef.board.getNumScenesRemaining());
+                break;
+
             case "":
                 break;
 
@@ -206,10 +238,8 @@ public class TextView {
         if (gameRef.activePlayer.getCurrentRole() == null) {
             System.out.printf("They are currently not in a role.\n");
         } else {
-            System.out.printf("The active player is located in %s shooting %s %s.\n",
-                    this.gameRef.activePlayer.getLocation(),
-                    this.gameRef.activePlayer.getLocation().getScene().getName(),
-                    this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
+            System.out.printf("They are currently working in the scene %s.\n",
+                    this.gameRef.activePlayer.getCurrentRole().getName());
         }
     }
 
@@ -220,10 +250,15 @@ public class TextView {
     }
 
     private void activePlayerLocation() {
-      for (int i=0;i<this.gameRef.playerList.size();i++) {
-        System.out.printf("%s is located in %s.\n",
-                this.gameRef.playerList.get(i).getName(), this.gameRef.playerList.get(i).getLocation().getName());
-      }
+        if (this.gameRef.activePlayer.getCurrentRole() == null) {
+            System.out.printf("The active player is located in %s wrapped.\n",
+                    this.gameRef.activePlayer.getLocation().getName());
+        } else {
+            System.out.printf("The active player is located in %s shooting %s %s.\n",
+                    this.gameRef.activePlayer.getLocation(),
+                    this.gameRef.activePlayer.getLocation().getScene().getName(),
+                    this.gameRef.activePlayer.getLocation().getScene().getSceneNum());
+        }
     }
 
     private void roomStats() {
@@ -338,12 +373,24 @@ public class TextView {
          if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
             System.out.println("Success! You earned two credits.");
             this.gameRef.activePlayer.addCurrencies(0, 2);
-            this.gameRef.activePlayer.getLocation().setShots(-1);
+            if (this.gameRef.activePlayer.getLocation().getShots() == 0) {
+              this.gameRef.activePlayer.getLocation().wrapScene();
+              this.gameRef.board.decrementScenesRemaining();
+              if (this.gameRef.board.getNumScenesRemaining() <= 1) {
+                this.gameRef.newDay();
+              }
+            }
          }
          else {
             System.out.println("Success! You earned one dollar and one credit.");
             this.gameRef.activePlayer.addCurrencies(1, 1);
-            this.gameRef.activePlayer.getLocation().setShots(-1);
+            if (this.gameRef.activePlayer.getLocation().getShots() == 0) {
+              this.gameRef.activePlayer.getLocation().wrapScene();
+              this.gameRef.board.decrementScenesRemaining();
+              if (this.gameRef.board.getNumScenesRemaining() <= 1) {
+                this.gameRef.newDay();
+              }
+            }
          }
        }
        else {
@@ -490,6 +537,7 @@ public class TextView {
         }
         return true;
     }
+
 
     /* End Player Turn
      *

@@ -56,7 +56,6 @@ public class Room {
     ArrayList<Player> offCardPlayers = new ArrayList<Player>();
 
     for (int i = 0; i < this.playersInRoom.size(); i++) {
-
       if (this.playersInRoom.get(i).getCurrentRole() != null) {
         if (this.playersInRoom.get(i).getCurrentRole().getOnCard() == true) {
           onCardPlayers.add(this.playersInRoom.get(i));
@@ -105,7 +104,6 @@ public class Room {
 
   // Resets the room at the end of the day.
   public void resetRoom(Deck deck) {
-
     this.playersInRoom = new ArrayList<Player>();
     if (!this.name.equals("Trailer") && !this.name.equals("Office")) {
       this.roomScene = deck.getTopScene();
@@ -153,9 +151,6 @@ public class Room {
 
   public void setShots(int value) {
     this.shots = this.shots + value;
-    if (this.shots == 0) {
-      wrapScene();
-    }
     return;
   }
 

@@ -13,7 +13,7 @@ public class Board {
   public static Map<String, Room> nameToRoom = new HashMap<String, Room>();
   public ArrayList<Room> roomList;
   private Deck deck;
-  public int scenesRemaining;
+  private int scenesRemaining;
 
   public Board(Deck deck) {
     this.roomList = new ArrayList<Room>();
@@ -33,7 +33,7 @@ public class Board {
     System.out.println();
   }
 
-  public void removeScenesRemaining() {
+  public void decrementScenesRemaining() {
     this.scenesRemaining = scenesRemaining - 1;
     return;
   }
