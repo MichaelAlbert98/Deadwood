@@ -68,7 +68,6 @@ public class Player extends Subject {
     }
     destination.addPlayerToRoom(this);
     this.location = destination;
-    notifyAllObservers(Player.playerMessages.locationUpdated);
   }
 
 
