@@ -48,4 +48,12 @@ public class Board {
     this.scenesRemaining = 10;
   }
 
+  public ArrayList<Room> getRoomList() {
+    return this.roomList;
+  }
+
+  public Deck getDeck() {
+    return this.deck;
+  }
+
 }

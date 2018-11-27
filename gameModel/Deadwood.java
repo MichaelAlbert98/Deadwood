@@ -8,6 +8,13 @@
 
 import org.w3c.dom.Document;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
+import java.awt.event.*;
+import javax.swing.JOptionPane;
+
 public class Deadwood {
 
     //Deadwood Attributes
@@ -23,7 +30,6 @@ public class Deadwood {
     * Controller for the Deadwood game.
     */
     public static void main(String[] args) {
-        System.out.println("\nCreating Deadwood!");
 
         try {
             //1) Set the number of players and days for the game
@@ -54,6 +60,13 @@ public class Deadwood {
             game = new Game(numPlayers,numDays,board);
             TextView tv = new TextView(game);
             System.out.println("Starting Deadwood!\n");
+
+            //create board gui
+            BoardLayersListener gameBoard = new BoardLayersListener(board);
+            gameBoard.setVisible(true);
+
+            // Take input from the user about number of players
+            JOptionPane.showInputDialog(gameBoard, "How many players?");
 
             //3) Start the input listener which will run until the game completes.
             tv.startListener();
