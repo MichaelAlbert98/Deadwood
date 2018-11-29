@@ -77,7 +77,7 @@ public class TextView {
         String inputAction;
         ArrayList<String> activePlayerActionSet = new ArrayList<String>();
 
-        startGameMessage();
+      //  startGameMessage();
         this.gameRef.newDay();
         this.gameRef.activePlayer.startPlayerTurn();
         activePlayerActionSet = determinePlayerActionSet();
