@@ -93,6 +93,9 @@ public class Room {
 
     //Set scene in room to null
     this.roomScene = null;
+
+    //this.notifyAllObservers("REMOVECARD")
+
     return;
   }
 

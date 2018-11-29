@@ -41,6 +41,7 @@ public class Player extends Subject {
     this.credits = 0;
     this.currentRole = null;
     this.rehearseTokens = 0;
+    this.location = null;
 
   }
 
@@ -84,6 +85,11 @@ public class Player extends Subject {
   /* Name */
   public String getName() {
     return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+    return;
   }
 
   /* Acting */

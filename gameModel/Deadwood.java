@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public class Deadwood {
 
     //Deadwood Attributes
-    public static int numPlayers;
+    public static int numPlayers = 0;
     private static final int minPlayers = 2;
     private static final int maxPlayers = 8;
     private static int numDays;
@@ -31,54 +31,56 @@ public class Deadwood {
     */
     public static void main(String[] args) {
 
-        try {
-            //1) Set the number of players and days for the game
-            if (args.length == 0){
-                numPlayers = 2;
-            } else {
-                getNumPlayers(args[0]);
+      try{
+
+        //read in card data.
+        ParseXML parser = new ParseXML();
+        Document d = parser.getDocFromFile("../figures/cards.xml");
+        Deck deck = new Deck();
+        parser.readCardData(d,deck);
+        deck.shuffleDeck();
+
+        //read in board data.
+        d = parser.getDocFromFile("../figures/board.xml");
+        Board board = new Board(deck);
+        parser.readBoardData(d,board);
+
+        BoardLayersListener gameBoard = new BoardLayersListener(board);
+        gameBoard.setVisible(true);
+
+        // Take input from the user about number of players
+        while (numPlayers == 0) {
+          try{
+            int temp = Integer.parseInt(JOptionPane.showInputDialog(gameBoard, "How many players?"));
+            if ((temp == 2) || (temp == 3)) {
+              numPlayers = temp;
             }
-            if (numPlayers != 0) {
-                setNumDays();
-            } else {
-                return;
+            else {
+              JOptionPane.showMessageDialog(gameBoard, "Please input 2 or 3.", "Warning", JOptionPane.ERROR_MESSAGE);
             }
-
-            //2) Create the game object and the text view model
-
-            //read in card data.
-            ParseXML parser = new ParseXML();
-            Document d = parser.getDocFromFile("../figures/cards.xml");
-            Deck deck = new Deck();
-            parser.readCardData(d,deck);
-            deck.shuffleDeck();
-
-            //read in board data.
-            d = parser.getDocFromFile("../figures/board.xml");
-            Board board = new Board(deck);
-            parser.readBoardData(d,board);
-            game = new Game(numPlayers,numDays,board);
-            TextView tv = new TextView(game);
-            System.out.println("Starting Deadwood!\n");
-
-            //create board gui
-            BoardLayersListener gameBoard = new BoardLayersListener(board);
-            gameBoard.setVisible(true);
-
-            // Take input from the user about number of players
-            JOptionPane.showInputDialog(gameBoard, "How many players?");
-
-            //3) Start the input listener which will run until the game completes.
-            tv.startListener();
-            System.out.println("\nClosing Deadwood!\n");
-
-
-        } catch (NumberFormatException e){
-            System.out.println("Number of players desired must be a integer between 2 and 8.");
-        } catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error encountered. Exiting Deadwood.");
+          } catch (Exception e){
+            JOptionPane.showMessageDialog(gameBoard, "Please input a number.", "Warning", JOptionPane.ERROR_MESSAGE);
+          }
         }
+        numDays = 3;
+        game = new Game(numPlayers,numDays,board);
+        for (int i=0;i<numPlayers;i++) {
+          String name = JOptionPane.showInputDialog(gameBoard, "What is your name Player " + (i+1) + "?");
+          game.playerList.get(i).setName(name);
+        }
+        gameBoard.addPlayersInfo(game.playerList);
+
+
+
+
+
+        TextView tv = new TextView(game);
+        tv.startListener();
+
+      } catch (Exception e) {
+          e.printStackTrace();
+          System.out.println("Error encountered. Exiting Deadwood.");
+      }
     }
 
 
@@ -87,7 +89,7 @@ public class Deadwood {
     /* Get Number of Players
      *
      * Casts and validates for the number of players from command line arg.
-     */
+
     private static void getNumPlayers(String countStr) throws NumberFormatException {
         int playerCount;
         playerCount = Integer.parseInt(countStr);
@@ -99,15 +101,15 @@ public class Deadwood {
         }
     }
 
-    /* Set Number of Players
+     Set Number of Players
      *
      * Setter for the number of players in a Deadwood game.
-     */
+
     private static void setNumDays() throws NumberFormatException {
         if (numPlayers < 4) {
             numDays = 3;
         } else {
             numDays = 4;
         }
-    }
+    } */
 }
