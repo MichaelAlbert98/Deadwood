@@ -13,12 +13,14 @@ import java.util.Scanner;
 import java.util.Random;
 
 import com.sun.corba.se.spi.orbutil.fsm.Input;
+//import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class TextView {
 
     Game gameRef;
     GameView gameView;
     ArrayList<PlayerView> PlayerViews = new ArrayList<PlayerView>();
+    ArrayList<RoomView> RoomViews = new ArrayList<RoomView>();
     ArrayList<SceneView> SceneViews = new ArrayList<SceneView>();
 
     /*
@@ -39,6 +41,7 @@ public class TextView {
         // Scenes:
         ArrayList<Room> roomList = this.gameRef.board.roomList;
         for (int i = 0; i < roomList.size(); i++) {
+            RoomViews.add(new RoomView(roomList.get(i)));
             if (roomList.get(i).getScene() != null) {
                 SceneView s = new SceneView(roomList.get(i).getScene());
                 SceneViews.add(s);

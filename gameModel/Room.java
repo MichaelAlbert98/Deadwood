@@ -8,7 +8,7 @@
 
 import java.util.*;
 
-public class Room {
+public class Room extends Subject {
 
   private String name;
   private int[] xyhw;
