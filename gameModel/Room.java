@@ -19,6 +19,22 @@ public class Room extends Subject {
   private ArrayList<Role> roomRoles;
   public Scene roomScene;
 
+
+  /*
+   * Room Messages
+   *
+   * The list of message identifiers that will correspond to board
+   * updates for the view model to interpret and perform.
+   */
+  public static class RoomMessages {
+    public static final String ResetRoom = "RESETROOM";
+    public static final String WrapScene = "WRAPSCENE";
+  }
+
+
+
+
+  /**** CONSTRUCTOR ****/
   public Room() {
     this.name = "";
     this.xyhw = new int[4];
