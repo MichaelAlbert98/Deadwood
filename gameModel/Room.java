@@ -30,9 +30,7 @@ public class Room extends Subject {
     public static final String ResetRoom = "RESETROOM";
     public static final String WrapScene = "WRAPSCENE";
   }
-
-
-
+  
 
   /**** CONSTRUCTOR ****/
   public Room() {
