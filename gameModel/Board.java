@@ -10,14 +10,23 @@ import java.util.*;
 
 public class Board {
 
+  private static Board boardInstance;
   public static Map<String, Room> nameToRoom = new HashMap<String, Room>();
   public ArrayList<Room> roomList;
   private Deck deck;
   private int scenesRemaining;
 
-  public Board(Deck deck) {
+  private Board(Deck deck) {
     this.roomList = new ArrayList<Room>();
     this.deck = deck;
+  }
+  
+  public static Board getBoard(Deck deck) {
+   if (boardInstance == null) {
+      boardInstance = new Board(deck);
+      return boardInstance;
+   }
+   return boardInstance;
   }
 
   public int getNumScenesRemaining() {

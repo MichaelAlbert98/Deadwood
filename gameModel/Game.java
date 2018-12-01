@@ -16,6 +16,7 @@ public class Game extends Subject {
     }
 
     // Game Attributes
+    private static Game gameInstance;
     private int currentDay;
     private int daysInGame;
     public Board board;
@@ -27,7 +28,7 @@ public class Game extends Subject {
      *
      * Game Object Constructor
      */
-    public Game(int numPlayers, int numDays, Board board) {
+    private Game(int numPlayers, int numDays, Board board) {
         this.currentDay = 0;
         this.daysInGame = numDays;
         this.board = board;
@@ -38,6 +39,14 @@ public class Game extends Subject {
 
         }
         this.activePlayer = playerList.get(0);
+    }
+    
+    public static Game getGame(int numPlayers, int numDays, Board board) {
+      if (gameInstance == null) {
+         gameInstance = new Game(numPlayers,numDays,board);
+         return gameInstance;
+      }
+      return gameInstance;
     }
 
     /* Next Player

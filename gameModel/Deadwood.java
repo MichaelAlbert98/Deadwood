@@ -22,8 +22,6 @@ public class Deadwood {
     private static final int minPlayers = 2;
     private static final int maxPlayers = 8;
     private static int numDays;
-    private static Game game;
-
 
     /* Main Method
     *
@@ -42,7 +40,7 @@ public class Deadwood {
 
         //read in board data.
         d = parser.getDocFromFile("../figures/board.xml");
-        Board board = new Board(deck);
+        Board board = Board.getBoard(deck);
         parser.readBoardData(d,board);
 
         BoardLayersListener gameBoard = new BoardLayersListener(board);
@@ -63,7 +61,7 @@ public class Deadwood {
           }
         }
         numDays = 3;
-        game = new Game(numPlayers,numDays,board);
+        Game game = Game.getGame(numPlayers,numDays,board);
         for (int i=0;i<numPlayers;i++) {
           String name = JOptionPane.showInputDialog(gameBoard, "What is your name Player " + (i+1) + "?");
           game.playerList.get(i).setName(name);
