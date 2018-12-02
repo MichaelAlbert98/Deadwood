@@ -7,8 +7,15 @@
 
 import java.lang.*;
 import gameModel.*;
+import java.util.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
+import java.awt.event.*;
+import javax.swing.JOptionPane;
 
-public class PlayerView extends myObserver {
+public class PlayerView extends JFrame implements myObserver {
 
   // Local Variables
   Player playerRef;
