@@ -65,8 +65,19 @@ public class Deadwood {
         for (int i=0;i<numPlayers;i++) {
           String name = JOptionPane.showInputDialog(gameBoard, "What is your name Player " + (i+1) + "?");
           game.playerList.get(i).setName(name);
+          if (i==0) {
+            game.playerList.get(i).image = "../figures/dice/b1.png";
+          }
+          if (i==1) {
+            game.playerList.get(i).image = "../figures/dice/c1.png";
+          }
+          if (i==2) {
+            game.playerList.get(i).image = "../figures/dice/g1.png";
+          }
+
         }
         gameBoard.addPlayersInfo(game.playerList);
+        gameBoard.addPlayers(game.playerList);
 
 
 
