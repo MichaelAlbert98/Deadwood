@@ -43,7 +43,7 @@ public class Deadwood {
         Board board = Board.getBoard(deck);
         parser.readBoardData(d,board);
 
-        BoardLayersListener gameBoard = new BoardLayersListener(board);
+        GameView gameBoard = new GameView(board);
         gameBoard.setVisible(true);
 
         // Take input from the user about number of players
@@ -62,6 +62,7 @@ public class Deadwood {
         }
         numDays = 3;
         Game game = Game.getGame(numPlayers,numDays,board);
+        game.attach(gameBoard);
         for (int i=0;i<numPlayers;i++) {
           String name = JOptionPane.showInputDialog(gameBoard, "What is your name Player " + (i+1) + "?");
           game.playerList.get(i).setName(name);
@@ -83,8 +84,8 @@ public class Deadwood {
 
 
 
-        TextView tv = new TextView(game);
-        tv.startListener();
+        //TextView tv = new TextView(game);
+        //tv.startListener();
 
       } catch (Exception e) {
           e.printStackTrace();
