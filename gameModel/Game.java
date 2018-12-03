@@ -40,7 +40,7 @@ public class Game extends Subject {
         }
         this.activePlayer = playerList.get(0);
     }
-    
+
     public static Game getGame(int numPlayers, int numDays, Board board) {
       if (gameInstance == null) {
          gameInstance = new Game(numPlayers,numDays,board);
