@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-public class SceneView extends JFrame implements myObserver {
+public class SceneView implements myObserver {
 
     //Local Variables
     Scene sceneRef;

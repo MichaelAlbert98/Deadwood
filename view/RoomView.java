@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-public class RoomView extends JFrame implements myObserver {
+public class RoomView implements myObserver {
 
     //Local Variables
     Room roomRef;
@@ -29,7 +29,7 @@ public class RoomView extends JFrame implements myObserver {
     //Local SceneView Update Override
     @Override
     public void update(String message){
-        
+
         switch (message) {
 
             // Room Was Reset
@@ -41,7 +41,7 @@ public class RoomView extends JFrame implements myObserver {
             case (Room.RoomMessages.WrapScene):
               System.out.printf("\nThe scene in %s is done shooting!\n", this.roomRef.getName());
               break;
-            
+
         }
     }
 

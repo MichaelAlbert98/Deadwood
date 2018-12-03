@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-public class PlayerView extends JFrame implements myObserver {
+public class PlayerView implements myObserver {
 
   // Local Variables
   Player playerRef;

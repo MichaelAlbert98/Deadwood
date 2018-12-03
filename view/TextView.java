@@ -28,7 +28,8 @@ public class TextView {
      * This method builds a new TextView model from the game. It keeps track of all
      * of the observers that are attached to the subjects with ArrayLists.
      */
-    TextView(Game gameLocation) {
+
+  /*  TextView(Game gameLocation) {
         // Game:
         this.gameRef = gameLocation;
         gameView = new GameView(this.gameRef);
@@ -47,6 +48,8 @@ public class TextView {
             }
         }
     }
+
+    */
 
 
     /* Text Command List
