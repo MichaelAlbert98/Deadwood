@@ -28,7 +28,7 @@ public class SceneView extends JFrame implements myObserver {
 
     //Local SceneView Update Override
     @Override
-    void update(String message){
+    public void update(String message){
 
     }
 

@@ -38,7 +38,7 @@ public class GameView extends JFrame implements myObserver {
      * message to the terminal.
      */
     @Override
-    void update(String message){
+    public void update(String message){
         //New Day Message:
         if (Game.gameMessages.newDay.equals(message)) {
             System.out.printf("\nDay %d starting!\n", gameRef.getCurrentDay()); }

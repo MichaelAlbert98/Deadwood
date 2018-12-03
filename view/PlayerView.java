@@ -29,7 +29,7 @@ public class PlayerView extends JFrame implements myObserver {
 
   // Local PlayerView Update Override
   @Override
-  void update(String message) {
+  public void update(String message) {
     switch (message) {
 
     // Turn Start Message:
