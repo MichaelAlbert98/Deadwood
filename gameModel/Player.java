@@ -11,6 +11,7 @@ import java.util.*;
 
 public class Player extends Subject {
 
+  public String image;
   private String name;
   private int rank;
   private int cash;
