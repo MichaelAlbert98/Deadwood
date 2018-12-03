@@ -58,6 +58,29 @@ public class BoardLayersListener extends JFrame {
        // Set the size of the GUI
        setSize(icon.getIconWidth()+200,icon.getIconHeight()+200);
 
+      // Create labels for player info
+      JLabel name = new JLabel("Name");
+      name.setBounds(10,icon.getIconHeight()+20,100,20);
+      bPane.add(name,new Integer(2));
+      JLabel cash = new JLabel("Cash");
+      cash.setBounds(10,icon.getIconHeight()+40,100,20);
+      bPane.add(cash,new Integer(2));
+      JLabel credits = new JLabel("Credits");
+      credits.setBounds(10,icon.getIconHeight()+60,100,20);
+      bPane.add(credits,new Integer(2));
+      JLabel rank = new JLabel("Rank");
+      rank.setBounds(10,icon.getIconHeight()+80,100,20);
+      bPane.add(rank,new Integer(2));
+      JLabel rehearsals = new JLabel("Rehearsals");
+      rehearsals.setBounds(10,icon.getIconHeight()+100,100,20);
+      bPane.add(rehearsals,new Integer(2));
+      JLabel location = new JLabel("Location");
+      location.setBounds(10,icon.getIconHeight()+120,100,20);
+      bPane.add(location,new Integer(2));
+      JLabel role = new JLabel("Role");
+      role.setBounds(10,icon.getIconHeight()+140,100,20);
+      bPane.add(role,new Integer(2));
+
        // Add scene cards to the board
     /*   JLabel[] cardLabels = new JLabel[10];
        for (int i=0;i<10;i++) {
@@ -70,16 +93,7 @@ public class BoardLayersListener extends JFrame {
 
          // Add the card to the lower layer
          bPane.add(cardLabels[i], new Integer(1));
-       }
-
-       // Add dice to represent the players.
-       playerlabel = new JLabel();
-       ImageIcon pIcon = new ImageIcon("../figures/dice/b1.png");
-       playerlabel.setIcon(pIcon);
-       //playerlabel.setBounds(114,227,pIcon.getIconWidth(),pIcon.getIconHeight());
-       playerlabel.setBounds(114,227,46,46);
-       playerlabel.setVisible(false);
-       bPane.add(playerlabel,new Integer(3)); */
+       } */
 
        // Create the Menu for action buttons
        mLabel = new JLabel("MENU");
@@ -124,31 +138,10 @@ public class BoardLayersListener extends JFrame {
        bPane.add(bUpgrade, new Integer(2));
        bPane.add(bTakeRole, new Integer(2));
        bPane.add(bEndTurn, new Integer(2));
-
   }
+
        // Create info trackers for players
        public void addPlayersInfo(ArrayList<Player> players) {
-         JLabel name = new JLabel("Name");
-         name.setBounds(10,icon.getIconHeight()+20,100,20);
-         bPane.add(name,new Integer(2));
-         JLabel cash = new JLabel("Cash");
-         cash.setBounds(10,icon.getIconHeight()+40,100,20);
-         bPane.add(cash,new Integer(2));
-         JLabel credits = new JLabel("Credits");
-         credits.setBounds(10,icon.getIconHeight()+60,100,20);
-         bPane.add(credits,new Integer(2));
-         JLabel rank = new JLabel("Rank");
-         rank.setBounds(10,icon.getIconHeight()+80,100,20);
-         bPane.add(rank,new Integer(2));
-         JLabel rehearsals = new JLabel("Rehearsals");
-         rehearsals.setBounds(10,icon.getIconHeight()+100,100,20);
-         bPane.add(rehearsals,new Integer(2));
-         JLabel location = new JLabel("Location");
-         location.setBounds(10,icon.getIconHeight()+120,100,20);
-         bPane.add(location,new Integer(2));
-         JLabel role = new JLabel("Role");
-         role.setBounds(10,icon.getIconHeight()+140,100,20);
-         bPane.add(role,new Integer(2));
          JLabel[][] playersLabels = new JLabel[players.size()][7];
          for (int i = 0; i < players.size(); i++) {
            Player p = players.get(i);
@@ -167,15 +160,27 @@ public class BoardLayersListener extends JFrame {
            playersLabels[i][4] = new JLabel(Integer.toString(p.timesRehearsed()));
            playersLabels[i][4].setBounds(i*400+100,icon.getIconHeight()+100,100,20);
            bPane.add(playersLabels[i][4],new Integer(2));
-           playersLabels[i][5] = new JLabel("nowhere");
+           playersLabels[i][5] = new JLabel("Trailer");
            playersLabels[i][5].setBounds(i*400+100,icon.getIconHeight()+120,100,20);
            bPane.add(playersLabels[i][5],new Integer(2));
            playersLabels[i][6] = new JLabel("none");
            playersLabels[i][6].setBounds(i*400+100,icon.getIconHeight()+140,100,20);
            bPane.add(playersLabels[i][6],new Integer(2));
          }
-       }
+      }
 
+       // Create player tokens
+       public void addPlayers(ArrayList<Player> players) {
+         JLabel[] playerLabels = new JLabel[players.size()];
+         for (int i=0;i<players.size();i++) {
+            playerLabels[i] = new JLabel();
+            ImageIcon pIcon = new ImageIcon(players.get(i).image);
+            playerLabels[i].setIcon(pIcon);
+            playerLabels[i].setBounds(1030+(i*50),270,pIcon.getIconWidth(),pIcon.getIconHeight());
+            playerLabels[i].setVisible(true);
+            bPane.add(playerLabels[i],new Integer(3));
+         }
+       }
 
   // This class implements Mouse Events
   class boardMouseListener implements MouseListener{
