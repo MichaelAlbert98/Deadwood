@@ -189,7 +189,6 @@ public class BoardLayersListener extends JFrame {
       public void mouseClicked(MouseEvent e) {
 
          if (e.getSource()== bAct){
-            playerlabel.setVisible(true);
             System.out.println("Acting is Selected\n");
          }
          else if (e.getSource()== bRehearse){
