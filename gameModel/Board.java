@@ -20,13 +20,13 @@ public class Board {
     this.roomList = new ArrayList<Room>();
     this.deck = deck;
   }
-  
+
   public static Board getBoard(Deck deck) {
-   if (boardInstance == null) {
+    if (boardInstance == null) {
       boardInstance = new Board(deck);
       return boardInstance;
-   }
-   return boardInstance;
+    }
+    return boardInstance;
   }
 
   public int getNumScenesRemaining() {

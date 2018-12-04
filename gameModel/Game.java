@@ -42,11 +42,11 @@ public class Game extends Subject {
     }
 
     public static Game getGame(int numPlayers, int numDays, Board board) {
-      if (gameInstance == null) {
-         gameInstance = new Game(numPlayers,numDays,board);
-         return gameInstance;
-      }
-      return gameInstance;
+        if (gameInstance == null) {
+            gameInstance = new Game(numPlayers,numDays,board);
+            return gameInstance;
+        }
+        return gameInstance;
     }
 
     /* Next Player
@@ -71,7 +71,7 @@ public class Game extends Subject {
     public void newDay() {
         this.currentDay++;
         for (int i=0;i<this.playerList.size();i++) {
-          this.playerList.get(i).resetPlayer();
+            this.playerList.get(i).resetPlayer();
         }
         this.board.resetBoard();
         if (this.currentDay <= this.daysInGame) {
@@ -123,13 +123,13 @@ public class Game extends Subject {
         int topScore = 0;
         String name = "";
         for (int i=0;i<this.playerList.size();i++) {
-          int newScore = this.playerList.get(i).getRank()*5 +
-                      this.playerList.get(i).getCash() +
-                      this.playerList.get(i).getCredits();
-          if (newScore > topScore) {
-            topScore = newScore;
-            name = this.playerList.get(i).getName();
-          }
+            int newScore = this.playerList.get(i).getRank()*5 +
+                    this.playerList.get(i).getCash() +
+                    this.playerList.get(i).getCredits();
+            if (newScore > topScore) {
+                topScore = newScore;
+                name = this.playerList.get(i).getName();
+            }
         }
         return name;
     }
