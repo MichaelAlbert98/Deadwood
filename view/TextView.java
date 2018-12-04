@@ -79,39 +79,15 @@ public class TextView {
         String inputAction;
         ArrayList<String> activePlayerActionSet = new ArrayList<String>();
 
-      //  startGameMessage();
+        //startGameMessage();
         this.gameRef.newDay();
         this.gameRef.activePlayer.startPlayerTurn();
         activePlayerActionSet = determinePlayerActionSet();
         // Switch on player movement
         while (!this.gameRef.isGameOver()) {
-            displayPlayerPrompt("Choose an action:", activePlayerActionSet);
 
-
-            inputAction = scanner.nextLine().toLowerCase();
-            switch (inputAction) {
-
-            // Player Statistics
-            case TextView.textCommandList.ACTIVEPLAYER:
-            case TextView.textCommandList.STATS:
-                activePlayerInfo();
-                break;
-
-            // Player Location
-            case TextView.textCommandList.WHERE:
-                playersLocation();
-                break;
-
-            // Local Room Statistics
-            case TextView.textCommandList.ROOMSTATS:
-                roomStats();
-                break;
-
-            // Player Name
-            case TextView.textCommandList.WHO:
-                activePlayerName();
-                break;
-
+            String input = "";
+            switch(input) {
             // Player Move
             case TextView.textCommandList.MOVE:
                 if (activePlayerActionSet.contains(TextView.textCommandList.MOVE)) {
@@ -230,57 +206,6 @@ public class TextView {
         scanner.close();
     }
 
-
-/**** Player Information Functions ****/
-
-    // Active Players Information:
-    private void activePlayerInfo() {
-        System.out.printf("The active player is %s located in %s. Their rank is %d, and have $%d and %dcr. ",
-                this.gameRef.activePlayer.getName(), this.gameRef.activePlayer.getLocation().getName(),
-                this.gameRef.activePlayer.getRank(), this.gameRef.activePlayer.getCash(),
-                this.gameRef.activePlayer.getCredits());
-        if (gameRef.activePlayer.getCurrentRole() == null) {
-            System.out.printf("They are currently not in a role.\n");
-        } else {
-            System.out.printf("They are currently working in the scene %s.\n",
-                    this.gameRef.activePlayer.getCurrentRole().getName());
-        }
-    }
-
-    // Active Player Name:
-    private void activePlayerName() {
-        System.out.printf("The active player is %s($%d, %dcr).\n", this.gameRef.activePlayer.getName(),
-                this.gameRef.activePlayer.getCash(), this.gameRef.activePlayer.getCredits());
-    }
-
-    private void playersLocation() {
-      for (int i=0; i<this.gameRef.playerList.size();i++) {
-        System.out.printf("%s is located in %s \n" , this.gameRef.playerList.get(i).getName(),
-                          this.gameRef.playerList.get(i).getLocation().getName());
-      }
-      System.out.printf("%s is the active player\n" , this.gameRef.activePlayer.getName());
-    }
-
-    private void roomStats() {
-        System.out.printf("\nCurrent Location Room Stats:\nRoom Name: %s\nNeighbors: %s\nShots: %d\n",
-                            this.gameRef.activePlayer.getLocation().getName(),
-                            this.gameRef.activePlayer.getLocation().adjacentRooms.toString(),
-                            this.gameRef.activePlayer.getLocation().getShots());
-
-        if (this.gameRef.activePlayer.getLocation().getScene() != null) {
-          System.out.printf("Scene: %s\nBudget: %d\nShots Left: %d\nLocation: %s\n",
-                          this.gameRef.activePlayer.getLocation().getScene().getName(),
-                          this.gameRef.activePlayer.getLocation().getScene().getBudget(),
-                          this.gameRef.activePlayer.getLocation().getScene().getShotsLeft(),
-                          this.gameRef.activePlayer.getLocation().getScene().getLocation().getName());
-          System.out.println("\nRoles in scene:");
-          this.gameRef.activePlayer.getLocation().getScene().printAllRolesInScene();
-        } else {
-          System.out.println("\nRoom Scenes:");
-          this.gameRef.activePlayer.getLocation().printAllRolesInRoom();
-        }
-        System.out.printf("\n");
-    }
 
 /**** Movement Functions ****/
 
@@ -584,10 +509,6 @@ public class TextView {
                 activePlayerActionSet.add("upgrade");
             }
         }
-        activePlayerActionSet.add("who");
-        activePlayerActionSet.add("where");
-        activePlayerActionSet.add("stats");
-        activePlayerActionSet.add("room stats");
         activePlayerActionSet.add("end turn");
         return activePlayerActionSet;
     }

@@ -10,6 +10,9 @@ import gameModel.*;
 import java.lang.*;
 
 
+
+
+
 public class GameView implements myObserver {
     //Local Variables
     Game gameRef;
@@ -33,13 +36,16 @@ public class GameView implements myObserver {
      */
     @Override
     public void update(String message){
-        //New Day Message:
-        if (Game.gameMessages.newDay.equals(message)) {
-            System.out.printf("\nDay %d starting!\n", gameRef.getCurrentDay()); }
+        switch(message) {
 
-        //End of Day Message
-        else if (Game.gameMessages.newDay.equals(message)) {
-            System.out.printf("\nDay %d has ended!\n", gameRef.getCurrentDay());
+            // New Day Update
+            case (Game.gameMessages.newDay):
+                // Display message stating new day
+                break;
+
+            case (Game.gameMessages.gameOver):
+                //Print out winner message
+                break;
         }
     }
 }

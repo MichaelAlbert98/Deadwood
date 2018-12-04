@@ -6,6 +6,7 @@
  * Revised: 11/16/2018
  */
 
+
 import org.w3c.dom.Document;
 
 import java.awt.*;
@@ -43,7 +44,7 @@ public class Deadwood {
             Board board = Board.getBoard(deck);
             parser.readBoardData(d,board);
 
-            BoardLayersListener gameBoard = new BoardLayersListener(board);
+            guiView gameBoard = new guiView();
             gameBoard.setVisible(true);
 
             // Take input from the user about number of players
@@ -86,45 +87,13 @@ public class Deadwood {
                     game.playerList.get(i).image = "../figures/dice/g1.png";
                 }
             }
-            gameBoard.addPlayersInfo(game.playerList);
-            gameBoard.addPlayers(game.playerList);
+            gameBoard = new guiView(game);
 
 
-
-
-            TextView tv = new TextView(game);
-            tv.startListener();
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error encountered. Exiting Deadwood.");
         }
     }
-
-
-    /* Getters and Setters for Game Creation */
-
-    /* Get Number of Players
-     *
-     * Casts and validates for the number of players from command line arg.
-    private static void getNumPlayers(String countStr) throws NumberFormatException {
-        int playerCount;
-        playerCount = Integer.parseInt(countStr);
-        if ((playerCount < minPlayers) || (playerCount > maxPlayers)) {
-            System.out.println("There must be between 2 and 8 players.\n");
-            numPlayers = 0;
-        } else {
-            numPlayers = playerCount;
-        }
-    }
-     Set Number of Players
-     *
-     * Setter for the number of players in a Deadwood game.
-    private static void setNumDays() throws NumberFormatException {
-        if (numPlayers < 4) {
-            numDays = 3;
-        } else {
-            numDays = 4;
-        }
-    } */
 }

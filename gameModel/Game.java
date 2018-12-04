@@ -11,8 +11,10 @@ public class Game extends Subject {
 
     public static class gameMessages {
         public static final String newDay = "NEWDAY";
-        public static final String dayEnd = "ENDDAY";
-
+        public static final String renderActionMenu = "RENDERACTIONMENU";
+        public static final String rederMovementMenu = "RENDERMOVEMENTMENU";
+        public static final String rederRolesMenu = "RENDERROLESMENU";
+        public static final String gameOver = "GAMEOVER";
     }
 
     // Game Attributes

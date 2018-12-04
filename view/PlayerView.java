@@ -49,24 +49,13 @@ public class PlayerView implements myObserver {
 
     //Player Took Role:
     case (Player.playerMessages.tookRole):
-      if (this.playerRef.getCurrentRole() == null) {
-        System.out.printf("%s removed from role.\n", this.playerRef.getName());
-      } else {
-        System.out.printf("You have now been cast as %s in %s!\n",
-                          this.playerRef.getCurrentRole().getName(),
-                          this.playerRef.getLocation().getName());
-      }
+
       break;
 
-
-    // Leaving Rom Message
-    case (Player.playerMessages.leavingRoom):
-      this.previousRoom = this.playerRef.getLocation();
-      break;
 
     // Locaition Updated Message:
     case (Player.playerMessages.locationUpdated):
-      System.out.printf("Moved from %s to %s!\n", this.previousRoom.getName(), this.playerRef.getLocation().getName());
+
       break;
     }
   }
