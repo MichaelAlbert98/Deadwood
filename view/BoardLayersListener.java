@@ -7,6 +7,8 @@
 
 */
 
+/*
+
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
@@ -82,7 +84,7 @@ public class BoardLayersListener extends JFrame {
       bPane.add(role,new Integer(2));
 
        // Add scene cards to the board
-    /*   JLabel[] cardLabels = new JLabel[10];
+       JLabel[] cardLabels = new JLabel[10];
        for (int i=0;i<10;i++) {
          cardLabels[i] = new JLabel();
          ImageIcon cIcon =  new ImageIcon("../figures/CardBack.jpg");
@@ -93,51 +95,52 @@ public class BoardLayersListener extends JFrame {
 
          // Add the card to the lower layer
          bPane.add(cardLabels[i], new Integer(1));
-       } */
+       }
 
        // Create the Menu for action buttons
        mLabel = new JLabel("MENU");
        mLabel.setBounds(icon.getIconWidth()+70,0,100,20);
        bPane.add(mLabel,new Integer(2));
 
-       // Create Action buttons
-       bAct = new JButton("ACT");
-       bAct.setBackground(Color.white);
-       bAct.setBounds(icon.getIconWidth()+30, 30,120, 20);
-       bAct.addMouseListener(new boardMouseListener());
+      // Create Action buttons
+      bMove = new JButton("MOVE");
+      bMove.setBackground(Color.white);
+      bMove.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
+      bMove.addMouseListener(new boardMouseListener());
 
-       bRehearse = new JButton("REHEARSE");
-       bRehearse.setBackground(Color.white);
-       bRehearse.setBounds(icon.getIconWidth()+30,60,120, 20);
-       bRehearse.addMouseListener(new boardMouseListener());
+      bTakeRole = new JButton("TAKE ROLE");
+      bTakeRole.setBackground(Color.white);
+      bTakeRole.setBounds(icon.getIconWidth() + 30, 60, 120, 20);
+      bTakeRole.addMouseListener(new boardMouseListener());
 
-       bMove = new JButton("MOVE");
-       bMove.setBackground(Color.white);
-       bMove.setBounds(icon.getIconWidth()+30,90,120, 20);
-       bMove.addMouseListener(new boardMouseListener());
+      bAct = new JButton("ACT");
+      bAct.setBackground(Color.white);
+      bAct.setBounds(icon.getIconWidth() + 30, 90, 120, 20);
+      bAct.addMouseListener(new boardMouseListener());
 
-       bUpgrade = new JButton("UPGRADE");
-       bUpgrade.setBackground(Color.white);
-       bUpgrade.setBounds(icon.getIconWidth()+30,120,120, 20);
-       bUpgrade.addMouseListener(new boardMouseListener());
+      bRehearse = new JButton("REHEARSE");
+      bRehearse.setBackground(Color.white);
+      bRehearse.setBounds(icon.getIconWidth() + 30, 120, 120, 20);
+      bRehearse.addMouseListener(new boardMouseListener());
 
-       bTakeRole = new JButton("TAKE ROLE");
-       bTakeRole.setBackground(Color.white);
-       bTakeRole.setBounds(icon.getIconWidth()+30,150,120, 20);
-       bTakeRole.addMouseListener(new boardMouseListener());
+      bUpgrade = new JButton("UPGRADE");
+      bUpgrade.setBackground(Color.white);
+      bUpgrade.setBounds(icon.getIconWidth() + 30, 150, 120, 20);
+      bUpgrade.addMouseListener(new boardMouseListener());
 
-       bEndTurn = new JButton("END TURN");
-       bEndTurn.setBackground(Color.white);
-       bEndTurn.setBounds(icon.getIconWidth()+30,180,120, 20);
-       bEndTurn.addMouseListener(new boardMouseListener());
 
-       // Place the action buttons in the top layer
-       bPane.add(bAct, new Integer(2));
-       bPane.add(bRehearse, new Integer(2));
-       bPane.add(bMove, new Integer(2));
-       bPane.add(bUpgrade, new Integer(2));
-       bPane.add(bTakeRole, new Integer(2));
-       bPane.add(bEndTurn, new Integer(2));
+      bEndTurn = new JButton("END TURN");
+      bEndTurn.setBackground(Color.white);
+      bEndTurn.setBounds(icon.getIconWidth() + 30, 180, 120, 20);
+      bEndTurn.addMouseListener(new boardMouseListener());
+
+      // Place the action buttons in the top layer
+      bPane.add(bAct, new Integer(2));
+      bPane.add(bRehearse, new Integer(2));
+      bPane.add(bMove, new Integer(2));
+      bPane.add(bUpgrade, new Integer(2));
+      bPane.add(bTakeRole, new Integer(2));
+      bPane.add(bEndTurn, new Integer(2));
   }
 
        // Create info trackers for players
@@ -217,3 +220,4 @@ public class BoardLayersListener extends JFrame {
       }
    }
 }
+*/

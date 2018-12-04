@@ -29,68 +29,74 @@ public class Deadwood {
     */
     public static void main(String[] args) {
 
-      try{
+        try {
 
-        //read in card data.
-        ParseXML parser = new ParseXML();
-        Document d = parser.getDocFromFile("../figures/cards.xml");
-        Deck deck = new Deck();
-        parser.readCardData(d,deck);
-        deck.shuffleDeck();
+            //read in card data.
+            ParseXML parser = new ParseXML();
+            Document d = parser.getDocFromFile("../figures/cards.xml");
+            Deck deck = new Deck();
+            parser.readCardData(d, deck);
+            deck.shuffleDeck();
 
-        //read in board data.
-        d = parser.getDocFromFile("../figures/board.xml");
-        Board board = Board.getBoard(deck);
-        parser.readBoardData(d,board);
+            //read in board data.
+            d = parser.getDocFromFile("../figures/board.xml");
+            Board board = Board.getBoard(deck);
+            parser.readBoardData(d, board);
 
-        GameView gameBoard = new GameView(board);
-        gameBoard.setVisible(true);
+            GameView gameBoard = new GameView(board);
+            gameBoard.setVisible(true);
 
-        // Take input from the user about number of players
-        while (numPlayers == 0) {
-          try{
-            int temp = Integer.parseInt(JOptionPane.showInputDialog(gameBoard, "How many players?"));
-            if ((temp == 2) || (temp == 3)) {
-              numPlayers = temp;
+            // Take input from the user about number of players
+            while (numPlayers == 0) {
+                try {
+                    int temp = Integer.parseInt(JOptionPane.showInputDialog(gameBoard, "How many players?"));
+                    if ((temp == 2) || (temp == 3)) {
+                        numPlayers = temp;
+                    } else {
+                        JOptionPane.showMessageDialog(gameBoard, "Please input 2 or 3.", "Warning", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(gameBoard, "Please input a number.", "Warning", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            else {
-              JOptionPane.showMessageDialog(gameBoard, "Please input 2 or 3.", "Warning", JOptionPane.ERROR_MESSAGE);
+            numDays = 3;
+            Game game = Game.getGame(numPlayers, numDays, board);
+            game.attach(gameBoard);
+            for (int i = 0; i < numPlayers; i++) {
+                while (true) {
+                    try {
+                        String name = JOptionPane.showInputDialog(gameBoard, "What is your name Player " + (i + 1) + "?");
+                        game.playerList.get(i).setName(name);
+                        if (name.matches("")) {
+                            JOptionPane.showMessageDialog(gameBoard, "Name must contain characters.", "Warning", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            break;
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(gameBoard, "Input a name.", "Warning", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                if (i == 0) {
+                    game.playerList.get(i).image = "../figures/dice/b1.png";
+                }
+                if (i == 1) {
+                    game.playerList.get(i).image = "../figures/dice/c1.png";
+                }
+                if (i == 2) {
+                    game.playerList.get(i).image = "../figures/dice/g1.png";
+                }
             }
-          } catch (Exception e){
-            JOptionPane.showMessageDialog(gameBoard, "Please input a number.", "Warning", JOptionPane.ERROR_MESSAGE);
-          }
+            gameBoard.addPlayersInfo(game.playerList);
+            gameBoard.addPlayers(game.playerList);
+
+
+            //TextView tv = new TextView(game);
+            //tv.startListener();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error encountered. Exiting Deadwood.");
         }
-        numDays = 3;
-        Game game = Game.getGame(numPlayers,numDays,board);
-        game.attach(gameBoard);
-        for (int i=0;i<numPlayers;i++) {
-          String name = JOptionPane.showInputDialog(gameBoard, "What is your name Player " + (i+1) + "?");
-          game.playerList.get(i).setName(name);
-          if (i==0) {
-            game.playerList.get(i).image = "../figures/dice/b1.png";
-          }
-          if (i==1) {
-            game.playerList.get(i).image = "../figures/dice/c1.png";
-          }
-          if (i==2) {
-            game.playerList.get(i).image = "../figures/dice/g1.png";
-          }
-
-        }
-        gameBoard.addPlayersInfo(game.playerList);
-        gameBoard.addPlayers(game.playerList);
-
-
-
-
-
-        //TextView tv = new TextView(game);
-        //tv.startListener();
-
-      } catch (Exception e) {
-          e.printStackTrace();
-          System.out.println("Error encountered. Exiting Deadwood.");
-      }
     }
 
 
