@@ -1,8 +1,8 @@
 /* CSCI 345 - Object Oriented Design - Deadwood
  * Ryan Lingg and Michael Albert
- * GameView.java
- * Created: 11/03/2018
- * Revised: 11/16/2018
+ * guiView.java
+ * Created: 12/01/2018
+ * Revised: 12/04/2018
  */
 
 import controller.*;
@@ -30,7 +30,7 @@ public class guiView extends JFrame  {
 
 
     // Swing Attributes:
-    JLayeredPane boardWindow;
+    static JLayeredPane boardWindow;
     JLabel boardlabel;
     JLabel cardlabel;
     JLabel playerlabel;
@@ -110,11 +110,14 @@ public class guiView extends JFrame  {
             }
         }
 
+        // Start the game.
+        this.gameRef.newDay();
+        this.gameRef.activePlayer.startPlayerTurn();
 
         this.mLabel = new JLabel("");
         this.mLabel.setBounds(icon.getIconWidth() + 70, 0, 100, 20);
         this.mLabel.setBounds(icon.getIconWidth() + 70, 0, 100, 20);
-        this.boardWindow.add(mLabel, new Integer(2));
+        this.boardWindow.add(mLabel,new Integer(2));
         this.bStartGame = new JButton("START GAME");
         this.bStartGame.setBackground(Color.white);
         this.bStartGame.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
@@ -131,32 +134,40 @@ public class guiView extends JFrame  {
 
             if (e.getSource() == bStartGame) {
                 ArrayList<String> actionSet = actionController.determinePlayerActionSet();
-                renderActionMenu(new ArrayList<String>());
+                renderActionMenu(actionSet);
             }
             else if (e.getSource() == bAct) {
                 //actingPhase();
-                gameRef.newDay();
-                System.out.println("Acting is Selected\n");
+                JOptionPane.showMessageDialog(boardWindow, "You have acted.");
             } else if (e.getSource() == bRehearse) {
                 //rehearsePhase();
-                System.out.println("Rehearse is Selected\n");
+                JOptionPane.showMessageDialog(boardWindow, "You have rehearsed.");
             } else if (e.getSource() == bMove) {
                 //movementPhase();
-                System.out.println("Move is Selected\n");
+                String[] MOVEMENT = {"trailer","main street","hotel","saloon","train station","jail","general store",
+                        "church","ranch","bank","secret hideout","office"};
+                String movement = (String) JOptionPane.showInputDialog(boardWindow, "Where do you want to move?"
+                        ,"Movement Options", JOptionPane.QUESTION_MESSAGE, null, MOVEMENT, MOVEMENT[0]);
             } else if (e.getSource() == bUpgrade) {
                 //upgradePhase();
-                System.out.println("Upgrade is Selected\n");
+                String[] MONEYTYPE = {"cash","credit"};
+                Integer[] LEVELS = {2,3,4,5,6};
+                String moneyType = (String) JOptionPane.showInputDialog(boardWindow, "What do you want to pay with?"
+                        ,"Payment Options", JOptionPane.QUESTION_MESSAGE, null, MONEYTYPE, MONEYTYPE[0]);
+                int level = (Integer)JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
+                        ,"Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
             } else if (e.getSource() == bTakeRole) {
                 //takeRolePhase();
-                System.out.println("Take Role is Selected\n");
+                String[] ROLES = {"temp"};
+                String moneyType = (String) JOptionPane.showInputDialog(boardWindow, "Which role do you want to take?"
+                        ,"Role Options", JOptionPane.QUESTION_MESSAGE, null, ROLES, ROLES[0]);
             } else if (e.getSource() == bEndTurn) {
                 //endPlayerTurn();
-                System.out.println("End Turn is Selected\n");
+                JOptionPane.showMessageDialog(boardWindow, "You have ended your turn.");
             }
         }
 
         public void mousePressed(MouseEvent e) {
-            System.out.println("Mouse Pressed\n");
         }
 
         public void mouseReleased(MouseEvent e) {
@@ -176,42 +187,52 @@ public class guiView extends JFrame  {
         boardWindow.add(mLabel, new Integer(2));
 
         // Create Action buttons
-        bAct = new JButton("ACT");
-        bAct.setBackground(Color.white);
-        bAct.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
-        bAct.addMouseListener(new boardMouseListener());
+        if (actionSet.contains("ACT")) {
+            bAct = new JButton("ACT");
+            bAct.setBackground(Color.white);
+            bAct.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
+            bAct.addMouseListener(new boardMouseListener());
+            boardWindow.add(bAct, new Integer(2));
+        }
 
-        bRehearse = new JButton("REHEARSE");
-        bRehearse.setBackground(Color.white);
-        bRehearse.setBounds(icon.getIconWidth() + 30, 60, 120, 20);
-        bRehearse.addMouseListener(new boardMouseListener());
+        if (actionSet.contains("REHEARSE")) {
+            bRehearse = new JButton("REHEARSE");
+            bRehearse.setBackground(Color.white);
+            bRehearse.setBounds(icon.getIconWidth() + 30, 60, 120, 20);
+            bRehearse.addMouseListener(new boardMouseListener());
+            boardWindow.add(bRehearse, new Integer(2));
+        }
 
-        bMove = new JButton("MOVE");
-        bMove.setBackground(Color.white);
-        bMove.setBounds(icon.getIconWidth() + 30, 90, 120, 20);
-        bMove.addMouseListener(new boardMouseListener());
+        if (actionSet.contains("MOVE")) {
+            bMove = new JButton("MOVE");
+            bMove.setBackground(Color.white);
+            bMove.setBounds(icon.getIconWidth() + 30, 90, 120, 20);
+            bMove.addMouseListener(new boardMouseListener());
+            boardWindow.add(bMove, new Integer(2));
+        }
 
-        bUpgrade = new JButton("UPGRADE");
-        bUpgrade.setBackground(Color.white);
-        bUpgrade.setBounds(icon.getIconWidth() + 30, 120, 120, 20);
-        bUpgrade.addMouseListener(new boardMouseListener());
+        if (actionSet.contains("UPGRADE")) {
+            bUpgrade = new JButton("UPGRADE");
+            bUpgrade.setBackground(Color.white);
+            bUpgrade.setBounds(icon.getIconWidth() + 30, 120, 120, 20);
+            bUpgrade.addMouseListener(new boardMouseListener());
+            boardWindow.add(bUpgrade, new Integer(2));
+        }
 
-        bTakeRole = new JButton("TAKE ROLE");
-        bTakeRole.setBackground(Color.white);
-        bTakeRole.setBounds(icon.getIconWidth() + 30, 150, 120, 20);
-        bTakeRole.addMouseListener(new boardMouseListener());
+        if (actionSet.contains("TAKE ROLE")) {
+            bTakeRole = new JButton("TAKE ROLE");
+            bTakeRole.setBackground(Color.white);
+            bTakeRole.setBounds(icon.getIconWidth() + 30, 150, 120, 20);
+            bTakeRole.addMouseListener(new boardMouseListener());
+            boardWindow.add(bTakeRole, new Integer(2));
+        }
 
-        bEndTurn = new JButton("END TURN");
-        bEndTurn.setBackground(Color.white);
-        bEndTurn.setBounds(icon.getIconWidth() + 30, 180, 120, 20);
-        bEndTurn.addMouseListener(new boardMouseListener());
-
-        // Place the action buttons in the top layer
-        boardWindow.add(bAct, new Integer(2));
-        boardWindow.add(bRehearse, new Integer(2));
-        boardWindow.add(bMove, new Integer(2));
-        boardWindow.add(bUpgrade, new Integer(2));
-        boardWindow.add(bTakeRole, new Integer(2));
-        boardWindow.add(bEndTurn, new Integer(2));
+        if (actionSet.contains("END TURN")) {
+            bEndTurn = new JButton("END TURN");
+            bEndTurn.setBackground(Color.white);
+            bEndTurn.setBounds(icon.getIconWidth() + 30, 180, 120, 20);
+            bEndTurn.addMouseListener(new boardMouseListener());
+            boardWindow.add(bEndTurn, new Integer(2));
+        }
     }
 }
