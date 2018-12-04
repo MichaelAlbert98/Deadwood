@@ -29,23 +29,23 @@ public class PlayerActionController {
     public ArrayList<String> determinePlayerActionSet() {
         ArrayList<String> activePlayerActionSet = new ArrayList<String>();
         if (this.gameRef.activePlayer.getCurrentRole() != null) {
-            activePlayerActionSet.add("act");
+            activePlayerActionSet.add("ACT");
             if (this.gameRef.activePlayer.timesRehearsed()+1 <
                     this.gameRef.activePlayer.getLocation().getScene().getBudget()) {
-                activePlayerActionSet.add("rehearse");
+                activePlayerActionSet.add("REHEARSE");
             }
         } else {
-            activePlayerActionSet.add("move");
+            activePlayerActionSet.add("MOVE");
             if (this.gameRef.activePlayer.getLocation().getScene() != null) {
                 if (this.gameRef.activePlayer.getLocation().getScene().areRolesAvailable(this.gameRef.activePlayer.getRank())){
-                    activePlayerActionSet.add("take role");
+                    activePlayerActionSet.add("TAKE ROLE");
                 }
             }
             if (this.gameRef.activePlayer.getLocation().getName().equals("Office")) {
-                activePlayerActionSet.add("upgrade");
+                activePlayerActionSet.add("UPGRADE");
             }
         }
-        activePlayerActionSet.add("end turn");
+        activePlayerActionSet.add("END TURN);
         return activePlayerActionSet;
     }
 
@@ -66,7 +66,7 @@ public class PlayerActionController {
 
         //Try to move player to the new room.
         Room dest = null;
-        if ((dest = Board.nameToRoom.get(input)) != null) {
+        if ((dest = this.gameRef.board.nameToRoom.get(input)) != null) {
             if (this.gameRef.activePlayer.getLocation().getAdjRooms().contains(input)) {
                 this.gameRef.activePlayer.movePlayer(dest);
                 return true;
