@@ -29,10 +29,9 @@ public class TextView {
      * of the observers that are attached to the subjects with ArrayLists.
      */
 
-  /*  TextView(Game gameLocation) {
+    TextView(Game gameLocation) {
         // Game:
         this.gameRef = gameLocation;
-        gameView = new GameView(this.gameRef);
         // Players:
         for (Player player : this.gameRef.playerList) {
             PlayerView p = new PlayerView(player);
@@ -48,8 +47,6 @@ public class TextView {
             }
         }
     }
-
-    */
 
 
     /* Text Command List
