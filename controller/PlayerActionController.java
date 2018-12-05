@@ -45,7 +45,7 @@ public class PlayerActionController {
                 activePlayerActionSet.add("UPGRADE");
             }
         }
-        activePlayerActionSet.add("END TURN);
+        activePlayerActionSet.add("END TURN");
         return activePlayerActionSet;
     }
 
@@ -55,28 +55,18 @@ public class PlayerActionController {
     * Displays the valid moves for the player then retireves player input about desired movement.
     * Checks if the movement is valid then updates the players location.
     */
-    private Boolean movementPhase() {
+    public ArrayList<String> movementPhase(String input) {
         // Prompt section:
         //displayPlayerPrompt("Which room do you want to move to?", this.gameRef.activePlayer.getLocation().getAdjRooms());
 
-        // Response section:
-        String input = "";
-
-        //FILL IN LATER USING BUTTONS
+        //FILL IN LAG BUTTONS
 
         //Try to move player to the new room.
-        Room dest = null;
-        if ((dest = this.gameRef.board.nameToRoom.get(input)) != null) {
-            if (this.gameRef.activePlayer.getLocation().getAdjRooms().contains(input)) {
-                this.gameRef.activePlayer.movePlayer(dest);
-                return true;
-            } else {
-                System.out.println("You cannot move to that room.");
-            }
-        } else {
-            System.out.println("Room does not exist.");
-        }
-        return false;
+                this.gameRef.activePlayer.movePlayer(gameRef.board.nameToRoom.get(input));
+                ArrayList<String> actions = determinePlayerActionSet();
+                actions.remove("MOVE");
+                return actions;
+
     }
 
 
