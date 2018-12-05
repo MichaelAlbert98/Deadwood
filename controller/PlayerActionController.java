@@ -69,6 +69,14 @@ public class PlayerActionController {
 
     }
 
+    /* Rehearse
+     *
+     *  Incremends players rehearse counter.
+     */
+    public void rehearsePhase(){
+        this.gameRef.activePlayer.addRehearse();
+        return;
+    }
 
     /* Take Role
      *
