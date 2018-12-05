@@ -150,6 +150,9 @@ public class guiView extends JFrame  {
                             , "Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
                     actionController.upgradePhase(moneyType, level);
                 }
+                else {
+                    JOptionPane.showMessageDialog(boardWindow, "You do not have enough credits or cash.", "Warning", JOptionPane.ERROR_MESSAGE);
+                }
                 ArrayList<String> actions = new ArrayList<String>();
                 actions.add("END TURN");
                 renderActionMenu(actions);
