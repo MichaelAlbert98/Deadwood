@@ -74,7 +74,7 @@ public class PlayerActionController {
      *
      * Returns true if successfully took role, else false
      */
-    private boolean takeRolePhase(){
+    public boolean takeRolePhase(){
         Boolean tookRole = false;
         Room location = this.gameRef.activePlayer.getLocation();
         ArrayList<Role> availableRoles = new ArrayList<Role>();
@@ -130,12 +130,11 @@ public class PlayerActionController {
      *
      * Randomly determines if work was success, then pays out to player based on outcome.
      */
-    private void actingPhase() {
+    public boolean actingPhase() {
         Random rand = new Random();
         int roll = rand.nextInt(6)+1 + this.gameRef.activePlayer.timesRehearsed();
         if (roll >= this.gameRef.activePlayer.getLocation().getScene().getBudget()) {
             if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
-                System.out.println("Success! You earned two credits.");
                 this.gameRef.activePlayer.addCurrencies(0, 2);
                 this.gameRef.activePlayer.getLocation().getScene().setShotsLeft(-1);
                 if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
@@ -144,7 +143,6 @@ public class PlayerActionController {
                 }
             }
             else {
-                System.out.println("Success! You earned one dollar and one credit.");
                 this.gameRef.activePlayer.addCurrencies(1, 1);
                 this.gameRef.activePlayer.getLocation().getScene().setShotsLeft(-1);
                 if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
@@ -152,16 +150,16 @@ public class PlayerActionController {
                     this.gameRef.board.decrementScenesRemaining();
                 }
             }
+            return true;
         }
         else {
             if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
-                System.out.println("Failure. You earned nothing.");
             }
             else {
-                System.out.println("Failure. You earned one dollar.");
                 this.gameRef.activePlayer.addCurrencies(1, 0);
             }
         }
+        return false;
     }
 
 
@@ -170,7 +168,7 @@ public class PlayerActionController {
      * Retireves player input about desired upgrade.
      * Then calls upgrade with data to check if upgrade is valid and performs upgrade.
      */
-    private Boolean upgradePhase() {
+    public Boolean upgradePhase() {
         String input;
         int desiredRank;
         String desiredPaymentType;
@@ -302,7 +300,7 @@ public class PlayerActionController {
      * This function tells the active player object their turn has ended,
      * updates the day if needed, and starts the next day if the game has not ended.
      */
-    private void endPlayerTurn() {
+    public void endPlayerTurn() {
         this.gameRef.activePlayer.endPlayerTurn();
         this.gameRef.nextPlayer();
         if (this.gameRef.isDayOver()) {
