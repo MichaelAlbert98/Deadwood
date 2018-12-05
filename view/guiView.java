@@ -108,7 +108,7 @@ public class guiView extends JFrame  {
         public void mouseClicked(MouseEvent e) {
             Game gameRef = getGameRef();
             PlayerActionController actionController = getPAC();
-            
+
             if (e.getSource() == bAct) {
                 //actingPhase();
                 Boolean success = actionController.actingPhase();
@@ -122,6 +122,7 @@ public class guiView extends JFrame  {
                 actions.add("END TURN");
             } else if (e.getSource() == bRehearse) {
                 //rehearsePhase();
+                actionController.rehearsePhase();
                 JOptionPane.showMessageDialog(boardWindow, "You have rehearsed.");
             } else if (e.getSource() == bMove) {
                 //movementPhase();
