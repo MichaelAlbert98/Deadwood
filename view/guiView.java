@@ -31,6 +31,7 @@ public class guiView extends JFrame  {
 
     // Swing Attributes:
     static JLayeredPane boardWindow;
+    JPanel mPanel;
     JLabel boardlabel;
     JLabel cardlabel;
     JLabel playerlabel;
@@ -38,28 +39,12 @@ public class guiView extends JFrame  {
     ImageIcon icon;
 
     // Action JButtons:
-    JButton bStartGame;
-    JButton bAct;
-    JButton bRehearse;
-    JButton bMove;
-    JButton bUpgrade;
-    JButton bTakeRole;
-    JButton bEndTurn;
-
-    //Movement JButtons
-    JButton bMoveUp;
-    JButton bMoveDown;
-    JButton bMoveRight;
-    JButton bMoveLeft;
-
-    //Role JButtons;
-    JButton bRole0;
-    JButton bRole1;
-    JButton bRole2;
-    JButton bRole3;
-    JButton bRole4;
-    JButton bRole5;
-    JButton bRole6;
+    JButton bAct = new JButton("ACT");
+    JButton bRehearse = new JButton("REHEARSE");
+    JButton bMove = new JButton("MOVE");
+    JButton bUpgrade = new JButton("UPGRADE");
+    JButton bTakeRole = new JButton("TAKE ROLE");
+    JButton bEndTurn = new JButton("END TURN");
 
 
     public guiView() {
@@ -113,17 +98,7 @@ public class guiView extends JFrame  {
         // Start the game.
         this.gameRef.newDay();
         this.gameRef.activePlayer.startPlayerTurn();
-
-        this.mLabel = new JLabel("");
-        this.mLabel.setBounds(icon.getIconWidth() + 70, 0, 100, 20);
-        this.mLabel.setBounds(icon.getIconWidth() + 70, 0, 100, 20);
-        this.boardWindow.add(mLabel,new Integer(2));
-        this.bStartGame = new JButton("START GAME");
-        this.bStartGame.setBackground(Color.white);
-        this.bStartGame.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
-        this.bStartGame.addMouseListener(new boardMouseListener());
-        this.boardWindow.add(bStartGame, new Integer(2));
-
+        renderActionMenu(actionController.determinePlayerActionSet());
     }
 
     // This class implements Mouse Events
@@ -131,12 +106,9 @@ public class guiView extends JFrame  {
 
         // Code for the different button clicks
         public void mouseClicked(MouseEvent e) {
-
-            if (e.getSource() == bStartGame) {
-                ArrayList<String> actionSet = actionController.determinePlayerActionSet();
-                renderActionMenu(actionSet);
-            }
-            else if (e.getSource() == bAct) {
+            Game gameRef = getGameRef();
+            PlayerActionController actionController = getPAC();
+            if (e.getSource() == bAct) {
                 //actingPhase();
                 JOptionPane.showMessageDialog(boardWindow, "You have acted.");
             } else if (e.getSource() == bRehearse) {
@@ -144,10 +116,12 @@ public class guiView extends JFrame  {
                 JOptionPane.showMessageDialog(boardWindow, "You have rehearsed.");
             } else if (e.getSource() == bMove) {
                 //movementPhase();
-                String[] MOVEMENT = {"trailer","main street","hotel","saloon","train station","jail","general store",
-                        "church","ranch","bank","secret hideout","office"};
+                String[] MOVEMENT = gameRef.activePlayer.getLocation().getAdjRooms().toArray(new String[0]);
                 String movement = (String) JOptionPane.showInputDialog(boardWindow, "Where do you want to move?"
                         ,"Movement Options", JOptionPane.QUESTION_MESSAGE, null, MOVEMENT, MOVEMENT[0]);
+                ArrayList<String> actions = actionController.movementPhase(movement);
+                renderActionMenu(actions);
+
             } else if (e.getSource() == bUpgrade) {
                 //upgradePhase();
                 String[] MONEYTYPE = {"cash","credit"};
@@ -158,8 +132,8 @@ public class guiView extends JFrame  {
                         ,"Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
             } else if (e.getSource() == bTakeRole) {
                 //takeRolePhase();
-                String[] ROLES = {"temp"};
-                String moneyType = (String) JOptionPane.showInputDialog(boardWindow, "Which role do you want to take?"
+                String[] ROLES = gameRef.activePlayer.getLocation().getScene().getSceneRoles().toArray(new String[0]);
+                String roles = (String) JOptionPane.showInputDialog(boardWindow, "Which role do you want to take?"
                         ,"Role Options", JOptionPane.QUESTION_MESSAGE, null, ROLES, ROLES[0]);
             } else if (e.getSource() == bEndTurn) {
                 //endPlayerTurn();
@@ -178,61 +152,89 @@ public class guiView extends JFrame  {
 
         public void mouseExited(MouseEvent e) {
         }
+
+        // Method to allow access to outer class reference.
+        private Game getGameRef() {
+            return gameRef;
+        }
+
+        private JLayeredPane getBoardWindow() {
+            return boardWindow;
+        }
+
+        private PlayerActionController getPAC() {
+            return actionController;
+        }
     }
 
     private void renderActionMenu(ArrayList<String> actionSet) {
         // Create the Menu for action buttons
+        reset();
         mLabel = new JLabel("MENU");
         mLabel.setBounds(icon.getIconWidth() + 70, 0, 100, 20);
         boardWindow.add(mLabel, new Integer(2));
 
         // Create Action buttons
+        bAct = new JButton("ACT");
+        bAct.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
+        bAct.setBackground(Color.gray);
         if (actionSet.contains("ACT")) {
-            bAct = new JButton("ACT");
             bAct.setBackground(Color.white);
-            bAct.setBounds(icon.getIconWidth() + 30, 30, 120, 20);
             bAct.addMouseListener(new boardMouseListener());
-            boardWindow.add(bAct, new Integer(2));
         }
+        boardWindow.add(bAct, new Integer(2));
 
-        if (actionSet.contains("REHEARSE")) {
-            bRehearse = new JButton("REHEARSE");
-            bRehearse.setBackground(Color.white);
-            bRehearse.setBounds(icon.getIconWidth() + 30, 60, 120, 20);
-            bRehearse.addMouseListener(new boardMouseListener());
-            boardWindow.add(bRehearse, new Integer(2));
-        }
+        bRehearse = new JButton("REHEARSE");
+        bRehearse.setBounds(icon.getIconWidth() + 30, 60, 120, 20);
+        bRehearse.setBackground(Color.gray);
+            if (actionSet.contains("REHEARSE")) {
+                bRehearse.setBackground(Color.white);
+                bRehearse.addMouseListener(new boardMouseListener());
+            }
+        boardWindow.add(bRehearse, new Integer(2));
 
-        if (actionSet.contains("MOVE")) {
-            bMove = new JButton("MOVE");
-            bMove.setBackground(Color.white);
-            bMove.setBounds(icon.getIconWidth() + 30, 90, 120, 20);
-            bMove.addMouseListener(new boardMouseListener());
-            boardWindow.add(bMove, new Integer(2));
-        }
+        bMove = new JButton("MOVE");
+        bMove.setBounds(icon.getIconWidth() + 30, 90, 120, 20);
+        bMove.setBackground(Color.gray);
+            if (actionSet.contains("MOVE")) {
+                bMove.setBackground(Color.white);
+                bMove.addMouseListener(new boardMouseListener());
+            }
+        boardWindow.add(bMove, new Integer(2));
 
-        if (actionSet.contains("UPGRADE")) {
-            bUpgrade = new JButton("UPGRADE");
-            bUpgrade.setBackground(Color.white);
-            bUpgrade.setBounds(icon.getIconWidth() + 30, 120, 120, 20);
-            bUpgrade.addMouseListener(new boardMouseListener());
-            boardWindow.add(bUpgrade, new Integer(2));
-        }
+        bUpgrade = new JButton("UPGRADE");
+        bUpgrade.setBounds(icon.getIconWidth() + 30, 120, 120, 20);
+        bUpgrade.setBackground(Color.gray);
+            if (actionSet.contains("UPGRADE")) {
+                bUpgrade.setBackground(Color.white);
+                bUpgrade.addMouseListener(new boardMouseListener());
+            }
+        boardWindow.add(bUpgrade, new Integer(2));
 
-        if (actionSet.contains("TAKE ROLE")) {
-            bTakeRole = new JButton("TAKE ROLE");
-            bTakeRole.setBackground(Color.white);
-            bTakeRole.setBounds(icon.getIconWidth() + 30, 150, 120, 20);
-            bTakeRole.addMouseListener(new boardMouseListener());
-            boardWindow.add(bTakeRole, new Integer(2));
-        }
+        bTakeRole = new JButton("TAKE ROLE");
+        bTakeRole.setBounds(icon.getIconWidth() + 30, 150, 120, 20);
+        bTakeRole.setBackground(Color.gray);
+            if (actionSet.contains("TAKE ROLE")) {
+                bTakeRole.setBackground(Color.white);
+                bTakeRole.addMouseListener(new boardMouseListener());
+            }
+        boardWindow.add(bTakeRole, new Integer(2));
 
-        if (actionSet.contains("END TURN")) {
-            bEndTurn = new JButton("END TURN");
-            bEndTurn.setBackground(Color.white);
-            bEndTurn.setBounds(icon.getIconWidth() + 30, 180, 120, 20);
-            bEndTurn.addMouseListener(new boardMouseListener());
-            boardWindow.add(bEndTurn, new Integer(2));
-        }
+        bEndTurn = new JButton("END TURN");
+        bEndTurn.setBounds(icon.getIconWidth() + 30, 180, 120, 20);
+        bEndTurn.setBackground(Color.gray);
+            if (actionSet.contains("END TURN")) {
+                bEndTurn.setBackground(Color.white);
+                bEndTurn.addMouseListener(new boardMouseListener());
+            }
+        boardWindow.add(bEndTurn, new Integer(2));
+    }
+    private void reset() {
+        boardWindow.remove(bAct);
+        boardWindow.remove(bRehearse);
+        boardWindow.remove(bMove);
+        boardWindow.remove(bUpgrade);
+        boardWindow.remove(bTakeRole);
+        boardWindow.remove(bEndTurn);
     }
 }
