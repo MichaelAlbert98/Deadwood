@@ -120,34 +120,55 @@ public class guiView extends JFrame  {
                 }
                 ArrayList<String> actions = new ArrayList<String>();
                 actions.add("END TURN");
+                renderActionMenu(actions);
             } else if (e.getSource() == bRehearse) {
                 //rehearsePhase();
                 actionController.rehearsePhase();
                 JOptionPane.showMessageDialog(boardWindow, "You have rehearsed.");
+                ArrayList<String> actions = new ArrayList<String>();
+                actions.add("END TURN");
+                renderActionMenu(actions);
             } else if (e.getSource() == bMove) {
                 //movementPhase();
                 String[] MOVEMENT = gameRef.activePlayer.getLocation().getAdjRooms().toArray(new String[0]);
                 String movement = (String) JOptionPane.showInputDialog(boardWindow, "Where do you want to move?"
                         ,"Movement Options", JOptionPane.QUESTION_MESSAGE, null, MOVEMENT, MOVEMENT[0]);
-                ArrayList<String> actions = actionController.movementPhase(movement);
+                if (movement != null) {
+                    actionController.movementPhase(movement);
+                }
+                ArrayList<String> actions = actionController.determinePlayerActionSet();
+                actions.remove("MOVE");
                 renderActionMenu(actions);
-
             } else if (e.getSource() == bUpgrade) {
                 //upgradePhase();
-                String[] MONEYTYPE = {"cash","credit"};
-                Integer[] LEVELS = {2,3,4,5,6};
-                String moneyType = (String) JOptionPane.showInputDialog(boardWindow, "What do you want to pay with?"
-                        ,"Payment Options", JOptionPane.QUESTION_MESSAGE, null, MONEYTYPE, MONEYTYPE[0]);
-                int level = (Integer)JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
-                        ,"Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
+                String[] MONEYTYPE = actionController.getMoneyTypes().toArray(new String[0]);
+                if (MONEYTYPE.length != 0) {
+                    String moneyType = (String) JOptionPane.showInputDialog(boardWindow, "What do you want to pay with?"
+                            , "Payment Options", JOptionPane.QUESTION_MESSAGE, null, MONEYTYPE, MONEYTYPE[0]);
+                    Integer[] LEVELS = actionController.getLevels(moneyType).toArray(new Integer[0]);
+                    int level = (Integer) JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
+                            , "Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
+                    actionController.upgradePhase(moneyType, level);
+                }
+                ArrayList<String> actions = new ArrayList<String>();
+                actions.add("END TURN");
+                renderActionMenu(actions);
             } else if (e.getSource() == bTakeRole) {
                 //takeRolePhase();
-                String[] ROLES = gameRef.activePlayer.getLocation().getScene().getSceneRoles().toArray(new String[0]);
-                String roles = (String) JOptionPane.showInputDialog(boardWindow, "Which role do you want to take?"
+                String[] ROLES = actionController.findRolePhase().toArray(new String[0]);
+                String role = (String) JOptionPane.showInputDialog(boardWindow, "Which role do you want to take?"
                         ,"Role Options", JOptionPane.QUESTION_MESSAGE, null, ROLES, ROLES[0]);
+                if (role != null) {
+                    actionController.takeRolePhase(role);
+                }
+                ArrayList<String> actions = new ArrayList<String>();
+                actions.add("END TURN");
+                renderActionMenu(actions);
             } else if (e.getSource() == bEndTurn) {
                 //endPlayerTurn();
                 JOptionPane.showMessageDialog(boardWindow, "You have ended your turn.");
+                actionController.endPlayerTurn();
+                renderActionMenu(actionController.determinePlayerActionSet());
             }
         }
 
