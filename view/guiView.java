@@ -108,9 +108,18 @@ public class guiView extends JFrame  {
         public void mouseClicked(MouseEvent e) {
             Game gameRef = getGameRef();
             PlayerActionController actionController = getPAC();
+            
             if (e.getSource() == bAct) {
                 //actingPhase();
-                JOptionPane.showMessageDialog(boardWindow, "You have acted.");
+                Boolean success = actionController.actingPhase();
+                if (success) {
+                    JOptionPane.showMessageDialog(boardWindow, "You succeeded!");
+                }
+                else {
+                    JOptionPane.showMessageDialog(boardWindow, "You failed!");
+                }
+                ArrayList<String> actions = new ArrayList<String>();
+                actions.add("END TURN");
             } else if (e.getSource() == bRehearse) {
                 //rehearsePhase();
                 JOptionPane.showMessageDialog(boardWindow, "You have rehearsed.");
