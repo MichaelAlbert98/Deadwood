@@ -193,7 +193,12 @@ public class guiView extends JFrame {
                 renderActionMenu(actions);
             } else if (e.getSource() == bEndTurn) {
                 //endPlayerTurn();
-                actionController.endPlayerTurn();
+                //endPlayerTurn();
+                String winner = actionController.endPlayerTurn();
+                if (!winner.equals("")) {
+                   JOptionPane.showMessageDialog(boardWindow, winner 
+                              + " is the winner! Congratulations on playing through this extremely boring game. If you found this message through other means, shame on you. -Michael");              
+                }
                 renderActionMenu(actionController.determinePlayerActionSet());
             }
         }
