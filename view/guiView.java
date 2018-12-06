@@ -29,7 +29,7 @@ public class guiView extends JFrame  {
     ArrayList<SceneView> SceneViews = new ArrayList<SceneView>();
 
 
-    // Swing Attributes:
+    // Board Attributes:
     static JLayeredPane boardWindow;
     JPanel mPanel;
     JLabel boardlabel;
@@ -37,6 +37,11 @@ public class guiView extends JFrame  {
     JLabel playerlabel;
     JLabel mLabel;
     ImageIcon icon;
+
+    // Player Attributes:
+    JLabel player1Icon = new JLabel();
+    JLabel player2Icon = new JLabel();
+    JLabel player3Icon = new JLabel();
 
     // Action JButtons:
     JButton bAct = new JButton("ACT");
@@ -99,6 +104,7 @@ public class guiView extends JFrame  {
         this.gameRef.newDay();
         this.gameRef.activePlayer.startPlayerTurn();
         renderActionMenu(actionController.determinePlayerActionSet());
+        renderPlayerIcons();
     }
 
     // This class implements Mouse Events
@@ -135,6 +141,7 @@ public class guiView extends JFrame  {
                         ,"Movement Options", JOptionPane.QUESTION_MESSAGE, null, MOVEMENT, MOVEMENT[0]);
                 if (movement != null) {
                     actionController.movementPhase(movement);
+                    renderPlayer(gameRef.activePlayer);
                 }
                 ArrayList<String> actions = actionController.determinePlayerActionSet();
                 actions.remove("MOVE");
@@ -149,6 +156,7 @@ public class guiView extends JFrame  {
                     int level = (Integer) JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
                             , "Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
                     actionController.upgradePhase(moneyType, level);
+                    renderPlayer(gameRef.activePlayer);
                 }
                 else {
                     JOptionPane.showMessageDialog(boardWindow, "You do not have enough credits or cash.", "Warning", JOptionPane.ERROR_MESSAGE);
@@ -163,6 +171,7 @@ public class guiView extends JFrame  {
                         ,"Role Options", JOptionPane.QUESTION_MESSAGE, null, ROLES, ROLES[0]);
                 if (role != null) {
                     actionController.takeRolePhase(role);
+                    renderPlayer(gameRef.activePlayer);
                 }
                 ArrayList<String> actions = new ArrayList<String>();
                 actions.add("END TURN");
@@ -199,6 +208,51 @@ public class guiView extends JFrame  {
         private PlayerActionController getPAC() {
             return actionController;
         }
+    }
+
+    private void renderPlayerIcons() {
+        for (int i = 0; i < this.gameRef.playerList.size(); i++) {
+            renderPlayer(this.gameRef.playerList.get(i));
+        }
+    }
+
+
+    void renderPlayer(Player p) {
+        System.out.printf("Rendering %s\n", p.getName());
+        int[] playerXY = new int[2];
+        playerXY[0] = p.getLocation().getxyhw()[0];
+        playerXY[1] = p.getLocation().getxyhw()[1];
+
+        ImageIcon diceImg = new ImageIcon(p.getImage());
+
+        int playerIdx = this.gameRef.playerList.indexOf(p);
+        switch (playerIdx) {
+            case 0:
+                boardWindow.remove(player1Icon);
+                player1Icon = new JLabel();
+                player1Icon.setIcon(diceImg);
+                player1Icon.setBounds(playerXY[0], playerXY[1], diceImg.getIconWidth(), diceImg.getIconHeight());
+                boardWindow.add(player1Icon, new Integer(2));
+                player1Icon.revalidate();
+                break;
+            case 1:
+                boardWindow.remove(player2Icon);
+                player2Icon = new JLabel();
+                player2Icon.setIcon(diceImg);
+                player2Icon.setBounds(playerXY[0] + diceImg.getIconWidth(), playerXY[1], diceImg.getIconWidth(), diceImg.getIconHeight());
+                boardWindow.add(player2Icon, new Integer(2));
+                player2Icon.revalidate();
+                break;
+            case 2:
+                boardWindow.remove(player3Icon);
+                player3Icon = new JLabel();
+                player3Icon.setIcon(diceImg);
+                player3Icon.setBounds(playerXY[0] + (2*diceImg.getIconWidth()), playerXY[1], diceImg.getIconWidth(), diceImg.getIconHeight());
+                boardWindow.add(player3Icon, new Integer(2));
+                player3Icon.revalidate();
+                break;
+        }
+        boardWindow.repaint();
     }
 
     private void renderActionMenu(ArrayList<String> actionSet) {

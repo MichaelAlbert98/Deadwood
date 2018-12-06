@@ -81,6 +81,11 @@ public class Player extends Subject {
   }
 
 
+  public String getImage() {
+    return (this.image + this.rank + ".png");
+  }
+
+
   /**** Getters and Setters for Player **** /
 
   /* Name */

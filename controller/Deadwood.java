@@ -78,13 +78,13 @@ public class Deadwood {
                     }
                 }
                 if (i == 0) {
-                    game.playerList.get(i).image = "../figures/dice/b1.png";
+                    game.playerList.get(i).image = "../figures/dice/b";
                 }
                 if (i == 1) {
-                    game.playerList.get(i).image = "../figures/dice/c1.png";
+                    game.playerList.get(i).image = "../figures/dice/c";
                 }
                 if (i == 2) {
-                    game.playerList.get(i).image = "../figures/dice/g1.png";
+                    game.playerList.get(i).image = "../figures/dice/g";
                 }
             }
             gameBoard = new guiView(game);
