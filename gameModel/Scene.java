@@ -16,7 +16,7 @@ public class Scene extends Subject {
   private String desc;
   private Room location;
   private Boolean isCardUp;
-  private Boolean isSceneDone;
+  public Boolean isSceneDone;
   private ArrayList<Role> sceneRoles;
   private int shotsLeft;
   private int budget;
@@ -68,7 +68,13 @@ public class Scene extends Subject {
   }
 
   public String getImg() {
-    return this.img;
+    if (this.isCardUp == false) {
+      return "../figures/CardBack.jpg";
+    }
+    else if ((this.isCardUp == true) && (this.isSceneDone == false)) {
+      return "../figures/cards/" + this.img;
+    }
+    return "";
   }
 
   public void setImg(String img) {
@@ -142,11 +148,11 @@ public class Scene extends Subject {
 
   /* Methods Not Used in Text Version */
 
-  private Boolean isCardFaceUp() {
+  public Boolean isCardFaceUp() {
     return this.isCardUp;
   }
 
-  private void flipCardFaceUp() {
+  public void flipCardFaceUp() {
     this.isCardUp = true;
     return;
   }

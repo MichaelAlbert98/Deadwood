@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-public class guiView extends JFrame  {
+public class guiView extends JFrame {
 
     // References:
     guiView instance;
@@ -26,7 +26,6 @@ public class guiView extends JFrame  {
     GameView gameView;
     ArrayList<PlayerView> PlayerViews = new ArrayList<PlayerView>();
     ArrayList<RoomView> RoomViews = new ArrayList<RoomView>();
-    ArrayList<SceneView> SceneViews = new ArrayList<SceneView>();
 
 
     // Board Attributes:
@@ -62,13 +61,13 @@ public class guiView extends JFrame  {
 
         // Create the deadwood board and add the board to the lowest layer
         this.boardlabel = new JLabel();
-        icon =  new ImageIcon("../figures/board.jpg");
+        icon = new ImageIcon("../figures/board.jpg");
         this.boardlabel.setIcon(icon);
-        this.boardlabel.setBounds(0,0,icon.getIconWidth(),icon.getIconHeight());
+        this.boardlabel.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
         this.boardWindow.add(boardlabel, new Integer(0));
 
         // Set the size of the GUI
-        setSize(icon.getIconWidth()+200,icon.getIconHeight()+200);
+        setSize(icon.getIconWidth() + 200, icon.getIconHeight()+200);
     }
 
     public guiView(Game game) {
@@ -86,25 +85,46 @@ public class guiView extends JFrame  {
         //Game:
         this.gameView = new GameView(this.gameRef);
         //Players:
-        for (Player player : this.gameRef.playerList) {
-            PlayerView p = new PlayerView(player);
+        for (int i = 0; i < this.gameRef.playerList.size(); i++) {
+            Player player = this.gameRef.playerList.get(i);
+            PlayerView p = new PlayerView(player, boardWindow, i);
             PlayerViews.add(p);
         }
         // Rooms & Scenes:
         ArrayList<Room> roomList = this.gameRef.board.roomList;
         for (int i = 0; i < roomList.size(); i++) {
-            RoomViews.add(new RoomView(roomList.get(i)));
-            if (roomList.get(i).getScene() != null) {
-                SceneView s = new SceneView(roomList.get(i).getScene());
-                SceneViews.add(s);
-            }
+            RoomViews.add(new RoomView(roomList.get(i), boardWindow));
         }
 
         // Start the game.
         this.gameRef.newDay();
         this.gameRef.activePlayer.startPlayerTurn();
         renderActionMenu(actionController.determinePlayerActionSet());
-        renderPlayerIcons();
+
+
+        // Create labels for player info
+        JLabel name = new JLabel("Name");
+        name.setBounds(10, icon.getIconHeight() + 20, 100, 20);
+        boardWindow.add(name, new Integer(2));
+        JLabel cash = new JLabel("ActivePlayer");
+        cash.setBounds(10, icon.getIconHeight() + 40, 100, 20);
+        boardWindow.add(cash, new Integer(2));
+        JLabel credits = new JLabel("Cash");
+        credits.setBounds(10, icon.getIconHeight() + 60, 100, 20);
+        boardWindow.add(credits, new Integer(2));
+        JLabel rank = new JLabel("Credits");
+        rank.setBounds(10, icon.getIconHeight() + 80, 100, 20);
+        boardWindow.add(rank, new Integer(2));
+        JLabel rehearsals = new JLabel("Rank");
+        rehearsals.setBounds(10, icon.getIconHeight() + 100, 100, 20);
+        boardWindow.add(rehearsals, new Integer(2));
+        JLabel location = new JLabel("Rehearsals");
+        location.setBounds(10, icon.getIconHeight() + 120, 100, 20);
+        boardWindow.add(location, new Integer(2));
+        JLabel role = new JLabel("Die");
+        role.setBounds(10, icon.getIconHeight() + 140, 100, 20);
+        boardWindow.add(role, new Integer(2));
+
     }
 
     // This class implements Mouse Events
@@ -120,8 +140,7 @@ public class guiView extends JFrame  {
                 Boolean success = actionController.actingPhase();
                 if (success) {
                     JOptionPane.showMessageDialog(boardWindow, "You succeeded!");
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(boardWindow, "You failed!");
                 }
                 ArrayList<String> actions = new ArrayList<String>();
@@ -138,10 +157,9 @@ public class guiView extends JFrame  {
                 //movementPhase();
                 String[] MOVEMENT = gameRef.activePlayer.getLocation().getAdjRooms().toArray(new String[0]);
                 String movement = (String) JOptionPane.showInputDialog(boardWindow, "Where do you want to move?"
-                        ,"Movement Options", JOptionPane.QUESTION_MESSAGE, null, MOVEMENT, MOVEMENT[0]);
+                        , "Movement Options", JOptionPane.QUESTION_MESSAGE, null, MOVEMENT, MOVEMENT[0]);
                 if (movement != null) {
                     actionController.movementPhase(movement);
-                    renderPlayer(gameRef.activePlayer);
                 }
                 ArrayList<String> actions = actionController.determinePlayerActionSet();
                 actions.remove("MOVE");
@@ -156,9 +174,7 @@ public class guiView extends JFrame  {
                     int level = (Integer) JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
                             , "Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
                     actionController.upgradePhase(moneyType, level);
-                    renderPlayer(gameRef.activePlayer);
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(boardWindow, "You do not have enough credits or cash.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 ArrayList<String> actions = new ArrayList<String>();
@@ -168,17 +184,15 @@ public class guiView extends JFrame  {
                 //takeRolePhase();
                 String[] ROLES = actionController.findRolePhase().toArray(new String[0]);
                 String role = (String) JOptionPane.showInputDialog(boardWindow, "Which role do you want to take?"
-                        ,"Role Options", JOptionPane.QUESTION_MESSAGE, null, ROLES, ROLES[0]);
+                        , "Role Options", JOptionPane.QUESTION_MESSAGE, null, ROLES, ROLES[0]);
                 if (role != null) {
                     actionController.takeRolePhase(role);
-                    renderPlayer(gameRef.activePlayer);
                 }
                 ArrayList<String> actions = new ArrayList<String>();
                 actions.add("END TURN");
                 renderActionMenu(actions);
             } else if (e.getSource() == bEndTurn) {
                 //endPlayerTurn();
-                JOptionPane.showMessageDialog(boardWindow, "You have ended your turn.");
                 actionController.endPlayerTurn();
                 renderActionMenu(actionController.determinePlayerActionSet());
             }
@@ -210,51 +224,6 @@ public class guiView extends JFrame  {
         }
     }
 
-    private void renderPlayerIcons() {
-        for (int i = 0; i < this.gameRef.playerList.size(); i++) {
-            renderPlayer(this.gameRef.playerList.get(i));
-        }
-    }
-
-
-    void renderPlayer(Player p) {
-        System.out.printf("Rendering %s\n", p.getName());
-        int[] playerXY = new int[2];
-        playerXY[0] = p.getLocation().getxyhw()[0];
-        playerXY[1] = p.getLocation().getxyhw()[1];
-
-        ImageIcon diceImg = new ImageIcon(p.getImage());
-
-        int playerIdx = this.gameRef.playerList.indexOf(p);
-        switch (playerIdx) {
-            case 0:
-                boardWindow.remove(player1Icon);
-                player1Icon = new JLabel();
-                player1Icon.setIcon(diceImg);
-                player1Icon.setBounds(playerXY[0], playerXY[1], diceImg.getIconWidth(), diceImg.getIconHeight());
-                boardWindow.add(player1Icon, new Integer(2));
-                player1Icon.revalidate();
-                break;
-            case 1:
-                boardWindow.remove(player2Icon);
-                player2Icon = new JLabel();
-                player2Icon.setIcon(diceImg);
-                player2Icon.setBounds(playerXY[0] + diceImg.getIconWidth(), playerXY[1], diceImg.getIconWidth(), diceImg.getIconHeight());
-                boardWindow.add(player2Icon, new Integer(2));
-                player2Icon.revalidate();
-                break;
-            case 2:
-                boardWindow.remove(player3Icon);
-                player3Icon = new JLabel();
-                player3Icon.setIcon(diceImg);
-                player3Icon.setBounds(playerXY[0] + (2*diceImg.getIconWidth()), playerXY[1], diceImg.getIconWidth(), diceImg.getIconHeight());
-                boardWindow.add(player3Icon, new Integer(2));
-                player3Icon.revalidate();
-                break;
-        }
-        boardWindow.repaint();
-    }
-
     private void renderActionMenu(ArrayList<String> actionSet) {
         // Create the Menu for action buttons
         reset();
@@ -275,48 +244,49 @@ public class guiView extends JFrame  {
         bRehearse = new JButton("REHEARSE");
         bRehearse.setBounds(icon.getIconWidth() + 30, 60, 120, 20);
         bRehearse.setBackground(Color.gray);
-            if (actionSet.contains("REHEARSE")) {
-                bRehearse.setBackground(Color.white);
-                bRehearse.addMouseListener(new boardMouseListener());
-            }
+        if (actionSet.contains("REHEARSE")) {
+            bRehearse.setBackground(Color.white);
+            bRehearse.addMouseListener(new boardMouseListener());
+        }
         boardWindow.add(bRehearse, new Integer(2));
 
         bMove = new JButton("MOVE");
         bMove.setBounds(icon.getIconWidth() + 30, 90, 120, 20);
         bMove.setBackground(Color.gray);
-            if (actionSet.contains("MOVE")) {
-                bMove.setBackground(Color.white);
-                bMove.addMouseListener(new boardMouseListener());
-            }
+        if (actionSet.contains("MOVE")) {
+            bMove.setBackground(Color.white);
+            bMove.addMouseListener(new boardMouseListener());
+        }
         boardWindow.add(bMove, new Integer(2));
 
         bUpgrade = new JButton("UPGRADE");
         bUpgrade.setBounds(icon.getIconWidth() + 30, 120, 120, 20);
         bUpgrade.setBackground(Color.gray);
-            if (actionSet.contains("UPGRADE")) {
-                bUpgrade.setBackground(Color.white);
-                bUpgrade.addMouseListener(new boardMouseListener());
-            }
+        if (actionSet.contains("UPGRADE")) {
+            bUpgrade.setBackground(Color.white);
+            bUpgrade.addMouseListener(new boardMouseListener());
+        }
         boardWindow.add(bUpgrade, new Integer(2));
 
         bTakeRole = new JButton("TAKE ROLE");
         bTakeRole.setBounds(icon.getIconWidth() + 30, 150, 120, 20);
         bTakeRole.setBackground(Color.gray);
-            if (actionSet.contains("TAKE ROLE")) {
-                bTakeRole.setBackground(Color.white);
-                bTakeRole.addMouseListener(new boardMouseListener());
-            }
+        if (actionSet.contains("TAKE ROLE")) {
+            bTakeRole.setBackground(Color.white);
+            bTakeRole.addMouseListener(new boardMouseListener());
+        }
         boardWindow.add(bTakeRole, new Integer(2));
 
         bEndTurn = new JButton("END TURN");
         bEndTurn.setBounds(icon.getIconWidth() + 30, 180, 120, 20);
         bEndTurn.setBackground(Color.gray);
-            if (actionSet.contains("END TURN")) {
-                bEndTurn.setBackground(Color.white);
-                bEndTurn.addMouseListener(new boardMouseListener());
-            }
+        if (actionSet.contains("END TURN")) {
+            bEndTurn.setBackground(Color.white);
+            bEndTurn.addMouseListener(new boardMouseListener());
+        }
         boardWindow.add(bEndTurn, new Integer(2));
     }
+
     private void reset() {
         boardWindow.remove(bAct);
         boardWindow.remove(bRehearse);

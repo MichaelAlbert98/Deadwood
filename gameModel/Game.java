@@ -41,6 +41,7 @@ public class Game extends Subject {
 
         }
         this.activePlayer = playerList.get(0);
+        playerList.get(0).setActive();
     }
 
     public static Game getGame(int numPlayers, int numDays, Board board) {
@@ -57,11 +58,14 @@ public class Game extends Subject {
      */
     public void nextPlayer() {
         int activePlayerIndex = this.playerList.indexOf(this.activePlayer);
+        this.activePlayer.setInactive();
         if ((playerList.size() - 1) == activePlayerIndex) {
             this.activePlayer = this.playerList.get(0);
+
         } else {
             this.activePlayer = this.playerList.get(activePlayerIndex + 1);
         }
+        this.activePlayer.setActive();
     }
 
     /*

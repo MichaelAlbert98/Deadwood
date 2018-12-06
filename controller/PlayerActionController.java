@@ -57,6 +57,7 @@ public class PlayerActionController {
     */
     public void movementPhase(String input) {
                 this.gameRef.activePlayer.movePlayer(gameRef.board.nameToRoom.get(input));
+
                 return;
     }
 
@@ -113,6 +114,7 @@ public class PlayerActionController {
             if (this.gameRef.activePlayer.getCurrentRole().getOnCard()) {
                 this.gameRef.activePlayer.addCurrencies(0, 2);
                 this.gameRef.activePlayer.getLocation().getScene().setShotsLeft(-1);
+                this.gameRef.activePlayer.getLocation().notifyAllObservers(Room.RoomMessages.ShotUpdate);
                 if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
                     this.gameRef.activePlayer.getLocation().wrapScene();
                     this.gameRef.board.decrementScenesRemaining();
@@ -121,6 +123,7 @@ public class PlayerActionController {
             else {
                 this.gameRef.activePlayer.addCurrencies(1, 1);
                 this.gameRef.activePlayer.getLocation().getScene().setShotsLeft(-1);
+                this.gameRef.activePlayer.getLocation().notifyAllObservers(Room.RoomMessages.ShotUpdate);
                 if (this.gameRef.activePlayer.getLocation().getScene().getShotsLeft() == 0) {
                     this.gameRef.activePlayer.getLocation().wrapScene();
                     this.gameRef.board.decrementScenesRemaining();
@@ -220,89 +223,6 @@ public class PlayerActionController {
         return;
     }
 
-
-    /* Upgrade
-     *
-     * Once a valid rank and money type have been input is entered this method checks if upgrade is
-     * valid, and  upgrades the player if so, else notitifies the player of invalid choice
-     */
-  /*  public boolean upgrade(String moneyType, int rank) {
-        Boolean canUpgrade = validUpgrade(moneyType, rank);
-        if (canUpgrade == false) {
-            return false;
-        }
-
-        if (moneyType.equals("cash")) {
-            if (rank == 2) {
-                this.gameRef.activePlayer.setRank(2);
-                System.out.println("Upgraded to rank 2 and lost 4 cash.");
-                this.gameRef.activePlayer.removeCurrencies(4, 0);
-            } else if (rank == 3) {
-                this.gameRef.activePlayer.setRank(3);
-                System.out.println("Upgraded to rank 3 and lost 10 cash.");
-                this.gameRef.activePlayer.removeCurrencies(10, 0);
-            } else if (rank == 4) {
-                this.gameRef.activePlayer.setRank(4);
-                System.out.println("Upgraded to rank 4 and lost 18 cash.");
-                this.gameRef.activePlayer.removeCurrencies(18, 0);
-            } else if (rank == 5) {
-                this.gameRef.activePlayer.setRank(5);
-                System.out.println("Upgraded to rank 5 and lost 28 cash.");
-                this.gameRef.activePlayer.removeCurrencies(28, 0);
-            } else {
-                this.gameRef.activePlayer.setRank(6);
-                System.out.println("Upgraded to rank 6 and lost 40 cash.");
-                this.gameRef.activePlayer.removeCurrencies(40, 0);
-            }
-        }
-
-        else {
-            if (rank == 2) {
-                this.gameRef.activePlayer.setRank(2);
-                System.out.println("Upgraded to rank 2 and lost 5 credits.");
-                this.gameRef.activePlayer.removeCurrencies(0, 5);
-            } else if (rank == 3) {
-                this.gameRef.activePlayer.setRank(3);
-                System.out.println("Upgraded to rank 3 and lost 10 credits.");
-                this.gameRef.activePlayer.removeCurrencies(0, 10);
-            } else if (rank == 4) {
-                this.gameRef.activePlayer.setRank(4);
-                System.out.println("Upgraded to rank 4 and lost 15 credits.");
-                this.gameRef.activePlayer.removeCurrencies(0, 15);
-            } else if (rank == 5) {
-                this.gameRef.activePlayer.setRank(5);
-                System.out.println("Upgraded to rank 5 and lost 20 credits.");
-                this.gameRef.activePlayer.removeCurrencies(0, 20);
-            } else {
-                this.gameRef.activePlayer.setRank(6);
-                System.out.println("Upgraded to rank 6 and lost 25 credits.");
-                this.gameRef.activePlayer.removeCurrencies(0, 25);
-            }
-        }
-        return true;
-    } */
-
-
-    /* Valid Upgrade Checker
-     *
-     * Makes sure input is valid and that player can afford upgrade, return false if not
-     */
-  /*  private Boolean validUpgrade(String moneyType, int rank) {
-        if (moneyType.equals("cash")) {
-            if ((rank == 2 && this.gameRef.activePlayer.getCash() < 4) || (rank == 3 && this.gameRef.activePlayer.getCash() < 10) || (rank == 4 && this.gameRef.activePlayer.getCash() < 18)
-                    || (rank == 5 && this.gameRef.activePlayer.getCash() < 28) || (rank == 6 && this.gameRef.activePlayer.getCash() < 40)) {
-                System.out.println("You do not have enough cash to upgrade to this rank.");
-                return false;
-            }
-        } else if (moneyType.equals("credit")) {
-            if ((rank == 2 && this.gameRef.activePlayer.getCredits() < 5) || (rank == 3 && this.gameRef.activePlayer.getCredits() < 10) || (rank == 4 && this.gameRef.activePlayer.getCredits() < 15)
-                    || (rank == 5 && this.gameRef.activePlayer.getCredits() < 20) || (rank == 6 && this.gameRef.activePlayer.getCredits() < 25)) {
-                System.out.println("You do not have enough credits to upgrade to this rank.");
-                return false;
-            }
-        }
-        return true;
-    } */
 
     /* End Player Turn
      *

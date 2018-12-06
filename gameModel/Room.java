@@ -29,6 +29,8 @@ public class Room extends Subject {
   public static class RoomMessages {
     public static final String ResetRoom = "RESETROOM";
     public static final String WrapScene = "WRAPSCENE";
+    public static final String SceneUpdate = "SCENEUPDATE";
+    public static final String ShotUpdate = "SHOTUPDATE";
   }
   
 
@@ -104,7 +106,8 @@ public class Room extends Subject {
          onCardPlayers.get(i).resetRehearse();
        }
     }
-
+    this.roomScene.isSceneDone = true;
+    this.notifyAllObservers(RoomMessages.SceneUpdate);
     //Set scene in room to null
     this.roomScene = null;
 
@@ -120,10 +123,12 @@ public class Room extends Subject {
       this.roomScene = deck.getTopScene();
       this.roomScene.setLocation(this);
       this.roomScene.setShotsLeft(this.shots);
+      this.notifyAllObservers(RoomMessages.ShotUpdate);
       for (int i=0;i<this.roomRoles.size();i++) {
         this.roomRoles.get(i).setIsTaken(false);
       }
       addRoomRolesToScene();
+      this.notifyAllObservers(RoomMessages.SceneUpdate);
     }
   }
 
@@ -195,6 +200,12 @@ public class Room extends Subject {
 
   public void addPlayerToRoom(Player player) {
     this.playersInRoom.add(player);
+    if (this.roomScene != null) {
+      if (!this.roomScene.isCardFaceUp()) {
+        this.roomScene.flipCardFaceUp();
+        this.notifyAllObservers(RoomMessages.SceneUpdate);
+      }
+    }
     return;
   }
 

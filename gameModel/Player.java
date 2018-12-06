@@ -12,6 +12,7 @@ import java.util.*;
 public class Player extends Subject {
 
   public String image;
+  private Boolean isActive;
   private String name;
   private int rank;
   private int cash;
@@ -26,34 +27,33 @@ public class Player extends Subject {
    * The list of message identifiers that will correspond to message types for the
    * view model to interpret.
    */
-  public static class playerMessages {
-    public static final String turnStart = "TURNSTART";
-    public static final String turnEnd = "TURNEND";
-    public static final String leavingRoom = "LEAVINGROOM";
-    public static final String locationUpdated = "LOCATIONUPDATED";
-    public static final String updatedMoney = "UPDATEDMOENY";
-    public static final String tookRole = "TOOKROLE";
+  public static class PlayerMessages {
+    public static final String EndTurn = "ENDTURN";
+    public static final String StartTurn = "STARTTURN";
+    public static final String StatsUpdated = "STATSUPDATED";
+    public static final String LocationUpdated = "LOCATIONUPDATED";
+
   }
 
   public Player(String name) {
     this.name = name;
+    this.isActive = false;
     this.rank = 1;
     this.cash = 0;
     this.credits = 0;
     this.currentRole = null;
     this.rehearseTokens = 0;
     this.location = null;
-
   }
 
   /* Methods */
 
   public void startPlayerTurn() {
-    this.notifyAllObservers(Player.playerMessages.turnStart);
+    this.notifyAllObservers(Player.PlayerMessages.StartTurn);
   }
 
   public void endPlayerTurn() {
-    this.notifyAllObservers(Player.playerMessages.turnEnd);
+    this.notifyAllObservers(Player.PlayerMessages.EndTurn);
   }
 
   public void movePlayer(Room destination) {
@@ -61,10 +61,10 @@ public class Player extends Subject {
       this.location.removePlayerFromRoom(this);
     }
     Room src = this.location;
-    notifyAllObservers(Player.playerMessages.leavingRoom);
     this.location = destination;
     destination.addPlayerToRoom(this);
-    notifyAllObservers(Player.playerMessages.locationUpdated);
+    notifyAllObservers(Player.PlayerMessages.LocationUpdated);
+    notifyAllObservers(Player.PlayerMessages.StatsUpdated);
   }
 
   public void quietMovePlayer(Room destination) {
@@ -73,6 +73,8 @@ public class Player extends Subject {
     }
     destination.addPlayerToRoom(this);
     this.location = destination;
+    notifyAllObservers(Player.PlayerMessages.LocationUpdated);
+    notifyAllObservers(Player.PlayerMessages.StatsUpdated);
   }
 
   public void resetPlayer() {
@@ -98,6 +100,22 @@ public class Player extends Subject {
     return;
   }
 
+
+  /* isActive */
+  public void setActive() {
+    this.isActive = true;
+    this.notifyAllObservers(PlayerMessages.StatsUpdated);
+  }
+
+  public void setInactive() {
+    this.isActive = false;
+    this.notifyAllObservers(PlayerMessages.StatsUpdated);
+  }
+
+  public Boolean getIsActive() {
+    return this.isActive;
+  }
+
   /* Acting */
 
   public Role getCurrentRole() {
@@ -106,11 +124,13 @@ public class Player extends Subject {
 
   public void setCurrentRole(Role role) {
     this.currentRole = role;
+    notifyAllObservers(Player.PlayerMessages.LocationUpdated);
     return;
   }
 
   public void removeRole() {
     this.currentRole = null;
+    notifyAllObservers(Player.PlayerMessages.LocationUpdated);
   }
 
   public int timesRehearsed() {
@@ -159,13 +179,13 @@ public class Player extends Subject {
   public void addCurrencies(int addCash, int addCredits) {
     this.cash = this.cash + addCash;
     this.credits = this.credits + addCredits;
-    notifyAllObservers(Player.playerMessages.updatedMoney);
+    notifyAllObservers(Player.PlayerMessages.StatsUpdated);
   }
 
   public void removeCurrencies(int removeCash, int removeCredits) {
     this.cash = this.cash - removeCash;
     this.credits = this.credits - removeCredits;
-    notifyAllObservers(Player.playerMessages.updatedMoney);
+    notifyAllObservers(Player.PlayerMessages.StatsUpdated);
   }
 
 }

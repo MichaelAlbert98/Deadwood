@@ -6,7 +6,9 @@
  */
 
 import java.lang.*;
+
 import gameModel.*;
+
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
@@ -17,46 +19,90 @@ import javax.swing.JOptionPane;
 
 public class PlayerView implements myObserver {
 
-  // Local Variables
-  Player playerRef;
-  Room previousRoom;
+    // Local Variables
+    Player playerRef;
+    int playerIdx;
+    JLabel guiDice;
+    JLabel[] guiStats;
+    JLayeredPane guiWindow;
 
-  // Constructor
-  PlayerView(Player p) {
-    this.playerRef = p;
-    p.attach(this);
-  }
+    // Constructor
+    PlayerView(Player p, JLayeredPane window, int idx) {
+        this.playerRef = p;
+        this.playerIdx = idx;
+        this.guiWindow = window;
 
-  // Local PlayerView Update Override
-  @Override
-  public void update(String message) {
-    switch (message) {
-
-    // Turn Start Message:
-    case (Player.playerMessages.turnStart):
-      System.out.printf("\n%s turn start!\n", this.playerRef.getName());
-      break;
-
-    // Turn End Message:
-    case (Player.playerMessages.turnEnd):
-      System.out.printf("%s turn complete!\n", this.playerRef.getName());
-      break;
-
-    // Updated Money
-    case (Player.playerMessages.updatedMoney) :
-      System.out.printf("%s now have $%s and %scr.\n",this.playerRef.getName(), this.playerRef.getCash(), this.playerRef.getCredits());
-      break;
-
-    //Player Took Role:
-    case (Player.playerMessages.tookRole):
-
-      break;
-
-
-    // Locaition Updated Message:
-    case (Player.playerMessages.locationUpdated):
-
-      break;
+        this.guiDice = new JLabel();
+        this.guiStats = new JLabel[7];
+        for (int i = 0; i < 7; i++) {
+            this.guiStats[i] = new JLabel();
+        }
+        p.attach(this);
     }
-  }
+
+    // Local PlayerView Update Override
+    @Override
+    public void update(String message) {
+        switch (message) {
+
+            case (Player.PlayerMessages.StartTurn):
+                JOptionPane.showMessageDialog(this.guiWindow, this.playerRef.getName() + "'s turn start!");
+                break;
+
+            case (Player.PlayerMessages.EndTurn):
+                JOptionPane.showMessageDialog(this.guiWindow, this.playerRef.getName() + "'s turn over!");
+                break;
+
+            case (Player.PlayerMessages.LocationUpdated):
+
+                this.guiWindow.remove(guiDice);
+                guiDice = new JLabel();
+                ImageIcon diceImg = new ImageIcon(this.playerRef.getImage());
+                int[] playerXYHW = new int[4];
+
+                if (this.playerRef.getCurrentRole() != null) {
+                    playerXYHW = this.playerRef.getCurrentRole().getxyhw();
+                    guiDice.setIcon(diceImg);
+                    guiDice.setBounds(playerXYHW[0] + 3, playerXYHW[1] + 3, diceImg.getIconWidth(), diceImg.getIconHeight());
+                    this.guiWindow.add(guiDice, new Integer(2));
+                    guiDice.revalidate();
+                } else {
+                    playerXYHW = this.playerRef.getLocation().getxyhw();
+                    guiDice.setIcon(diceImg);
+                    guiDice.setBounds(playerXYHW[0] + (playerIdx * diceImg.getIconWidth()), playerXYHW[1], diceImg.getIconWidth(), diceImg.getIconHeight());
+                    this.guiWindow.add(guiDice, new Integer(2));
+                    guiDice.revalidate();
+                }
+                guiWindow.repaint();
+                break;
+
+            case (Player.PlayerMessages.StatsUpdated):
+                for(int i = 0; i < 7; i++) {
+                    this.guiWindow.remove(this.guiStats[i]);
+                }
+
+                this.guiStats[0] = new JLabel(this.playerRef.getName());
+                if (this.playerRef.getIsActive()) {
+                    this.guiStats[1] = new JLabel("Active!");
+                } else {
+                    this.guiStats[1] = new JLabel("Inactive");
+                }
+                this.guiStats[2] = new JLabel(String.valueOf(this.playerRef.getCash()));
+                this.guiStats[3] = new JLabel(String.valueOf(this.playerRef.getCredits()));
+                this.guiStats[4] = new JLabel(String.valueOf(this.playerRef.getRank()));
+                this.guiStats[5] = new JLabel(String.valueOf(this.playerRef.timesRehearsed()));
+                this.guiStats[6] = new JLabel();
+                this.guiStats[6].setIcon(new ImageIcon(this.playerRef.getImage()));
+
+                for (int i = 0; i < 6; i++) {
+                    this.guiStats[i].setBounds(10+(200*(playerIdx+1)),900+ (20*(i+1)),100,20);
+                    this.guiWindow.add(guiStats[i],new Integer(2));
+                    guiStats[i].revalidate();
+                }
+                this.guiStats[6].setBounds(10+(200*(playerIdx+1)),900+(20*(6+1)),100,60);
+                this.guiWindow.add(guiStats[6],new Integer(2));
+                guiWindow.repaint();
+                break;
+        }
+    }
 }
