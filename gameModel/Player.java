@@ -186,6 +186,7 @@ public class Player extends Subject {
     this.cash = this.cash - removeCash;
     this.credits = this.credits - removeCredits;
     notifyAllObservers(Player.PlayerMessages.StatsUpdated);
+    notifyAllObservers(Player.PlayerMessages.LocationUpdated);
   }
 
 }
