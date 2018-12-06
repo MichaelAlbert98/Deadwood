@@ -58,18 +58,23 @@ public class PlayerView implements myObserver {
                 this.guiWindow.remove(guiDice);
                 guiDice = new JLabel();
                 ImageIcon diceImg = new ImageIcon(this.playerRef.getImage());
-                int[] playerXYHW = new int[4];
+                int[] roomXYHW = this.playerRef.getLocation().getxyhw();
 
                 if (this.playerRef.getCurrentRole() != null) {
-                    playerXYHW = this.playerRef.getCurrentRole().getxyhw();
+                    int[] roleXYHW = this.playerRef.getCurrentRole().getxyhw();
                     guiDice.setIcon(diceImg);
-                    guiDice.setBounds(playerXYHW[0] + 3, playerXYHW[1] + 3, diceImg.getIconWidth(), diceImg.getIconHeight());
+                    if (this.playerRef.getCurrentRole().getOnCard()) {
+                        guiDice.setBounds(roomXYHW[0] + roleXYHW[0] + 1, roomXYHW[1] + roleXYHW[1], diceImg.getIconWidth(), diceImg.getIconHeight());
+                    }
+                    else {
+                        guiDice.setBounds(roleXYHW[0] + 3,roleXYHW[1] + 3, diceImg.getIconWidth(), diceImg.getIconHeight());
+                    }
                     this.guiWindow.add(guiDice, new Integer(2));
                     guiDice.revalidate();
                 } else {
-                    playerXYHW = this.playerRef.getLocation().getxyhw();
+                    roomXYHW = this.playerRef.getLocation().getxyhw();
                     guiDice.setIcon(diceImg);
-                    guiDice.setBounds(playerXYHW[0] + (playerIdx * diceImg.getIconWidth()), playerXYHW[1], diceImg.getIconWidth(), diceImg.getIconHeight());
+                    guiDice.setBounds(roomXYHW[0] + (playerIdx * diceImg.getIconWidth()), roomXYHW[1], diceImg.getIconWidth(), diceImg.getIconHeight());
                     this.guiWindow.add(guiDice, new Integer(2));
                     guiDice.revalidate();
                 }
