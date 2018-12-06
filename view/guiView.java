@@ -170,10 +170,16 @@ public class guiView extends JFrame {
                 if (MONEYTYPE.length != 0) {
                     String moneyType = (String) JOptionPane.showInputDialog(boardWindow, "What do you want to pay with?"
                             , "Payment Options", JOptionPane.QUESTION_MESSAGE, null, MONEYTYPE, MONEYTYPE[0]);
-                    Integer[] LEVELS = actionController.getLevels(moneyType).toArray(new Integer[0]);
-                    int level = (Integer) JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
-                            , "Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
-                    actionController.upgradePhase(moneyType, level);
+                    if (moneyType != null) {
+                        Integer[] LEVELS = actionController.getLevels(moneyType).toArray(new Integer[0]);
+                        if (LEVELS.length != 0) {
+                            Integer level = (Integer) JOptionPane.showInputDialog(boardWindow, "What level do you want to upgrade to?"
+                                    , "Level Number", JOptionPane.QUESTION_MESSAGE, null, LEVELS, LEVELS[0]);
+                            if (level != null) {
+                                actionController.upgradePhase(moneyType, level);
+                            }
+                        }
+                    }
                 } else {
                     JOptionPane.showMessageDialog(boardWindow, "You do not have enough credits or cash.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
@@ -196,8 +202,10 @@ public class guiView extends JFrame {
                 //endPlayerTurn();
                 String winner = actionController.endPlayerTurn();
                 if (!winner.equals("")) {
-                   JOptionPane.showMessageDialog(boardWindow, winner 
-                              + " is the winner! Congratulations on playing through this extremely boring game. If you found this message through other means, shame on you. -Michael");              
+                   JOptionPane.showMessageDialog(boardWindow, winner
+                              + " is the winner! Congratulations on playing through this extremely boring game. If you found this message through other means, shame on you. -Michael");
+                    System.exit(0);
+
                 }
                 renderActionMenu(actionController.determinePlayerActionSet());
             }
