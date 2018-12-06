@@ -229,7 +229,8 @@ public class PlayerActionController {
      * This function tells the active player object their turn has ended,
      * updates the day if needed, and starts the next day if the game has not ended.
      */
-    public void endPlayerTurn() {
+    public String endPlayerTurn() {
+        String winner = "";
         this.gameRef.activePlayer.endPlayerTurn();
         this.gameRef.nextPlayer();
         if (this.gameRef.isDayOver()) {
@@ -238,6 +239,9 @@ public class PlayerActionController {
         if (!this.gameRef.isGameOver()) {
             this.gameRef.activePlayer.startPlayerTurn();
         }
-        return;
+        else if (this.gameRef.isGameOver()) {
+            winner = this.gameRef.calculateWinner();
+        }
+        return winner;
     }
 }
