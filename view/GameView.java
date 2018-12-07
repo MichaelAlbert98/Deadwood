@@ -2,16 +2,11 @@
  * Ryan Lingg and Michael Albert
  * GameView.java
  * Created: 11/03/2018
- * Revised: 11/16/2018
+ * Revised: 12/06/2018
  */
-
 
 import gameModel.*;
 import java.lang.*;
-
-
-
-
 
 public class GameView implements myObserver {
     //Local Variables

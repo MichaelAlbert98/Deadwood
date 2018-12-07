@@ -3,7 +3,7 @@
  * Scene.java - This class stores and modifies the attributes related to a
  * scene.
  * Created 11/02/2018
- * Revised 11/16/2018
+ * Revised 12/06/2018
  */
 
 import java.util.ArrayList;
@@ -145,8 +145,6 @@ public class Scene extends Subject {
   public void setBudget(int budget) {
     this.budget = budget;
   }
-
-  /* Methods Not Used in Text Version */
 
   public Boolean isCardFaceUp() {
     return this.isCardUp;

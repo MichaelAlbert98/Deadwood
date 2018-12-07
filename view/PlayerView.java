@@ -2,13 +2,11 @@
  * Ryan Lingg and Michael Albert
  * PlayerView.java
  * Created: 11/03/2018
- * Revised: 11/16/2018
+ * Revised: 12/06/2018
  */
 
 import java.lang.*;
-
 import gameModel.*;
-
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
@@ -54,12 +52,12 @@ public class PlayerView implements myObserver {
                 break;
 
             case (Player.PlayerMessages.LocationUpdated):
-
                 this.guiWindow.remove(guiDice);
                 guiDice = new JLabel();
                 ImageIcon diceImg = new ImageIcon(this.playerRef.getImage());
                 int[] roomXYHW = this.playerRef.getLocation().getxyhw();
 
+                // Set player icon in correct spot after moving
                 if (this.playerRef.getCurrentRole() != null) {
                     int[] roleXYHW = this.playerRef.getCurrentRole().getxyhw();
                     guiDice.setIcon(diceImg);
@@ -80,7 +78,8 @@ public class PlayerView implements myObserver {
                 }
                 guiWindow.repaint();
                 break;
-
+            
+            // Update player's stats.
             case (Player.PlayerMessages.StatsUpdated):
                 for(int i = 0; i < 7; i++) {
                     this.guiWindow.remove(this.guiStats[i]);

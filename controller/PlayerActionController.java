@@ -2,9 +2,8 @@
  * Ryan Lingg and Michael Albert
  * TextView.java
  * Created: 11/03/2018
- * Revised: 12/03/2018
+ * Revised: 12/06/2018
  */
-
 
 import gameModel.*;
 import view.*;
@@ -50,18 +49,17 @@ public class PlayerActionController {
     }
 
 
-    /* Movement Phase
+    /* movementPhase
     *
-    * Displays the valid moves for the player then retireves player input about desired movement.
-    * Checks if the movement is valid then updates the players location.
+    * Displays the valid moves for the player. Updates player's location to whatever they choose.
+    * 
     */
     public void movementPhase(String input) {
-                this.gameRef.activePlayer.movePlayer(gameRef.board.nameToRoom.get(input));
-
-                return;
+       this.gameRef.activePlayer.movePlayer(gameRef.board.nameToRoom.get(input));
+       return;
     }
 
-    /* Rehearse
+    /* rehearsePhase
      *
      *  Incremends players rehearse counter.
      */
@@ -70,7 +68,7 @@ public class PlayerActionController {
         return;
     }
 
-    /* Find Role
+    /* findRolePhase
      *
      * Returns ArrayList of role names that player can take.
      */
@@ -87,9 +85,9 @@ public class PlayerActionController {
         return availableRoles;
     }
 
-    /* Take Role
+    /* takeRolePhase
      *
-     * Returns true if successfully took role, else false
+     * Moves player to the role that they chose.
      */
     public void takeRolePhase(String input){
         ArrayList<Role> availableRoles = this.gameRef.activePlayer.getLocation().getScene().getSceneRoles();
@@ -103,7 +101,7 @@ public class PlayerActionController {
         roleChosen.setIsTaken(true);
     }
 
-    /* Acting Phase
+    /* actingPhase
      *
      * Randomly determines if work was success, then pays out to player based on outcome.
      */
@@ -141,11 +139,10 @@ public class PlayerActionController {
         return false;
     }
 
-
-    /* Upgrade Phase
+    /* getLevels
      *
-     * Retireves player input about desired upgrade.
-     * Then calls upgrade with data to check if upgrade is valid and performs upgrade.
+     * Returns the ranks that a player is able to upgrade to with their chosen moneyType.
+     * 
      */
     public ArrayList<Integer> getLevels(String type) {
         ArrayList<Integer> levels = new ArrayList<Integer>();
@@ -190,10 +187,10 @@ public class PlayerActionController {
         return levels;
     }
 
-    /* Upgrade Phase
+    /* getMoneyTypes
      *
-     * Retireves player input about desired upgrade.
-     * Then calls upgrade with data to check if upgrade is valid and performs upgrade.
+     * Returns types of money that player can use to upgrade.
+     *
      */
     public ArrayList<String> getMoneyTypes() {
         ArrayList<String> types = new ArrayList<String>();
@@ -205,7 +202,7 @@ public class PlayerActionController {
         return types;
     }
 
-    /* Upgrade Phase
+    /* upgradePhase
      *
      * Retireves player input about desired upgrade.
      * Then calls upgrade with data to check if upgrade is valid and performs upgrade.

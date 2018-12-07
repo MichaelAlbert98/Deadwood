@@ -3,7 +3,7 @@
  * Board.java - This class stores attributes pertaining to the game board
  * and also resets the board when a day ends.
  * Created: 11/03/2018
- * Revised: 11/16/2018
+ * Revised: 12/06/2018
  */
 
 import java.util.*;
@@ -47,6 +47,7 @@ public class Board {
     return;
   }
 
+  // Resets all the rooms and deals out 10 new scenes.
   public void resetBoard() {
     int roomIter = 0;
     while (roomIter < this.roomList.size()) {

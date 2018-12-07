@@ -2,18 +2,15 @@
  * Ryan Lingg and Michael Albert
  * SceneView.java
  * Created: 11/03/2018
- * Revised: 11/16/2018
+ * Revised: 12/07/2018
  */
 
 import java.lang.*;
 import gameModel.*;
 import java.util.*;
-
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.ImageIO;
-
-
 
 public class RoomView extends JFrame implements myObserver {
 
@@ -41,7 +38,7 @@ public class RoomView extends JFrame implements myObserver {
 
         switch (message) {
 
-            // Scene Updated
+            // Scene updated
             case (Room.RoomMessages.SceneUpdate):
                 guiWindow.remove(guiScene);
                 ImageIcon sceneIcon = new ImageIcon(this.roomRef.roomScene.getImg());
@@ -56,7 +53,7 @@ public class RoomView extends JFrame implements myObserver {
                 guiWindow.repaint();
                 break;
 
-
+            // Shot counters updated
             case (Room.RoomMessages.ShotUpdate):
                 ImageIcon shotIcon = new ImageIcon("../figures/shot.png");
                 for (int i = 0; i < roomRef.getShots(); i++) {

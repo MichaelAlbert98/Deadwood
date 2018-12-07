@@ -2,11 +2,10 @@
  * Ryan Lingg and Michael Albert
  * guiView.java
  * Created: 12/01/2018
- * Revised: 12/04/2018
+ * Revised: 12/06/2018
  */
 
 import controller.*;
-
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
@@ -26,7 +25,6 @@ public class guiView extends JFrame {
     GameView gameView;
     ArrayList<PlayerView> PlayerViews = new ArrayList<PlayerView>();
     ArrayList<RoomView> RoomViews = new ArrayList<RoomView>();
-
 
     // Board Attributes:
     static JLayeredPane boardWindow;
@@ -49,7 +47,6 @@ public class guiView extends JFrame {
     JButton bUpgrade = new JButton("UPGRADE");
     JButton bTakeRole = new JButton("TAKE ROLE");
     JButton bEndTurn = new JButton("END TURN");
-
 
     public guiView() {
 
@@ -101,7 +98,6 @@ public class guiView extends JFrame {
         this.gameRef.activePlayer.startPlayerTurn();
         renderActionMenu(actionController.determinePlayerActionSet());
 
-
         // Create labels for player info
         JLabel name = new JLabel("Name");
         name.setBounds(10, icon.getIconHeight() + 20, 100, 20);
@@ -124,7 +120,6 @@ public class guiView extends JFrame {
         JLabel role = new JLabel("Die");
         role.setBounds(10, icon.getIconHeight() + 140, 100, 20);
         boardWindow.add(role, new Integer(2));
-
     }
 
     // This class implements Mouse Events
@@ -198,7 +193,6 @@ public class guiView extends JFrame {
                 actions.add("END TURN");
                 renderActionMenu(actions);
             } else if (e.getSource() == bEndTurn) {
-                //endPlayerTurn();
                 //endPlayerTurn();
                 String winner = actionController.endPlayerTurn();
                 if (!winner.equals("")) {
@@ -300,6 +294,7 @@ public class guiView extends JFrame {
         boardWindow.add(bEndTurn, new Integer(2));
     }
 
+    // Removes buttons to allow new buttons to be created.
     private void reset() {
         boardWindow.remove(bAct);
         boardWindow.remove(bRehearse);

@@ -3,7 +3,7 @@
  * Room.java - This class is designed to hold the attributes of
  * one of twelve locations in Deadwood.
  * Created: 11/01/2018
- * Revised: 11/10/2018
+ * Revised: 12/06/2018
  */
 
 import java.util.*;

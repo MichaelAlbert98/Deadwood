@@ -2,7 +2,7 @@
  * Ryan Lingg and Michael Albert
  * Game.java - This class detects when to end a day and when the game is over.
  * Created: 11/03/2018
- * Revised: 11/16/2018
+ * Revised: 12/06/2018
  */
 
 import java.util.ArrayList;
@@ -119,8 +119,6 @@ public class Game extends Subject {
     }
 
     /*
-     * calculateWinner
-     *
      * This method is called when isGameOver returns true. It calculates a
      * score for each player, then returns the name of the player with the
      * largest score.

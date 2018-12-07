@@ -3,7 +3,7 @@
  * Player.java - This class is used to store and modify attributes relevent to
  * a player.
  * Created: 11/03/2018
- * Revised: 11/16/2018
+ * Revised: 12/06/2018
  */
 
 import java.lang.*;
@@ -35,6 +35,7 @@ public class Player extends Subject {
 
   }
 
+  // Player constructor
   public Player(String name) {
     this.name = name;
     this.isActive = false;
@@ -82,7 +83,6 @@ public class Player extends Subject {
     this.rehearseTokens = 0;
   }
 
-
   public String getImage() {
     return (this.image + this.rank + ".png");
   }
@@ -99,7 +99,6 @@ public class Player extends Subject {
     this.name = name;
     return;
   }
-
 
   /* isActive */
   public void setActive() {
@@ -191,6 +190,8 @@ public class Player extends Subject {
 
 }
 
+/* Compares two players and returns the value of the difference between the two players' ranks.
+   Used to determine who is paid first when wrapping a scene. */
 class PlayerRoleComparator implements Comparator<Player> {
   public int compare(Player player1, Player player2) {
     return player1.getCurrentRole().getRank() - player2.getCurrentRole().getRank();
